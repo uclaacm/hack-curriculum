@@ -1,1 +1,3 @@
-# hack-curriculum
+# Hack Curriculum
+
+WIP
