@@ -25,7 +25,23 @@
 % Load the package for hyperreferences
 \usepackage{kaorefs}
 
-\graphicspath{{images/}{./}} % Paths where images are looked for
+% epigraphs for chapters
+\usepackage{epigraph} 
+\renewcommand{\epigraphflush}{flushleft}
+
+\graphicspath{{img/}{./}} % Paths where images are looked for
+
+\newcommand \kw[1]{\textbf{#1}}
+\newenvironment{absolutelynopagebreak}
+  {\par\nobreak\vfil\penalty0\vfilneg
+   \vtop\bgroup}
+  {\par\xdef\tpd{\the\prevdepth}\egroup
+   \prevdepth=\tpd}
+\newcommand \hr{
+	\vspace{.25cm}
+	\textcolor[RGB]{180, 180, 180}{\rule{\textwidth}{1pt}}
+	\vspace{.25cm}
+}
 
 \makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
 
@@ -36,11 +52,10 @@
 %	BOOK INFORMATION
 %----------------------------------------------------------------------------------------
 
-\titlehead{Document Template}
-\title[Template for the {\normalfont\texttt{kaobook}} Class]{Template for the {\normalfont\texttt{kaobook}} Class}
-\author[JBG]{Johnny B. Goode}
-\date{\today}
-\publishers{An Awesome Publisher}
+% \titlehead{Document Template}
+\title{Stackschool}
+\author{ACM Hack}
+\date{}
 
 %----------------------------------------------------------------------------------------
 
@@ -50,40 +65,40 @@
 %	COPYRIGHT PAGE
 %----------------------------------------------------------------------------------------
 
-\makeatletter
-\uppertitleback{\@titlehead} % Header
+% \makeatletter
+% \uppertitleback{\@titlehead} % Header
 
-\lowertitleback{
-	\textbf{Disclaimer} \\
-	You can edit this page to suit your needs. For instance, here we have a no copyright statement, a colophon and some other information. This page is based on the corresponding page of Ken Arroyo Ohori's thesis, with minimal changes.
+% \lowertitleback{
+% 	\textbf{Disclaimer} \\
+% 	You can edit this page to suit your needs. For instance, here we have a no copyright statement, a colophon and some other information. This page is based on the corresponding page of Ken Arroyo Ohori's thesis, with minimal changes.
 	
-	\medskip
+% 	\medskip
 	
-	\textbf{No copyright} \\
-	\cczero\ This book is released into the public domain using the CC0 code. To the extent possible under law, I waive all copyright and related or neighbouring rights to this work.
+% 	\textbf{No copyright} \\
+% 	\cczero\ This book is released into the public domain using the CC0 code. To the extent possible under law, I waive all copyright and related or neighbouring rights to this work.
 	
-	To view a copy of the CC0 code, visit: \\\url{http://creativecommons.org/publicdomain/zero/1.0/}
+% 	To view a copy of the CC0 code, visit: \\\url{http://creativecommons.org/publicdomain/zero/1.0/}
 	
-	\medskip
+% 	\medskip
 	
-	\textbf{Colophon} \\
-	This document was typeset with the help of \href{https://sourceforge.net/projects/koma-script/}{\KOMAScript} and \href{https://www.latex-project.org/}{\LaTeX} using the \href{https://github.com/fmarotta/kaobook/}{kaobook} class.
+% 	\textbf{Colophon} \\
+% 	This document was typeset with the help of \href{https://sourceforge.net/projects/koma-script/}{\KOMAScript} and \href{https://www.latex-project.org/}{\LaTeX} using the \href{https://github.com/fmarotta/kaobook/}{kaobook} class.
 	
-	\medskip
+% 	\medskip
 	
-	\textbf{Publisher} \\
-	First printed in May 2019 by \@publishers
-}
-\makeatother
+% 	\textbf{Publisher} \\
+% 	First printed in May 2019 by \@publishers
+% }
+% \makeatother
 
 %----------------------------------------------------------------------------------------
 %	DEDICATION
 %----------------------------------------------------------------------------------------
 
-\dedication{
-	The harmony of the world is made manifest in Form and Number, and the heart and soul and all the poetry of Natural Philosophy are embodied in the concept of mathematical beauty.\\
-	\flushright -- D'Arcy Wentworth Thompson
-}
+% \dedication{
+% 	The harmony of the world is made manifest in Form and Number, and the heart and soul and all the poetry of Natural Philosophy are embodied in the concept of mathematical beauty.\\
+% 	\flushright -- D'Arcy Wentworth Thompson
+% }
 
 %----------------------------------------------------------------------------------------
 %	OUTPUT TITLE PAGE AND PREVIOUS
@@ -96,9 +111,9 @@
 %	PREFACE
 %----------------------------------------------------------------------------------------
 
-\chapter*{Preface}
+% \chapter*{Preface}
 
-\blindtext
+% \blindtext
 
 %----------------------------------------------------------------------------------------
 %	TABLE OF CONTENTS & LIST OF FIGURES/TABLES
@@ -117,13 +132,13 @@
 
 \tableofcontents % Output the table of contents
 
-\listoffigures % Output the list of figures
+% \listoffigures % Output the list of figures
 
 % Comment both of the following lines to have the LOF and the LOT on different pages
 \let\cleardoublepage\bigskip
 \let\clearpage\bigskip
 
-\listoftables % Output the list of tables
+% \listoftables % Output the list of tables
 
 \endgroup
 
@@ -134,27 +149,22 @@
 \mainmatter % Denotes the start of the main document content, resets page numbering and uses arabic numbers
 \setchapterstyle{kao} % Choose the default chapter heading style
 
-\chapter{First Chapter}
+\input{chapters/1-intro-to-full-stack/chapter1.tex}
+\input{chapters/2-servers/chapter2.tex}
+\input{chapters/3-databases/chapter3.tex}
+\input{chapters/4-backend-integration/chapter4.tex}
+\input{chapters/5-advanced-frontend/chapter5.tex}
 
-\blindtext
 
-\pagelayout{wide} % No margins
-\addpart{Title of the Part}
-\pagelayout{margin} % Restore margins
+% \appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
 
-\chapter{Second Chapter}
+% \pagelayout{wide} % No margins
+% \addpart{Appendix}
+% \pagelayout{margin} % Restore margins
 
-\blindtext
+% \chapter{Some more blindtext}
 
-\appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
-
-\pagelayout{wide} % No margins
-\addpart{Appendix}
-\pagelayout{margin} % Restore margins
-
-\chapter{Some more blindtext}
-
-\blindtext
+% \blindtext
 
 %----------------------------------------------------------------------------------------
 
@@ -167,8 +177,8 @@
 
 % The bibliography needs to be compiled with biber using your LaTeX editor, or on the command line with 'biber main' from the template directory
 
-\defbibnote{bibnote}{Here are the references in citation order.\par\bigskip} % Prepend this text to the bibliography
-\printbibliography[heading=bibintoc, title=Bibliography, prenote=bibnote] % Add the bibliography heading to the ToC, set the title of the bibliography and output the bibliography note
+% \defbibnote{bibnote}{Here are the references in citation order.\par\bigskip} % Prepend this text to the bibliography
+% \printbibliography[heading=bibintoc, title=Bibliography, prenote=bibnote] % Add the bibliography heading to the ToC, set the title of the bibliography and output the bibliography note
 
 %----------------------------------------------------------------------------------------
 %	INDEX
@@ -176,6 +186,6 @@
 
 % The index needs to be compiled on the command line with 'makeindex main' from the template directory
 
-\printindex % Output the index
+% \printindex % Output the index
 
 \end{document}

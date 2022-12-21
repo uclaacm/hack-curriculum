@@ -13,7 +13,7 @@ This write-off of servers as blackboxes is great if we just want to use them to 
 
 ## 2.1 Servers In General
 
-Put simply, a server is a computer like any other. What distuingishes a regular old computer and a server is that **servers are given the task of listening and responding to requests**. These tend to be requests for data or to perform some task and in general they come from other computers [^5]. We call these "other" computers **clients**. You can think of the interaction between a server and a client in much the same way as the interaction between a customer at a restaurant and the restaurant's staff. Just as a customer can request a glass of water, new silverware, or a half serving of Tiramisú, a client can request some function to be performed or data to be processed and returned. This brings up an important question: how do the client and server communicate? A customer at a restaurant might use English or Portuguese, but unfortunately computers aren't quite there yet. They must have some standard, agreed upon language in order to do so.
+Put simply, a server is a computer like any other. What distingishes a regular old computer and a server is that **servers are given the task of listening and responding to requests**. These tend to be requests for data or to perform some task and in general they come from other computers [^5]. We call these "other" computers **clients**. You can think of the interaction between a server and a client in much the same way as the interaction between a customer at a restaurant and the restaurant's staff. Just as a customer can request a glass of water, new silverware, or a half serving of Tiramisú, a client can request some function to be performed or data to be processed and returned. This brings up an important question: how do the client and server communicate? A customer at a restaurant might use English or Portuguese, but unfortunately computers aren't quite there yet. They must have some standard, agreed upon language in order to do so.
 
 ### The Language of Requests
 
@@ -29,13 +29,12 @@ Accept-Encoding: gzip, deflate, br
 Connection: keep-alive
 ```
 
-It may seem strange and hard to read as a human, but it is perfectly formatted for computers. We don't have to worry about the exact formatting as creating these requests is typically automated, but I do want to point out one key detail: the word `GET`. `GET` indicates to the server the particular action desired by the client, and it is one of several so called **HTTP request methods**. We'll discuss these in more detail and show several examples, so don't worry if you haven't quite grapsed the concept yet. For now, here are a few essential methods to be aware of [^7]:
+It may seem strange and hard to read as a human, but it is perfectly formatted for computers. We don't have to worry about the exact formatting as creating these requests is typically automated, but I do want to point out one key detail: the word `GET`. `GET` indicates to the server the particular action desired by the client, and it is one of several so called **HTTP request methods**. We'll discuss these in more detail and show several examples, so don't worry if you haven't quite grasped the concept yet. For now, here are a few essential methods to be aware of [^7]:
 
 - `GET`: indicates a request for some data
-- `POST`: submits data to the surver which often results in some side effect or change to the server's state
+- `POST`: submits data to the server which often results in some side effect or change to the server's state
 - `PUT`: submits data to the server in order to update an existing resource
 - `DELETE`: removes some resource from the server
-
 
 
 After receiving a well-formed request, the server will perform the specified action and create a **response** to send back to the client. The format of a response is also standardized by HTTP, and here's an example:
@@ -83,7 +82,7 @@ You don't have to memorize these, but you'll find that after working with HTTP r
     </div>
 </details>
 
-HTML is not the only thing, that can be placed in response bodies. In fact, just looking at the `Accept` section of our HTTP request we can see that images can be as well!
+HTML is not the only thing that can be placed in response bodies. In fact, just looking at the `Accept` section of our HTTP request we can see that images can be as well!
 
 ```HTTP
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
@@ -102,10 +101,16 @@ heck = {
 heckJSON = "{"studentOrgRanking":1,"color":"#C960FF","rizz":100,"website":"https://hack.uclaacm.com"}"
 ```
 
+### REST API's: What's on the Menu?
 
-[^1]: Note that a mainframe is just a special name for a server that is capable of performing a large amount of concurrent operations
+we have a standard language of requests, we need a standard library of requests (what can the client request) -> defined by API
 
-[^2]: A blackbox is a term for an object that takes some input and transorms it into some desired output, with the user not necessarily knowing the details of how it works
+continue restaurant analogy; waiter, menu, etc.
+
+
+[^1]: Note that a mainframe is just a special name for a server that is capable of performing a large amount of concurrent operations.
+
+[^2]: A blackbox is a term for an object that takes some input and transforms it into some desired output, with the user not necessarily knowing the details of how it works.
 
 [^3]: Can you imagine if you had to be familiar with all the intricacies of servers just to watch a YouTube video?
 
@@ -117,4 +122,4 @@ heckJSON = "{"studentOrgRanking":1,"color":"#C960FF","rizz":100,"website":"https
 
 [^7]: There are methods beyond these. Check out Mozilla's [article](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) on the subject if you're interested.
 
-[^8]: Specifically, this is a subsection called the Web
+[^8]: Specifically, this is a subsection called the Web.
