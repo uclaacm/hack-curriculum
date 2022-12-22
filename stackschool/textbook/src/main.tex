@@ -29,6 +29,9 @@
 \usepackage{epigraph} 
 \renewcommand{\epigraphflush}{flushleft}
 
+% highlighting 
+\usepackage{color,soul}
+
 \graphicspath{{img/}{./}} % Paths where images are looked for
 
 \newcommand \kw[1]{\textbf{#1}}
@@ -37,11 +40,6 @@
    \vtop\bgroup}
   {\par\xdef\tpd{\the\prevdepth}\egroup
    \prevdepth=\tpd}
-\newcommand \hr{
-	\vspace{.25cm}
-	\textcolor[RGB]{180, 180, 180}{\rule{\textwidth}{1pt}}
-	\vspace{.25cm}
-}
 
 \makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
 

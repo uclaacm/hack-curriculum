@@ -5,7 +5,7 @@
 > \- Jon Franklin
 
 
-Servers are probably one of the most misunderstood concepts for new developers. If you put ten new developers in a room, it's a pretty good bet that they've all *heard* of servers. Maybe they've been exposed to them through pop culture. They've seen movies or read books where the nerdy, basement dwelling side character is approached by the charismatic protagonist to "hack into the mainframe"[^1] to stop the evil corporation and save the world. Or maybe they've come across the terminology at some point while learning about the fundamentals of programming, with their instructors glossing over it saying, "don't worry about this yet." Whatever the case may be, its likely that a majority of the ten new developers you have confined to a room would not be able to tell you what exactly a server does, or why. Or even more fundamentally, what *is* a server? 
+Servers are probably one of the most misunderstood concepts for new developers. If you put ten new developers in a room, it's a pretty good bet that they've all *heard* of servers. Maybe they've been exposed to them through pop culture. They've seen movies or read books where the nerdy, basement dwelling side character is approached by the charismatic protagonist to "hack into the mainframe" to stop the evil corporation and save the world.[^1] Or maybe they've come across the terminology at some point while learning about the fundamentals of programming, with their instructors glossing over it saying, "don't worry about this yet." Whatever the case may be, its likely that a majority of the ten new developers you have confined to a room would not be able to tell you what exactly a server does, or why. Or even more fundamentally, what *is* a server? 
 
 In a way, this lack of understanding almost serves as a hint to what a server is: a blackbox[^2] to process and retrieve information. We see this concept, **abstraction**, fairly frequently in programming and Computer Science. Through abstraction, we make it far simpler for others to interact with our programs. It's a very important concept, and we'll be digging into it in detail throughout this chapter. 
 
@@ -17,7 +17,7 @@ Put simply, a server is a computer like any other. What distingishes a regular o
 
 ### The Language of Requests
 
-In the context of clients and servers, the "language" that is typically used is HTTP, or Hypertext Transfer Protocol [^6]. This protocol makes it easier for servers to parse through a client's request due to the fixed format. Take a look at the following example of a real HTTP request:
+In the context of clients and servers, the "language" that is typically used is **HTTP**, or Hypertext Transfer Protocol [^6]. This protocol makes it easier for servers to parse through a client's request due to the fixed format. Take a look at the following example of a real HTTP request:
 
 ```HTTP
 GET / HTTP/1.1
@@ -60,7 +60,7 @@ Connection: close
 </html>
 ```
 
-The first thing you might notice is that the response seems to have HTML embedded into it. Why might that be? Let's come back to that. First, take a look at the first line of the response. As before, it indicates that it is following HTTP, but it also has the number 200 and word `OK`. This is known as an **HTTP response code** and it represents the result of the server's attempt to address the client's request. In this case, `200 OK` indicates that the request was successfully, received, understood, and accepted. There are many response codes but they all fall into the following categories:
+The first thing you might notice is that the response seems to have HTML embedded into it. Why might that be? Let's come back to that. Take a look at the first line of the response. As before, it indicates that it is following HTTP, but it also has the number 200 and the word `OK`. This is known as an **HTTP response code** and it represents the result of the server's attempt to address the client's request. In this case, `200 OK` indicates that the request was successfully, received, understood, and accepted. There are many response codes, but they all fall into the following categories:
 
 - `1XX`: informational; the request was received and is being processed
 - `2XX`: successful; the request was successfully, received, understood, and accepted
@@ -77,7 +77,7 @@ You don't have to memorize these, but you'll find that after working with HTTP r
         What was it doing there? It's known as the <b>body</b> of the response, and it's being sent back to the client, in essence, because that's what they asked for. Let's break things down. The client sent a `GET` request, asking the server to send some data back from a particular location (www.example.com). The data that was sent was this HTML code... Do you see where this is going yet?
         </p>
         <p>
-        We know that HTML is used by browsers in order to render web pages, so our client can now successfully render the web page stored on the server. In essence, the client uses this HTTP request in order to receive the data necessary to render a web page! This process happens billions of times per day, and it is the back bone of the whole internet. The internet is built upon servers which store HTML, CSS, and Javascript and your browser uses HTTP requests to request them to be sent to you! Obviously, there's more to the internet than just this [^8], and we could fill many books talking about it, but it's outside the scope of this workshop series. If you're interested take CS 118!
+        We know that HTML is used by browsers in order to render web pages, so our client can now successfully render the web page stored on the server. In essence, the client uses this HTTP request in order to receive the data necessary to render a web page! This process happens billions of times per day, and it is the back bone of the whole internet. The internet is built upon servers which store HTML, CSS, and Javascript and your browser uses HTTP requests to request them to be sent to you! Obviously, there's more to the internet than just this, and we could fill many books talking about it, but it's outside the scope of this workshop series. If you're interested take CS 118!
         </p>
     </div>
 </details>
@@ -88,7 +88,7 @@ HTML is not the only thing that can be placed in response bodies. In fact, just 
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
 ```
 
-Another common data format used in HTTP bodies is known as JSON, or Javascript Object Notation. We'll discuss JSON more in detail once we actually see it in action, but for now it suffices to understand that it is a way to encode objects in Javascript as strings. For example, the following code block shows an object called `heck` and its corresponding JSON string representation:
+Another common data format used in HTTP bodies is known as **JSON**, or Javascript Object Notation. We'll discuss JSON more in detail once we actually see it in action, but for now it suffices to understand that it is a way to encode objects in Javascript as strings. For example, the following code block shows an object called `heck` and its corresponding JSON string representation:
 
 ```js
 heck = {
@@ -98,17 +98,99 @@ heck = {
     website: "https://hack.uclaacm.com"
 }
 
-heckJSON = "{"studentOrgRanking":1,"color":"#C960FF","rizz":100,"website":"https://hack.uclaacm.com"}"
+{
+    "studentOrgRanking":1,
+    "color":"#C960FF",
+    "rizz":100,
+    "website":"https://hack.uclaacm.com"
+}
 ```
 
-### REST API's: What's on the Menu?
+## 2.2 Web API's: What's on the Menu?
 
-we have a standard language of requests, we need a standard library of requests (what can the client request) -> defined by API
+Now that our server and client have a common language, it's time to take things a step further. Let's revisit the restaurant analogy. How does the customer know what they're allowed to order? They can't just demand to be served whatever they want, because the restaurant might not be able to accommodate their request[^8]. That's why every restaurant has a menu! There needs to be a way to let customers know what they can order. Clients and servers are much the same. There needs to be an understanding between them about what the server can do for the client, and this is accomplished using the **API**, or Application Programming Interface. You may have heard this term before. It's another one of those nebulous phrases that gets thrown around a lot, but is rarely defined concretely.
 
-continue restaurant analogy; waiter, menu, etc.
+In general, an API is just a way for two computer programs to interact with each other. Think of the customer at a restaurant as one program and the staff as another. The customer hasn't eaten in 16 hours and is craving a burrito with carnitas and guacamole[^9]. Using the menu (the API), the customer is able to enjoy the result of the staff's work and they don't need to attend 4 years of culinary school in order to do it! Put another way, the API allows us to interact with a blackbox and receive meaningful results. API's can be found everywhere in software engineering, but we will be creating more specialized API's called **Web API's**[^10].
 
+<details> 
+<summary> 
+Let's take a look at an example of a simple API.
+</summary>
 
-[^1]: Note that a mainframe is just a special name for a server that is capable of performing a large amount of concurrent operations.
+API's can be expressed in several ways, either using code or English. Let's keep it simple and just use English. Consider a server with the sole purpose being to simulate a cat. The API defines several actions that you, as a pet owner, can take to interact with the cat, and in response the server will send a JSON string[^11] with information about the cat and its actions.
+
+The API is defined as follows:
+```
+FEED: You feed the cat.
+WATER: You give the cat a drink.
+PET: You pet the cat.
+SCOLD: You scold the cat.
+MEOW: You meow at the cat.
+```
+
+These 5 actions define how you can interact with the cat server. Some of the interactions may have side effects, or an effect on the state of the cat. Let's start by petting the cat. [^12]
+
+```javascript
+REQUEST: PET
+
+RESPONSE: 
+{
+    "health": 100,
+    "hunger": 10,
+    "thirst": 10,
+    "action": "Meows and sits down, ready for more pets."
+}
+```
+
+He seems friendly! Let's give him some food.
+
+```javascript
+REQUEST: FEED
+
+RESPONSE: 
+{
+    "health": 100,
+    "hunger": 50,
+    "thirst": 10,
+    "action": "Meows gratefully, and attacks the food."
+}
+```
+
+Okay, he seems to be enjoying that. Let's pet some more.
+
+```javascript
+REQUEST: PET
+
+RESPONSE: 
+{
+    "health": 100,
+    "hunger": 50,
+    "thirst": 10,
+    "action": "Bites your hand. He wasn't done eating yet!"
+}
+```
+
+Ouch. How to respond?
+
+```javascript
+REQUEST: MEOW
+
+RESPONSE: 
+{
+    "health": 100,
+    "hunger": 50,
+    "thirst": 10,
+    "action": "Looks up from food, confused."
+}
+```
+
+Okay, that's enough playing with the cat! Hopefully, this toy example gave you a clearer idea of what an API is as well as its purpose. We'll be creating a real API later in this chapter using Javascript!
+
+</details>
+
+## 2.3 Server Implementations
+
+[^1]: Note that a mainframe is just a special name for a server that is capable of performing a large amount of concurrent operations. Whether or not "hacking" into one will save the world is another question.
 
 [^2]: A blackbox is a term for an object that takes some input and transforms it into some desired output, with the user not necessarily knowing the details of how it works.
 
@@ -122,4 +204,12 @@ continue restaurant analogy; waiter, menu, etc.
 
 [^7]: There are methods beyond these. Check out Mozilla's [article](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) on the subject if you're interested.
 
-[^8]: Specifically, this is a subsection called the Web.
+[^8]: Yes, there are exceptions, secret menus, etc. But let's be real. If you order off the secret menu, the staff hates you.
+
+[^9]: I am so hungry right now.
+
+[^10]: As the name implies, these are API's that utilize the Web, allowing communication from client to server through HTTP requests.
+
+[^11]: Recall that JSON is just a string representation of a Javascript object.
+
+[^12]: Note that these are not following HTTP.
