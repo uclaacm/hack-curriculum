@@ -13,7 +13,7 @@ This write-off of servers as blackboxes is great if we just want to use them to 
 
 ## 2.1 Servers In General
 
-Put simply, a server is a computer like any other. What distingishes a regular old computer and a server is that **servers are given the task of listening and responding to requests**. These tend to be requests for data or to perform some task and in general they come from other computers [^5]. We call these "other" computers **clients**. You can think of the interaction between a server and a client in much the same way as the interaction between a customer at a restaurant and the restaurant's staff. Just as a customer can request a glass of water, new silverware, or a half serving of Tiramisú, a client can request some function to be performed or data to be processed and returned. This brings up an important question: how do the client and server communicate? A customer at a restaurant might use English or Portuguese, but unfortunately computers aren't quite there yet. They must have some standard, agreed upon language in order to do so.
+Put simply, a server is a computer like any other. What distinguishes a regular old computer and a server is that **servers are given the task of listening and responding to requests**. These tend to be requests for data or to perform some task and in general they come from other computers [^5]. We call these "other" computers **clients**. You can think of the interaction between a server and a client in much the same way as the interaction between a customer at a restaurant and the restaurant's staff. Just as a customer can request a glass of water, new silverware, or a half serving of Tiramisu, a client can request some function to be performed or data to be processed and returned. This brings up an important question: how do the client and server communicate? A customer at a restaurant might use English or Portuguese, but unfortunately computers aren't quite there yet. They must have some standard, agreed upon language in order to do so.
 
 ### The Language of Requests
 
@@ -71,7 +71,7 @@ The first thing you might notice is that the response seems to have HTML embedde
 You don't have to memorize these, but you'll find that after working with HTTP requests for a while they'll just come naturally. For example, you might be familiar with the infamous code `404`, which indicates that a resource was not found. You'll come to recognize other codes just like this one.
 
 <details> 
-    <summary>About the HTML we saw before...</summary>
+    <summary><b>About the HTML we saw before...</b></summary>
     <div>
         <p>
         What was it doing there? It's known as the <b>body</b> of the response, and it's being sent back to the client, in essence, because that's what they asked for. Let's break things down. The client sent a `GET` request, asking the server to send some data back from a particular location (www.example.com). The data that was sent was this HTML code... Do you see where this is going yet?
@@ -114,24 +114,24 @@ In general, an API is just a way for two computer programs to interact with each
 
 <details> 
 <summary> 
-Let's take a look at an example of a simple API.
+<b>Let's take a look at an example of a simple API.</b>
 </summary>
 
 API's can be expressed in several ways, either using code or English. Let's keep it simple and just use English. Consider a server with the sole purpose being to simulate a cat. The API defines several actions that you, as a pet owner, can take to interact with the cat, and in response the server will send a JSON string[^11] with information about the cat and its actions.
 
 The API is defined as follows:
 ```
-FEED: You feed the cat.
-WATER: You give the cat a drink.
-PET: You pet the cat.
-SCOLD: You scold the cat.
-MEOW: You meow at the cat.
+POST FEED: You feed the cat.
+POST WATER: You give the cat a drink.
+POST PET: You pet the cat.
+GET STATUS: You check how the cat is doing.
+POSt MEOW: You meow at the cat.
 ```
 
-These 5 actions define how you can interact with the cat server. Some of the interactions may have side effects, or an effect on the state of the cat. Let's start by petting the cat. [^12]
+These five actions define how you can interact with the cat server. Some of the interactions may have side effects, or an effect on the state of the cat. Let's start by petting the cat. [^12]
 
 ```javascript
-REQUEST: PET
+REQUEST: POST PET
 
 RESPONSE: 
 {
@@ -145,7 +145,7 @@ RESPONSE:
 He seems friendly! Let's give him some food.
 
 ```javascript
-REQUEST: FEED
+REQUEST: POST FEED
 
 RESPONSE: 
 {
@@ -159,7 +159,7 @@ RESPONSE:
 Okay, he seems to be enjoying that. Let's pet some more.
 
 ```javascript
-REQUEST: PET
+REQUEST: POST PET
 
 RESPONSE: 
 {
@@ -173,7 +173,7 @@ RESPONSE:
 Ouch. How to respond?
 
 ```javascript
-REQUEST: MEOW
+REQUEST: POST MEOW
 
 RESPONSE: 
 {
@@ -188,7 +188,57 @@ Okay, that's enough playing with the cat! Hopefully, this toy example gave you a
 
 </details>
 
+Typically, Web API's contain multiple **endpoints**. In general, an endpoint can be thought of as a point of contact between a client and a server. Depending on which endpoint is invoked by the client, the server knows which action to take. In the previous example, we can think of each of the five possible actions as an endpoint. Another common way of thinking about endpoints is as *specific digital locations* of resources located on a server. For example, if we want to access the resource located at `/MEOW` on a server, we use the `MEOW` endpoint. You can think about endpoints in whichever way is best for your own mental model, as long as you remember that endpoints are meant to direct the server towards a particular action or resource. And don't worry if things aren't clear yet! We'll be showing concrete examples of all of these concepts in the next few sections.
+
 ## 2.3 Server Implementations
+
+As one might expect, there are many ways to go about implementing a server. We know that a server is simply a computer tasked with listening and responding to requests, and clearly this task is not specific to any single programming language. Some popular choices are the following:
+
+- Node.js and Express
+- Python and Django
+- Python and Flask
+- C and Pain[^13]
+
+There are countless libraries out there, so no need to reinvent the wheel. Since we're focusing on the MERN stack for Stackschool, we'll be going with Express and Node[^14]. To avoid any confusion let's first discuss what exactly they do, and why they are useful for us when building a server app. 
+
+### What is Node?
+
+Originally, Javascript was created as a scripting language for the browser, Netscape, and wasn't intended to be executed outside of that environment[^15]. However, as time has gone on and Javascript has gotten more popular, it has transcended this original functionality. In 2009, a man named Ryan Dahl decided that Javascript would be an excellent language for writing server programs, and created a new runtime environment[^16] for it outside of the browser. Node was the product of his efforts. Now, years later, it's the most popular non-browser runtime for Javascript and home to a thriving, community driven ecosystem of libraries[^17]. As described on their website, Node is "an asynchronous event-driven JavaScript runtime designed to build scalable network applications." Essentially, it's perfect for servers!
+
+### What is Express?
+
+Node gives you all the fundamentals required to make a server, but why do that if someone's already done most of the work for us? Express is a framework that makes creating server applications far easier by abstracting away most of the HTTP request logic. There are plenty of alternative frameworks, but to stay true to the MERN stack, we'll be going with Express.
+
+### Creating Your First Server
+
+Now that we have all that out of the way, let's get to the fun part. First, make sure you have all the necessary installations. Follow the checklist:
+
+- Node. [Here](https://nodejs.org/en/download/package-manager/#macos) is an extensive guide to installing no matter which platform you're on. I recommend using Homebrew if you're on MacOS.[^18]
+- Yarn. This will be your package manager, or the program you use to install node packages (like Express). Once you have Node installed, you can install Yarn by running `npm install --global yarn` in your shell. 
+
+Now in your terminal, navigate to the directory of your choice[^19] and run `yarn init`. This will start the process of creating your server application. It'll prompt you with some basic configuration information, but you can just accept the default values by pressing enter for each one. Don't worry, you can change these values later! After you've completed this step, a new file called `package.json` should have been generated. This is the configuration file for your server. To install Express, run `yarn add express`. This should generate a directory called `node_modules` and a file called `yarn.lock`.
+
+Now let's make the server itself. Create a new file called `server.js`. Within this file, add this boilerplate code:
+
+```js
+/**** INIT SERVER ****/
+const express = require('express');
+const app = express();
+app.use(express.json());
+
+/**** DEPLOY SERVER ****/
+const port = 8080;
+
+app.listen(port);
+console.log(`listening on http://localhost:${port}/`);
+console.log("Press Ctrl-C to quit");
+```
+
+Congrats, you just made your first server! Unfortunately, it doesn't do anything. You can run it with `node server.js`. Before making it a bit more useful, let's break down what exactly is happening. Take a look at the second line. In Node, the `require` function is a way to include code from other files within your file.[^20] In this case, we're including code from the Express package. In the next line, we create an Express app and bind it to a variable. In the final stage of initialization, we tell the app to use something called a **middleware** function. We'll get into these in more detail soon, but for now just know that it's a way to make your life easier. Now, in the deployment section, we define a port, and tell the server to listen on that port. This will affect the URL of your local server.
+
+Alright, now that we've cleared all that up [^21], its time to add our first endpoint.
+
+### Your First Endpoint
 
 [^1]: Note that a mainframe is just a special name for a server that is capable of performing a large amount of concurrent operations. Whether or not "hacking" into one will save the world is another question.
 
@@ -212,4 +262,22 @@ Okay, that's enough playing with the cat! Hopefully, this toy example gave you a
 
 [^11]: Recall that JSON is just a string representation of a Javascript object.
 
-[^12]: Note that these are not following HTTP.
+[^12]: Note that the formatting of the requests/responses do not follow HTTP.
+
+[^13]: Pain in the literal sense of the word. Not recommended.
+
+[^14]: Representing the E and N in MERN respectively.
+
+[^15]: It also took only 10 days for the first version to be developed, which honestly explains a lot.
+
+[^16]: By runtime environment, I just mean a program that can execute code.
+
+[^17]: We call these libraries packages, and we access them using a program called NPM, or Node Package Manager. Another popular (and, in my opinion, better) package manager is Yarn. We'll be using Yarn for all examples here.
+
+[^18]: Some would recommend using a version manager like NVM, but if you just want to get your hands dirty quickly, the other methods are adequate for now.
+
+[^19]: If you're not familiar with navigating the terminal, check out [this](https://www.digitalocean.com/community/tutorials/basic-linux-navigation-and-file-management) resource.
+
+[^20]: Similar to imports/includes in other languages you may be familiar with. We call the code that we're importing a "module."
+
+[^21]: May be worth a couple more readthroughs if it's still unclear, or get in contact with us on [Discord](https://discord.gg/xXcJWDUqJj)!
