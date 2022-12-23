@@ -60,7 +60,7 @@ Connection: close
 </html>
 ```
 
-The first thing you might notice is that the response seems to have HTML embedded into it. Why might that be? Let's come back to that. Take a look at the first line of the response. As before, it indicates that it is following HTTP, but it also has the number 200 and the word `OK`. This is known as an **HTTP response code** and it represents the result of the server's attempt to address the client's request. In this case, `200 OK` indicates that the request was successfully, received, understood, and accepted. There are many response codes, but they all fall into the following categories:
+The first thing you might notice is that the response seems to have HTML embedded into it. Why might that be? Let's come back to that. Take a look at the first line of the response. As before, it indicates that it is following HTTP, but it also has the number 200 and the word `OK`. This is known as an **HTTP status code** and it represents the result of the server's attempt to address the client's request. In this case, `200 OK` indicates that the request was successfully, received, understood, and accepted. There are many response codes, but they all fall into the following categories:
 
 - `1XX`: informational; the request was received and is being processed
 - `2XX`: successful; the request was successfully, received, understood, and accepted
@@ -74,7 +74,7 @@ You don't have to memorize these, but you'll find that after working with HTTP r
     <summary><b>About the HTML we saw before...</b></summary>
     <div>
         <p>
-        What was it doing there? It's known as the <b>body</b> of the response, and it's being sent back to the client, in essence, because that's what they asked for. Let's break things down. The client sent a `GET` request, asking the server to send some data back from a particular location (www.example.com). The data that was sent was this HTML code... Do you see where this is going yet?
+        What was it doing there? It's known as the body of the response, and it's being sent back to the client, in essence, because that's what they asked for. HTTP messages can be broken up into two parts: the header and the body. The <b>header</b> contains metainformation about the message, while the <b>body</b> contains the data associated with the message (such as HTML or JSON). Let's break down what's going on in this particular example. The client sent a `GET` request, asking the server to send some data back from a particular location (www.example.com). The data that was sent was this HTML code... Do you see where this is going yet?
         </p>
         <p>
         We know that HTML is used by browsers in order to render web pages, so our client can now successfully render the web page stored on the server. In essence, the client uses this HTTP request in order to receive the data necessary to render a web page! This process happens billions of times per day, and it is the back bone of the whole internet. The internet is built upon servers which store HTML, CSS, and Javascript and your browser uses HTTP requests to request them to be sent to you! Obviously, there's more to the internet than just this, and we could fill many books talking about it, but it's outside the scope of this workshop series. If you're interested take CS 118!
@@ -188,7 +188,7 @@ Okay, that's enough playing with the cat! Hopefully, this toy example gave you a
 
 </details>
 
-Typically, Web API's contain multiple **endpoints**. In general, an endpoint can be thought of as a point of contact between a client and a server. Depending on which endpoint is invoked by the client, the server knows which action to take. In the previous example, we can think of each of the five possible actions as an endpoint. Another common way of thinking about endpoints is as *specific digital locations* of resources located on a server. For example, if we want to access the resource located at `/MEOW` on a server, we use the `POST /MEOW` endpoint. You can think about endpoints in whichever way is best for your own mental model, as long as you remember that endpoints are meant to direct the server towards a particular action or resource. And don't worry if things aren't clear yet! We'll be showing concrete examples of all of these concepts in the next few sections.
+Typically, Web API's contain multiple **endpoints**. In general, an endpoint can be thought of as a point of contact between a client and a server. Depending on which endpoint is invoked by the client, the server knows which action to take. In the previous example, we can think of each of the five possible actions as an endpoint. Another common way of thinking about endpoints is as *specific digital locations* of resources located on a server. For example, if we want to access the resource located at `/STATUS` on a server, we use the `GET /STATUS` endpoint. You can think about endpoints in whichever way is best for your own mental model, as long as you remember that endpoints are meant to direct the server towards a particular action or resource. And don't worry if things aren't clear yet! We'll be showing concrete examples of all of these concepts in the next few sections.
 
 ## 3.3 Server Implementations
 
@@ -234,22 +234,22 @@ console.log(`listening on http://localhost:${port}/`);
 console.log("Press Ctrl-C to quit");
 ```
 
-Congrats, you just made your first server! Unfortunately, it doesn't do anything. You can run it with `node server.js`. Before making it a bit more useful, let's break down what exactly is happening. Take a look at the second line. In Node, the `require` function is a way to include code from other files within your file.[^20] In this case, we're including code from the Express package. In the next line, we create an Express app and bind it to a variable. In the final stage of initialization, we tell the app to use something called a **middleware** function. We'll get into these in more detail soon, but for now just know that it's a way to make your life easier. Now, in the deployment section, we define a port, and tell the server to listen on that port. This will affect the URL of your local server.
+Congrats, you just made your first server! Unfortunately, it doesn't do anything. You can run it with `node server.js`. Before making it a bit more useful, let's break down what exactly is happening. Take a look at the second line. In Node, the `require` function is a way to include code from other files within your file.[^20] In this case, we're including code from the Express package. In the next line, we create an Express app and bind it to a variable. In the final stage of initialization, we tell the app to use something called a **middleware** function. We'll get into these in more detail soon, but for now just know that it's a way to make your life easier. Now, in the deployment section, we define a port, and tell the server to listen on that port.[^21] This will affect the URL of your local server.
 
-Alright, now that we've cleared all that up [^21], its time to add our first endpoint. We'll make an endpoint that requests a random number from the server. It's pretty easy!
+Alright, now that we've cleared all that up [^22], its time to add our first endpoint. We'll make an endpoint that requests a random number from the server. It's pretty easy!
 
 ```js
 /**** ROUTES ****/
-app.get("/random", (req, res) => {
+app.get("/random", (request, response) => {
     // generate random number from 1-100
     const rand = Math.floor(Math.random() * 100) + 1;
 
     // send random number in response
-    res.send(`${rand}`);
+    response.send(`${rand}`);
 })
 ```
 
-This endpoint can be referred to as `GET /random` [^22] and every time it is invoked it will return a string containing a random number from 1-100. You can test it out by starting the server[^23] and visiting http://localhost:8080/random in your browser. At a surface level, all that's going on here is that we're using Javascript code to define our server's API. 
+This endpoint can be referred to as `GET /random` [^23] and every time it is invoked it will return a string containing a random number from 1-100. You can test it out by starting the server[^24] and visiting http://localhost:8080/random in your browser. At a surface level, all that's going on here is that we're using Javascript code to define our server's API. 
 
 <details> 
 <summary> <b> Describing the API with English</b> </summary>
@@ -270,7 +270,11 @@ Hopefully, you now have a feel for the general process of creating Express appli
 
 ## 3.5 Testing
 
+browser, vscode extension, axios
+
 ## 3.6 Organization
+
+models, controllers, routes, middlewares, etc.
 
 [^1]: Note that a mainframe is just a special name for a server that is capable of performing a large amount of concurrent operations. Whether or not "hacking" into one will save the world is another question.
 
@@ -312,8 +316,10 @@ Hopefully, you now have a feel for the general process of creating Express appli
 
 [^20]: Similar to imports/includes in other languages you may be familiar with. We call the code that we're importing a "module."
 
-[^21]: May be worth a couple more readthroughs if it's still unclear, or get in contact with us on [Discord](https://discord.gg/xXcJWDUqJj)!
+[^21]: Ports allow you to host multiple servers on the same machine, each on a different port.
 
-[^22]: Note that `/random` is referred to as a **route**. The distinction between endpoints and routes is that endpoints include the HTTP method (i.e. GET, POST, etc.) in their definition. You can have multiple endpoints with the same route, as long as the method is different (so having `GET /random` and `POST /random` would be perfectly fine).
+[^22]: May be worth a couple more readthroughs if it's still unclear, or get in contact with us on [Discord](https://discord.gg/xXcJWDUqJj)!
 
-[^23]: Use `node server.js` within the directory for your server.
+[^23]: Note that `/random` is known as a **route**. The distinction between endpoints and routes is that endpoints include the HTTP method (i.e. GET, POST, etc.) in their definition. You can have multiple endpoints with the same route, as long as the method is different (so having `GET /random` and `POST /random` would be perfectly fine).
+
+[^24]: Use `node server.js` within the directory for your server. Also, if you're wondering what the deal with localhost is, know that it's a special domain name that represents the current computer.
