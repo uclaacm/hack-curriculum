@@ -121,17 +121,17 @@ API's can be expressed in several ways, either using code or English. Let's keep
 
 The API is defined as follows:
 ```
-POST FEED: You feed the cat.
-POST WATER: You give the cat a drink.
-POST PET: You pet the cat.
-GET STATUS: You check how the cat is doing.
-POSt MEOW: You meow at the cat.
+POST /FEED: You feed the cat.
+POST /WATER: You give the cat a drink.
+POST /PET: You pet the cat.
+GET /STATUS: You check how the cat is doing.
+POST /MEOW: You meow at the cat.
 ```
 
 These five actions define how you can interact with the cat server. Some of the interactions may have side effects, or an effect on the state of the cat. Let's start by petting the cat. [^12]
 
 ```javascript
-REQUEST: POST PET
+REQUEST: POST /PET
 
 RESPONSE: 
 {
@@ -145,7 +145,7 @@ RESPONSE:
 He seems friendly! Let's give him some food.
 
 ```javascript
-REQUEST: POST FEED
+REQUEST: POST /FEED
 
 RESPONSE: 
 {
@@ -159,7 +159,7 @@ RESPONSE:
 Okay, he seems to be enjoying that. Let's pet some more.
 
 ```javascript
-REQUEST: POST PET
+REQUEST: POST /PET
 
 RESPONSE: 
 {
@@ -173,7 +173,7 @@ RESPONSE:
 Ouch. How to respond?
 
 ```javascript
-REQUEST: POST MEOW
+REQUEST: POST /MEOW
 
 RESPONSE: 
 {
@@ -188,7 +188,7 @@ Okay, that's enough playing with the cat! Hopefully, this toy example gave you a
 
 </details>
 
-Typically, Web API's contain multiple **endpoints**. In general, an endpoint can be thought of as a point of contact between a client and a server. Depending on which endpoint is invoked by the client, the server knows which action to take. In the previous example, we can think of each of the five possible actions as an endpoint. Another common way of thinking about endpoints is as *specific digital locations* of resources located on a server. For example, if we want to access the resource located at `/MEOW` on a server, we use the `MEOW` endpoint. You can think about endpoints in whichever way is best for your own mental model, as long as you remember that endpoints are meant to direct the server towards a particular action or resource. And don't worry if things aren't clear yet! We'll be showing concrete examples of all of these concepts in the next few sections.
+Typically, Web API's contain multiple **endpoints**. In general, an endpoint can be thought of as a point of contact between a client and a server. Depending on which endpoint is invoked by the client, the server knows which action to take. In the previous example, we can think of each of the five possible actions as an endpoint. Another common way of thinking about endpoints is as *specific digital locations* of resources located on a server. For example, if we want to access the resource located at `/MEOW` on a server, we use the `POST /MEOW` endpoint. You can think about endpoints in whichever way is best for your own mental model, as long as you remember that endpoints are meant to direct the server towards a particular action or resource. And don't worry if things aren't clear yet! We'll be showing concrete examples of all of these concepts in the next few sections.
 
 ## 3.3 Server Implementations
 
