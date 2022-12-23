@@ -38,12 +38,20 @@
 
 \graphicspath{{img/}{./}} % Paths where images are looked for
 
-\newcommand \kw[1]{\textbf{#1}}
+\newcommand\kw[1]{\textbf{#1}}
+
 \newenvironment{absolutelynopagebreak}
   {\par\nobreak\vfil\penalty0\vfilneg
    \vtop\bgroup}
   {\par\xdef\tpd{\the\prevdepth}\egroup
    \prevdepth=\tpd}
+
+\newcommand\margingraphic[2]{
+  \marginpar{%
+    \includegraphics[width=\marginparwidth]{#1}
+    \captionof{figure}{#2}
+  }
+}
 
 \makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
 
@@ -152,8 +160,8 @@
 \setchapterstyle{kao} % Choose the default chapter heading style
 
 \input{chapters/1-intro-to-full-stack/chapter1.tex}
-\input{chapters/2-servers/chapter2.tex}
-\input{chapters/3-databases/chapter3.tex}
+\input{chapters/2-databases/chapter2.tex}
+\input{chapters/3-servers/chapter3.tex}
 \input{chapters/4-backend-integration/chapter4.tex}
 \input{chapters/5-advanced-frontend/chapter5.tex}
 

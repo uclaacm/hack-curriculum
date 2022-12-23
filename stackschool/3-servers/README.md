@@ -11,7 +11,7 @@ In a way, this lack of understanding almost serves as a hint to what a server is
 
 This write-off of servers as blackboxes is great if we just want to use them to get some data. It makes our job much easier! In fact, you interact with servers (indirectly) every single day just by browsing the internet[^3]. However, when it comes time to create our own, it's important to have a deeper understanding. And that's what we aim to accomplish here! By first instilling in you an idea of the *fundamental* concept of a server[^4], and later showing one possible implementation (among many), we'll break the blackbox open and expose the ideas within.
 
-## 2.1 Servers In General
+## 3.1 Servers In General
 
 Put simply, a server is a computer like any other. What distinguishes a regular old computer and a server is that **servers are given the task of listening and responding to requests**. These tend to be requests for data or to perform some task and in general they come from other computers [^5]. We call these "other" computers **clients**. You can think of the interaction between a server and a client in much the same way as the interaction between a customer at a restaurant and the restaurant's staff. Just as a customer can request a glass of water, new silverware, or a half serving of Tiramisu, a client can request some function to be performed or data to be processed and returned. This brings up an important question: how do the client and server communicate? A customer at a restaurant might use English or Portuguese, but unfortunately computers aren't quite there yet. They must have some standard, agreed upon language in order to do so.
 
@@ -106,7 +106,7 @@ heck = {
 }
 ```
 
-## 2.2 Web API's: What's on the Menu?
+## 3.2 Web API's: What's on the Menu?
 
 Now that our server and client have a common language, it's time to take things a step further. Let's revisit the restaurant analogy. How does the customer know what they're allowed to order? They can't just demand to be served whatever they want, because the restaurant might not be able to accommodate their request[^8]. That's why every restaurant has a menu! There needs to be a way to let customers know what they can order. Clients and servers are much the same. There needs to be an understanding between them about what the server can do for the client, and this is accomplished using the **API**, or Application Programming Interface. You may have heard this term before. It's another one of those nebulous phrases that gets thrown around a lot, but is rarely defined concretely.
 
@@ -190,7 +190,7 @@ Okay, that's enough playing with the cat! Hopefully, this toy example gave you a
 
 Typically, Web API's contain multiple **endpoints**. In general, an endpoint can be thought of as a point of contact between a client and a server. Depending on which endpoint is invoked by the client, the server knows which action to take. In the previous example, we can think of each of the five possible actions as an endpoint. Another common way of thinking about endpoints is as *specific digital locations* of resources located on a server. For example, if we want to access the resource located at `/MEOW` on a server, we use the `MEOW` endpoint. You can think about endpoints in whichever way is best for your own mental model, as long as you remember that endpoints are meant to direct the server towards a particular action or resource. And don't worry if things aren't clear yet! We'll be showing concrete examples of all of these concepts in the next few sections.
 
-## 2.3 Server Implementations
+## 3.3 Server Implementations
 
 As one might expect, there are many ways to go about implementing a server. We know that a server is simply a computer tasked with listening and responding to requests, and clearly this task is not specific to any single programming language. Some popular choices are the following:
 
@@ -236,9 +236,41 @@ console.log("Press Ctrl-C to quit");
 
 Congrats, you just made your first server! Unfortunately, it doesn't do anything. You can run it with `node server.js`. Before making it a bit more useful, let's break down what exactly is happening. Take a look at the second line. In Node, the `require` function is a way to include code from other files within your file.[^20] In this case, we're including code from the Express package. In the next line, we create an Express app and bind it to a variable. In the final stage of initialization, we tell the app to use something called a **middleware** function. We'll get into these in more detail soon, but for now just know that it's a way to make your life easier. Now, in the deployment section, we define a port, and tell the server to listen on that port. This will affect the URL of your local server.
 
-Alright, now that we've cleared all that up [^21], its time to add our first endpoint.
+Alright, now that we've cleared all that up [^21], its time to add our first endpoint. We'll make an endpoint that requests a random number from the server. It's pretty easy!
 
-### Your First Endpoint
+```js
+/**** ROUTES ****/
+app.get("/random", (req, res) => {
+    // generate random number from 1-100
+    const rand = Math.floor(Math.random() * 100) + 1;
+
+    // send random number in response
+    res.send(`${rand}`);
+})
+```
+
+This endpoint can be referred to as `GET /random` [^22] and every time it is invoked it will return a string containing a random number from 1-100. You can test it out by starting the server[^23] and visiting http://localhost:8080/random in your browser. At a surface level, all that's going on here is that we're using Javascript code to define our server's API. 
+
+<details> 
+<summary> <b> Describing the API with English</b> </summary>
+
+Recall how we defined our API in the cat server example. We can describe our Javascript endpoint definition for random in the same way! 
+
+```
+GET /random: Get a random number from 1-100.
+```
+
+They're two ways of saying the same thing, except that one of them happens to be real, functional code.
+
+</details>
+
+Hopefully, you now have a feel for the general process of creating Express applications. You're now ready to put everything together into a more realistic application.
+
+## 3.4 Demo
+
+## 3.5 Testing
+
+## 3.6 Organization
 
 [^1]: Note that a mainframe is just a special name for a server that is capable of performing a large amount of concurrent operations. Whether or not "hacking" into one will save the world is another question.
 
@@ -281,3 +313,7 @@ Alright, now that we've cleared all that up [^21], its time to add our first end
 [^20]: Similar to imports/includes in other languages you may be familiar with. We call the code that we're importing a "module."
 
 [^21]: May be worth a couple more readthroughs if it's still unclear, or get in contact with us on [Discord](https://discord.gg/xXcJWDUqJj)!
+
+[^22]: Note that `/random` is referred to as a **route**. The distinction between endpoints and routes is that endpoints include the HTTP method (i.e. GET, POST, etc.) in their definition. You can have multiple endpoints with the same route, as long as the method is different (so having `GET /random` and `POST /random` would be perfectly fine).
+
+[^23]: Use `node server.js` within the directory for your server.
