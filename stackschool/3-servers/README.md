@@ -274,6 +274,8 @@ browser, vscode extension, axios
 
 ## 3.6 Organization
 
+## 3.7 Documenting Your API
+
 models, controllers, routes, middlewares, etc.
 
 [^1]: Note that a mainframe is just a special name for a server that is capable of performing a large amount of concurrent operations. Whether or not "hacking" into one will save the world is another question.
@@ -308,7 +310,7 @@ models, controllers, routes, middlewares, etc.
 
 [^16]: By runtime environment, I just mean a program that can execute code.
 
-[^17]: We call these libraries packages, and we access them using a program called NPM, or Node Package Manager. Another popular (and, in my opinion, better) package manager is Yarn. We'll be using Yarn for all examples here.
+[^17]: We call these libraries "packages", and we access them using a program called NPM, or Node Package Manager. Another popular (and, in my opinion, better) package manager is Yarn. We'll be using Yarn for all examples here.
 
 [^18]: Some would recommend using a version manager like NVM, but if you just want to get your hands dirty quickly, the other methods are adequate for now.
 
