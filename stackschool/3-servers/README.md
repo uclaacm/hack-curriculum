@@ -84,7 +84,7 @@ You don't have to memorize these, but you'll find that after working with HTTP r
 
 HTML is not the only thing that can be placed in response bodies. In fact, just looking at the `Accept` section of our HTTP request we can see that images can be as well!
 
-```HTTP
+```
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
 ```
 
@@ -274,9 +274,10 @@ browser, vscode extension, axios
 
 ## 3.6 Organization
 
+models, controllers, routes, middlewares, etc.
+
 ## 3.7 Documenting Your API
 
-models, controllers, routes, middlewares, etc.
 
 [^1]: Note that a mainframe is just a special name for a server that is capable of performing a large amount of concurrent operations. Whether or not "hacking" into one will save the world is another question.
 

@@ -17,7 +17,7 @@ With a strong motivation for utilizing a database, let's delve deeper into what 
 
 The simplest version of a database is an unstructured file. Assuming our web application has read and write access to our file[^1], we can persist any changes even if our web application has closed. However, this implementation can be challenging to work with and is a bit more granular that we will need for our tech stack. Instead we will begin by considering its cousin, the **spreadsheet**. A spreadsheet is a file with columns and rows - effectively a large **table**. In our examples we treat each row as an individual entry in our table, and recognize each column as a a unique property of our data. Common examples of spreadsheet file types are the comma separated file format (.csv), and Microsoft Excel's various formats (.xls, .xlsx, .xlsm).
 
-![Spreadsheet](Spreadsheet.png "A simple spreadsheet made with Microsoft Excel")
+![Spreadsheet](../textbook/src/img/Spreadsheet.png "A simple spreadsheet made with Microsoft Excel")
 
 
 Let's modify our restaurant scenario slightly to align more closely with a traditional database. Now, instead of walking into the fridge to find and keep track of any raw ingredient, the restaurant chef can look at a note posted on the fridge that lists each item contained within. The table aboves displays a simple example of such a note. The set of column headers for this table is known as the table **schema**, representing the data type and name associated with the values along each row in the table.
@@ -25,7 +25,7 @@ Let's modify our restaurant scenario slightly to align more closely with a tradi
 As the kitchen staff remove items from the fridge to fulfill orders, we expect the quantity fields of our fridge table to decrease. Likewise, when the restaurant receives a fresh shipment of groceries we expect the associated quantity fields to increase. On the off chance that new ingredients are required, additional rows can be added to the table to display the appropriate quantity. 
 
 
-![SpreadsheetMeta](SpreadsheetWithMeta.png "A spreadsheet with metadata fields")
+![SpreadsheetMeta](../textbook/src/img/SpreadsheetWithMeta.png "A spreadsheet with metadata fields")
 
 
 In addition to the data we've elected to store, most modern databases have options to include additional columns in a table's schema known as **metadata**. Metadata refers to "data about data," and most commonly appears as a creation or modification timestamp and username, or a version id. 
@@ -100,7 +100,7 @@ An alternative (and a better choice in certain scenarios) to a relational databa
 
 A key distinguishing feature of a non-relational database is its lack of a rigid schema and of tables altogether. Instead we store each record of data either as **document** or a **key-value pair**. To understand the meaning and motivation behind this storage method, let's return to our restaurant scenario. Instead of displaying a table on our Fridge with information about our raw ingredients, let's instead display each ingredient on its own distinctly colored sticky note, like in image below.
 
-![StickyNoteDatabase](NoSQLDiagram.png "A visual representation of a non-relational database")
+![StickyNoteDatabase](../textbook/src/img/NoSQLDiagram.png "A visual representation of a non-relational database")
 
 
 This representation aligns closely with a non-relational database, with each sticky note being analogous to a single document in our database. Note that although in our example, each sticky note contained the same fields, we could add an additional fields as desired. We can call a set of documents in a non-relational database a **collection**, a concept akin to a table in a relational database.

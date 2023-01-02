@@ -2,7 +2,7 @@
 \chapter{Databases}
 \epigraph{\emph{"It is a capital mistake to theorize before  \\ one has data."}}{ -- Sherlock Holmes}
 
-As of the time of this writing, humanity has created nearly 100 zetabytes of digital data. Strongly tied to recent developments in Internet of things and machine learning, familiarity with data storage is a useful tool for any developer. But before delving into the methods and challenges associated with storing data, one may reasonably question whether there is a pressing need to store data externally for simple web applications. 
+As of the time of this writing, humanity has created nearly 100 zettabytes\sidenote[][*8]{That is, $8 \times 10^{21}$ bits. To put that into perspective, the typical hard drive is 1 terabyte in size. It would take 100 billion of these to store all of this data.} of digital data. Strongly tied to recent developments in Internet of things and machine learning, familiarity with data storage is a useful tool for any developer. But before delving into the methods and challenges associated with storing data, one may reasonably question whether there is a pressing need to store data externally for simple web applications. 
 
 To fully address this concern, we can consider an analogy of a restaurant serving breakfast. Let's assume a new customer enters the restaurant, orders some eggs and bacon, and sits down to eat. A second customer then enters and attempts to order some eggs, only to be told by the waiter that the restaurant is short on supplies. In this scenario the restaurant dining room represents our web application, the fridge represents our \kw{database} and the eggs represents our \kw{data}. From this example, we note that creating a shared supply of data for many users necessitates an external database to keep things consistent. 
 
@@ -11,11 +11,11 @@ In addition to facilitating a shared experience between users, aggregating data 
 
 With a strong motivation for utilizing a database, let's delve deeper into what databases actually store, common implementations, and how to interact with them.
 
-\margingraphic{Database.png}{The classic shorthand representation of a database, a stack of cylindrical disks }
+% \margingraphic{Database.png}{The classic shorthand representation of a database, a stack of cylindrical disks }
 
 \section{ Spreadsheets and Schemas }
 
-The simplest version of a database is an unstructured file. Assuming our web application has read and write access to our file\sidenode{Giving a program read access to a file allows it to open the file and access its contents. Giving a program write access allows the program to modify the contents of a file.}, we can persist any changes even if our web application has closed. However, this implementation can be challenging to work with and is a bit more granular that we will need for our tech stack. Instead we will begin by considering its cousin, the \kw{spreadsheet}. A spreadsheet is a file with columns and rows - effectively a large \kw{table}. In our examples we treat each row as an individual entry in our table, and recognize each column as a a unique property of our data. Common examples of spreadsheet file types are the comma separated file format (.csv), and Microsoft Excel's various formats (.xls, .xlsx, .xlsm).
+The simplest version of a database is an unstructured file. Assuming our web application has read and write access to our file\sidenote{Giving a program read access to a file allows it to open the file and access its contents. Giving a program write access allows the program to modify the contents of a file.}, we can persist any changes even if our web application has closed. However, this implementation can be challenging to work with and is a bit more granular that we will need for our tech stack. Instead we will begin by considering its cousin, the \kw{spreadsheet}. A spreadsheet is a file with columns and rows - effectively a large \kw{table}. In our examples we treat each row as an individual entry in our table, and recognize each column as a a unique property of our data. Common examples of spreadsheet file types are the comma separated file format (.csv), and Microsoft Excel's various formats (.xls, .xlsx, .xlsm).
 
 \margingraphic{Spreadsheet.png}{A simple spreadsheet made with Microsoft Excel}
 
@@ -94,17 +94,17 @@ Beyond these features, relational databases support more advance table configura
 
 An alternative (and a better choice in certain scenarios) to a relational database is a \kw{non-relational database}, frequently referred to as a \kw{NoSQL database}\sidenote{Some non-relational databases can be queried with SQL and SQL like languages, but most are intended to be interacted with directly through code.}. Like the name implies, non-relational database are structured differently from their relational counterparts. 
 
-\subsection{Non-Relational Storage}
+\subsection*{Non-Relational Storage}
 
 A key distinguishing feature of a non-relational database is its lack of a rigid schema and of tables altogether. Instead we store each record of data either as \kw{document} or a \kw{key-value pair}. To understand the meaning and motivation behind this storage method, let's return to our restaurant scenario. Instead of displaying a table on our Fridge with information about our raw ingredients, let's instead display each ingredient on its own distinctly colored sticky note, like in Figure 2.4.
 
-\margingraphic{NoSQLRestaurant.png}{A visual representation of a non-relational database}
+\margingraphic{NoSQLDiagram.png}{A visual representation of a non-relational database}
 
 This representation aligns closely with a non-relational database, with each sticky note being analogous to a single document in our database. Note that although in our example, each sticky note contained the same fields, we could add an additional fields as desired. We can call a set of documents in a non-relational database a \kw{collection}, a concept akin to a table in a relational database.
 
 Now imagine when the chef of our restaurant has been using this sticky note system for the last couple months and has gotten very use to it - so much so that they simply consider the sticky note color and quantity value before removing the relevant ingredients they need. Here, the sticky note color parallels the concept of a unique id field associated with each document. Similar to the chef's instinctive association of a particular color with a particular document, a non-relational database makes use of a \kw{hash function} to map a document id to a particular document. Although the exact mechanics of these hash functions\sidenote{Hash functions are generally are implemented with hardware or optimized and concise software and map a unique set of input into a unique id.} are beyond our scope, they efficiently associate an id with a document, providing the backbone for fast operations in a non-relational database. For those familiar with the concept (or those planning to take CS 32 in the future), this makes our collection a variant of a \kw{hash table}.
 
-\subsection{Recording Documents: JSON}
+\subsection*{Recording Documents: JSON}
 
 In most non-relational databases (including MongoDB we'll be using in our MERN\sidenote{The 'M' in MERN stands for "MongoDB" - a popular non-relational database} tech stack) documents are written using the JavaScript Object Notation or \kw{JSON}. JSON syntax attempts to provide an efficient way to list a series of key value pairs. Below is a small piece of JavaScript code that would represent each of the four documents in our restaurant example. 
 
@@ -191,7 +191,7 @@ A popular alternative that facilitates collaboration is to run the database on a
 
 The final step of using our hosted database is writing some code to access and manipulate our database. Here we will take advantage of a programming library to make our job a bit simpler. 
 
-\subsection{Using Mongoose}
+\subsection*{Using Mongoose}
 
 In our restaurant analogy, after consulting the notes on the fridge, let's assume the chef must put on some slippers before entering the fridge to acquire the relevant ingredients and cook the desired meal. In our MERN tech stack, these slippers are akin to the \kw{mongoose} library, a JavaScript Object Data Modeling library for MongoDB that simplifies the process of retrieving and modifying data in our datanbase. 
 
@@ -232,7 +232,7 @@ Mongoose also offers a wide variety of intuitive functions manipulate and add ne
     \item Model.exists()
 \end{itemize}
 
-\subsection{Asynchronous vs Synchronous}
+\subsection*{Asynchronous vs Synchronous}
 
 In order to illustrate using Mongoose's functions, we must first address a final issue we will encounter with using our database. Returning to our restaurant analogy, we can realize that the entire process of the chef acquiring the relevant ingredients and preparing a meal will take a fair amount of time. Likewise, sending and retrieving data from our application and database may also not run instantaneously\sidenote{Communicating between two distinct computers often happens over the internet a process that runs orders of magnitude slower than just running something on a single computer.}.
 
