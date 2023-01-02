@@ -1,6 +1,8 @@
 """
 USAGE: 
 python3 md_to_text.py [FILE.md] [NEW_FILE.tex]
+
+NOTE: This doesn't work 100% yet but it takes care of a lot of the tedious stuff. Still need to go in after and clean the tex up.
 """
 
 import re
