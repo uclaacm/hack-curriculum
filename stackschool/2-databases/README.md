@@ -5,7 +5,7 @@
 > \- Sherlock Holmes
 
 
-As of the time of this writing, humanity has created nearly 100 zetabytes of digital data. Strongly tied to recent developments in Internet of things and machine learning, familiarity with data storage is a useful tool for any developer. But before delving into the methods and challenges associated with storing data, one may reasonably question whether there is a pressing need to store data externally for simple web applications. 
+As of the time of this writing, humanity has created nearly 100 zetabytes of digital data.[^a] Strongly tied to recent developments in Internet of things and machine learning, familiarity with data storage is a useful tool for any developer. But before delving into the methods and challenges associated with storing data, one may reasonably question whether there is a pressing need to store data externally for simple web applications. 
 
 To fully address this concern, we can consider an analogy of a restaurant serving breakfast. Let's assume a new customer enters the restaurant, orders some eggs and bacon, and sits down to eat. A second customer then enters and attempts to order some eggs, only to be told by the waiter that the restaurant is short on supplies. In this scenario the restaurant dining room represents our web application, the fridge represents our **database** and the eggs represents our **data**. From this example, we note that creating a shared supply of data for many users necessitates an external database to keep things consistent. 
 
@@ -243,6 +243,8 @@ Below is a snippet of code that builds upon our mongoose schema defined in the a
 ## 2.7 Testing
 
 ## 2.8 Organization
+
+[^a]: That is, 8 x 10<sup>21</sup> bits. To put that into perspective, the typical hard drive is 1 terabyte in size. It would take 100 billion of these to store all of this data.
 
 [^1]: Giving a program read access to a file allows it to open the file and access its contents. Giving a program write access allows the program to modify the contents of a file.
 

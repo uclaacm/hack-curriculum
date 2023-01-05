@@ -200,24 +200,24 @@ Using mongoose allows us to define an expected schema for the documents in our c
 \vspace{.5cm}
 
 \begin{lstlisting}[language=Java]
-const mongoose = require('mongoose');
+    const mongoose = require('mongoose');
 
-const ingredient = new mongoose.Schema({
-        item: {
-            type: String,
-            required: true
-        },
-        quantity: {
-            type: Number,
-            required: true
-        },
-        price: {
-            type: Number,
-            required: true
-        }
-});
+    const ingredient = new mongoose.Schema({
+            item: {
+                type: String,
+                required: true
+            },
+            quantity: {
+                type: Number,
+                required: true
+            },
+            price: {
+                type: Number,
+                required: true
+            }
+    });
 
-module.exports = mongoose.model('Ingredient', ingredient);
+    module.exports = mongoose.model('Ingredient', ingredient);
 \end{lstlisting}
 
 Mongoose also offers a wide variety of intuitive functions manipulate and add new documents to the collection with a particular schema\sidenote{These functions are part of mongoose's Application Programming Interface (API). An API is simply a term used to describe an interface to take advantage of the features of a programming library, application, or framework.}. Below is a short list of some of the most commonly used functions, the most relevant of which we will use in our demo.
@@ -241,12 +241,12 @@ We often choose to inform our code of this possible long wait and let our code r
 Below is a snippet of code that builds upon our mongoose schema defined in the above code sample and defines and asynchronous function. The snippet below first includes the specified model, then defines an asynchronous function to return all documents matching our defined schema using the find() function. We return these documents by setting them in the result object.
 
 \begin{lstlisting}[language=Java]
-const Ingredient = require("../models/Ingredient");
+    const Ingredient = require("../models/Ingredient");
 
-module.exports.getIngredients = async (req, res) => {
-    const ingredients = await Ingredient.find();
-    res.send(ingredients);
-}
+    module.exports.getIngredients = async (req, res) => {
+        const ingredients = await Ingredient.find();
+        res.send(ingredients);
+    }
 \end{lstlisting}
     
 \section{Demo}

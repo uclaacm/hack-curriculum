@@ -213,7 +213,7 @@ Node gives you all the fundamentals required to make a server, but why do that i
 
 Now that we have all that out of the way, let's get to the fun part. First, make sure you have all the necessary installations. Follow the checklist:
 
-- Node. [Here](https://nodejs.org/en/download/package-manager/#macos) is an extensive guide to installing no matter which platform you're on. I recommend using Homebrew if you're on MacOS.[^18]
+- Node. If you don't already have it installed, [here](https://nodejs.org/en/download/package-manager/#macos) is an extensive guide to doing so no matter which platform you're on. I recommend using Homebrew if you're on MacOS.[^18]
 - Yarn. This will be your package manager, or the program you use to install node packages (like Express). Once you have Node installed, you can install Yarn by running `npm install --global yarn` in your shell. 
 
 Now in your terminal, navigate to the directory of your choice[^19] and run `yarn init`. This will start the process of creating your server application. It'll prompt you with some basic configuration information, but you can just accept the default values by pressing enter for each one. Don't worry, you can change these values later! After you've completed this step, a new file called `package.json` should have been generated. This is the configuration file for your server. To install Express, run `yarn add express`. This should generate a directory called `node_modules` and a file called `yarn.lock`.

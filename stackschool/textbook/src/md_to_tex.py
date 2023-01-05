@@ -14,7 +14,7 @@ TEX_LOC = argv[2]
 with open(MD_LOC, "r") as f:
     MD = f.read()
 
-# # bold key words
+# bold key words
 TEX = re.sub(r"\*\*([^\*\*]*)\*\*", r"\\kw{\1}", MD)
 
 # italicise emphasis

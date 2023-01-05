@@ -1,8 +1,8 @@
 # Textbook Compilation
 
-**Latex** template: [Kaobook](https://github.com/fmarotta/kaobook). 
+Latex template: [Kaobook](https://github.com/fmarotta/kaobook). 
 
-To **compile**: 
+To compile: 
 ```bash
 $ pdflatex main # Compile template
 $ makeindex main.nlo -s nomencl.ist -o main.nls # Compile nomenclature
