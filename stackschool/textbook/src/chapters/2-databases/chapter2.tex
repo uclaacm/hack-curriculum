@@ -14,7 +14,7 @@ With a strong motivation for utilizing a database, let's delve deeper into what 
 
 \section{Spreadsheets and Schemas}
 
-The simplest version of a database is an unstructured file. Assuming our web application has read and write access to our file\sidenote{Giving a program read access to a file allows it to open the file and access its contents. Giving a program write access allows the program to modify the contents of a file.}, we can persist any changes even if our web application has closed. However, this implementation can be challenging to work with and is a bit more granular that we will need for our tech stack. Instead we will begin by considering its cousin, the \kw{spreadsheet}. A spreadsheet is a file with columns and rows - effectively a large table.\sidenote{You can actually generate these without using any external libraries. Try to think how you might encode a table and its data in a text file.} In our examples we treat each row as an individual entry in our table, and recognize each column as a a unique property of our data. Common examples of spreadsheet file types are the comma separated file format (.csv), and Microsoft Excel's various formats (.xls, .xlsx, .xlsm).
+Databases can be as simple as a set of flat files in our file system. Assuming our web application has read and write access to our files\sidenote{Giving a program read access to a file allows it to view its contents while write access allows it to modify the contents of the file.}, we can persist any changes even if our web application has closed. However, this implementation can be challenging to work with and is a bit more granular that we will need for our tech stack.\sidenote{Fun fact: up until about 15 years ago, UCLA kept all student records in flat files. However, this system had many issues due to poor data integrity and inconsistencies, leading to a switch to a more traditional database.} Instead we will begin by considering its cousin, the \kw{spreadsheet}. A spreadsheet is a file with columns and rows - effectively a large table.\sidenote[][*5]{You can actually generate these without using any external libraries. Try to think how you might encode a table and its data in a text file.} In our examples we treat each row as an individual entry in our table, and recognize each column as a a unique property of our data. Common examples of spreadsheet file types are the comma separated file format (.csv), and Microsoft Excel's various formats (.xls, .xlsx, .xlsm).
 
 % \margingraphic{Spreadsheet.png}{A simple spreadsheet made with Microsoft Excel}
 
@@ -34,7 +34,7 @@ The simplest version of a database is an unstructured file. Assuming our web app
     \end{tabular}
 \end{center}
 
-Let's refer back to our previous restaurant scenario. Now, instead of walking into the fridge to find and keep track of any raw ingredient, the restaurant chef can look at a note posted on the fridge that lists each item contained within. The table aboves displays a simple example of such a note. The set of column headers\sidenote{In this case: Item, Quantity, Price.} for this table is known as the table \kw{schema}, representing the data type and name associated with the values along each row in the table.
+Let's refer back to our previous restaurant scenario. Now, instead of walking into the fridge to find and keep track of any raw ingredient, the restaurant chef can look at a note posted on the fridge that lists each item contained within. The table above displays a simple example of such a note. The set of column headers\sidenote{In this case: Item, Quantity, Price.} for this table is known as the table \kw{schema}, representing the data type and name associated with the values along each row in the table.
 
 As the kitchen staff remove items from the fridge to fulfill orders, we expect the quantity fields of our fridge table to decrease. Likewise, when the restaurant receives a fresh shipment of groceries we expect the associated quantity fields to increase. On the off chance that new ingredients are required, additional rows can be added to the table to display the appropriate properties for that ingredient.
 
@@ -161,7 +161,7 @@ ACID compliance eliminates common issues stemming from concurrent reads and writ
     Fortunately SQL has a very gradual learning curve for its fundamental features, making it relatively simple to jump into using it!
 \end{kaobox}
 
-Beyond these features, relational databases support more advance table configurations such as constraints\sidenote{Adding constraints to our database allows us to catch human errors before they snowball into larger issues}, primary keys, and foreign keys. It is from these features - specifically the ability to enforce relationships between different schema fields and tables - that this type of database derives its name. Below are the five most popular relational databases
+Beyond these features, relational databases support more advance table configurations such as constraints,\sidenote{Adding constraints to our database allows us to catch human errors before they snowball into larger issues} primary keys, and foreign keys. It is from these features - specifically the ability to enforce relationships between different schema fields and tables - that this type of database derives its name. Below are the five most popular relational databases
 
 \begin{enumerate}
     \item Oracle
@@ -177,7 +177,7 @@ An alternative (and a better choice in certain scenarios) is a \kw{non-relationa
 
 \subsection*{Non-Relational Storage}
 
-A key distinguishing feature of a non-relational database is its lack of a rigid schema and of tables altogether. Instead we store each record of data either as a \kw{document} or a \kw{key-value pair}. To understand the meaning and motivation behind this storage method, let's return to our restaurant scenario. Instead of displaying a table on our Fridge with information about our raw ingredients, let's instead display each ingredient on its own distinctly colored sticky note, like in Figure 2.4.
+A key distinguishing feature of a non-relational database is its lack of a rigid schema and of tables altogether. Instead we store each record of data either as a \kw{document} or a \kw{key-value pair}. To understand the meaning and motivation behind this storage method, let's return to our restaurant scenario. Instead of displaying a table on our Fridge with information about our raw ingredients, let's instead display each ingredient on its own distinctly colored sticky note, like in Figure 2.1.
 
 \margingraphic{NoSQLDiagram.png}{A visual representation of a non-relational database}
 
@@ -187,9 +187,7 @@ Now imagine when the chef of our restaurant has been using this sticky note syst
 
 \subsection*{Recording Documents: JSON}
 
-In most non-relational databases (including MongoDB we'll be using in our MERN\sidenote{The 'M' in MERN stands for "MongoDB" - a popular non-relational database} tech stack) documents are written using the JavaScript Object Notation or \kw{JSON}. JSON syntax attempts to provide an efficient way to list a series of key value pairs. Below is a small piece of JavaScript code that would represent each of the lettuce document in our restaurant example. 
-
-\vspace{.5cm}
+In most non-relational databases (including MongoDB\sidenote{The 'M' in MERN stands for "MongoDB" - a popular non-relational database}) documents are written using the JavaScript Object Notation or \kw{JSON}. JSON syntax attempts to provide an efficient way to list a series of key value pairs. Below is a small piece of JavaScript code that would represent the lettuce document in our restaurant example. 
 
 \begin{lstlisting}[language=Java]
     lettuce = {
@@ -201,7 +199,7 @@ In most non-relational databases (including MongoDB we'll be using in our MERN\s
     }
 \end{lstlisting}
 
-As the name implies, JSON is just a way of encoding a Javascript object as a string. We can encode the objects above as follows\sidenote{Note that a single JSON string corresponds to a single object (though we can group multiple together by nesting objects)}:
+As the name implies, JSON is just a way of encoding a Javascript object as a string. We can encode the object above as follows\sidenote{Note that a single JSON string corresponds to a single object (though we can group multiple together by nesting objects)}:
 
 \begin{lstlisting}[language=Java]
     {
@@ -213,7 +211,7 @@ As the name implies, JSON is just a way of encoding a Javascript object as a str
     }
 \end{lstlisting}
 
-In our example above, the syntax for each key-value pair is to separate the two with a colon :, and to comma separate each entry in any given document. The metadata fields included begin with an underscore to signify they are special fields (although the specific format will depend on the database being used). As we will see when constructing our app, modifications and additions to our data will also be formatted in JSON.
+In our example above, the syntax for each key-value pair is to separate the two with a colon and to comma separate each entry in any given document. The metadata fields included begin with an underscore to signify they are special fields (although the specific format will depend on the database being used). As we will see when constructing our app, modifications and additions to our data will also be formatted in JSON.
 
 The five most popular non-relational databases currently used are as follows
 
@@ -252,7 +250,7 @@ As we expect to have a small number of users, would prefer a faster configuratio
 
 It is also important to consider the computer we will run our database on. If a single developer is designing a database, it is possible to run most types of databases locally on Windows, Linux, or MacOS, saving the underlying data on your computer's local disk. Under this setup, the database will be inaccessible when the computer has been shut down, making development by other collaborators challenging. 
 
-An alternative to hosting a database on your computer may be running the database on a dedicated computer you can guarantee will be continuously running. After configuring the connection between your web application and database computer\sidenote{A computer used to run a database in this way is commonly called a database server. We'll talk  more about servers in chapter 3.}, we alleviate the issue of having our data continuously available, but introduce a new issue: we must now maintain a distinct computer dedicated for our database.
+An alternative to hosting a database on your computer may be running the database on a dedicated computer you can guarantee will be continuously running. After configuring the connection between your web application and database computer,\sidenote{A computer used to run a database in this way is commonly called a database server. We'll talk  more about servers in chapter 3.} we alleviate the issue of having our data continuously available, but introduce a new issue: we must now maintain a distinct computer dedicated for our database.
 
 A popular alternative that facilitates collaboration is to run the database on a third-party computer with the power of \kw{cloud computing}. Most major cloud service providers offer free storage options, enabling users to run and access a database on a computer in one of their warehouses. To make this process simpler, MongoDB has partnered with AWS, Azure and Google Cloud to offer their \kw{MongoDB Atlas}. By creating a \href{https://www.mongodb.com/cloud/atlas/register}{MongoDB Atlas account}, one can easily create a database on the cloud, and connect to it from in the browser, through the command line, or through code.
 
@@ -262,7 +260,7 @@ The final step of using our hosted database is writing some code to access and m
 
 \subsection*{Using Mongoose}
 
-In our restaurant analogy, let's assume there is one kitchen worker named Cameron whose sole job is to retrieve ingredients from the fridge (which can be quite complicated due to its size and eccentric method of organization). Without Cameron, each chef would be required to learn how to navigate this unwieldy fridge in order to get the ingredients required for a recipe. Thankfully, Cam is here to shoulder the burden. In our MERN tech stack, Cameron is akin to the \kw{mongoose} library, a JavaScript Object Data Modeling library for MongoDB that simplifies the process of retrieving and modifying data in our datanbase. 
+In our restaurant analogy, let's assume there is one kitchen worker named Cameron whose sole job is to retrieve ingredients from the fridge (which can be quite complicated due to its size and eccentric method of organization). Without Cameron, each chef would be required to learn how to navigate this unwieldy fridge in order to get the ingredients required for a recipe. Thankfully, Cam is here to shoulder the burden. In our MERN tech stack, Cameron is akin to the \kw{mongoose} library, a JavaScript Object Data Modeling library for MongoDB that simplifies the process of retrieving and modifying data in our database. 
 
 Using mongoose allows us to define an expected schema for the documents in our collection. Let's consider what creating a schema for our documents in our restaurant scenario would look like. First, we must signify our intention to use mongoose, done in the first line of the below code. We then define a new Schema, with each intended data field mapping to its relevant data type and properties. Finally, we choose to export our newly defined model so we can use it in future files.
 
@@ -289,16 +287,25 @@ Using mongoose allows us to define an expected schema for the documents in our c
     module.exports = mongoose.model('Ingredient', ingredient);
 \end{lstlisting}
 
-Mongoose also offers a wide variety of intuitive functions to manipulate and add new documents to the collection with a particular schema\sidenote{These functions are part of mongoose's Application Programming Interface (API). An API is simply a term used to describe an interface to take advantage of the features of a programming library, application, or framework.}. Below is a short list of some of the most commonly used functions, the most relevant of which we will use in our demo.
+The schema above corresponds to a Javascript object of the following form:
+
+\begin{lstlisting}[language=Java]
+    ingredient = {
+        item: "beef",
+        quantity: 21,
+        price: 5
+    }
+\end{lstlisting}
+
+Mongoose also offers a wide variety of intuitive functions to manipulate and add new documents to the collection with a particular schema.\sidenote{These functions are part of mongoose's Application Programming Interface (API). An API is simply a term used to describe an interface to take advantage of the features of a programming library, application, or framework.} Below is a short list of some of the most commonly used functions, the most relevant of which we will use in our demo.
 
 \begin{itemize}
-    \item Model.findById()
-    \item Model.findByIdAndDelete()
-    \item Model.findByIdAndUpdate()
-    \item Model.find()
-    \item Model.create()
-    \item Model.count()
-    \item Model.exists()
+    \item \texttt{Model.findById()}: Finds a single document by its \_id field.
+    \item \texttt{Model.findByIdAndDelete()}: Finds a single document by its \_id field and deletes it.
+    \item \texttt{Model.findByIdAndUpdate()}: Finds a single document by its \_id field and updates it.
+    \item \texttt{Model.find()}: Finds documents matching certain fields. A more general form of \texttt{findById()}.
+    \item \texttt{Model.create()}: Creates a new document.
+    \item \texttt{Model.count()}: Counts number of documents that match an object in a collection.
 \end{itemize}
 
 \subsection*{Asynchronous vs Synchronous}
@@ -320,10 +327,10 @@ These two methods of preparation respectively represent synchronous and asynchro
     \includegraphics{SyncvsAsync.png}
 \end{center}
 
-Unless otherwise indicated, most of the code you write is synchronous. That is, if there are any tasks that take a long time to complete\sidenote{Such as getting a lot of data from a database \emph{cough cough}.}, they may serve as a bottleneck to other, potentially unrelated tasks. As you might expect, we can get around this with asynchronous programming. 
+Unless otherwise indicated, most of the code you write is synchronous. That is, if there are any tasks that take a long time to complete,\sidenote{Such as getting a lot of data from a database \emph{cough cough}.} they may serve as a bottleneck to other, potentially unrelated tasks. As you might expect, we can get around this with asynchronous programming. 
 
 \subsubsection*{Taking things slowly...}
-Continuing with our analogy, let's write some code that represents the situation. Let's say we have a function for each task mentioned above.
+Continuing with our analogy, let's write some code that represents the situation. Suppose we have a function for each task mentioned above.
 
 \begin{lstlisting}[language=Java]
     const boilWater = () => {
@@ -360,7 +367,7 @@ The synchronous approach is as follows and, as noted before, will take five minu
     addVeggies();
 \end{lstlisting}
 
-How can we do better? Introducing promises: \kw{promises} are objects in Javascript that "represent the eventual completion (or failure) of an asynchronous operation, and its resulting value." In (slightly) more concrete terms, they are wrappers for values that might not yet be determined, which is typical of asynchronous code. Consider the \texttt{boilWater()} function. Below is an idea of what an asynchronous version of the function might look like in Javascript. (The syntax may seem a bit strange upon first glance and admittedly, it is. The good news is that in the context of this series, this is the only time we will write asynchronous code this way. So don't worry if this is a bit confusing to you!)
+How can we do better? Introducing promises! \kw{Promises} are objects in Javascript that "represent the eventual completion (or failure) of an asynchronous operation, and its resulting value." In (slightly) more concrete terms, they are wrappers for values that might not yet be determined, which is typical of asynchronous code. Consider the \texttt{boilWater()} function. Below is an idea of what an asynchronous version of the function might look like in Javascript.\sidenote{The syntax may seem a bit strange upon first glance and admittedly, it is. The good news is that in the context of this series, this is the only time we will write asynchronous code this way. So don't worry if this is a bit confusing to you!} 
 
 \begin{lstlisting}[language=Java] 
     const boilWater = () => {
@@ -382,7 +389,7 @@ We can do the same for our other intensive task, \texttt{cutVeggies()}. Now, whe
     // in total, will only take 3 minutes... but there's a problem.
 \end{lstlisting}
 
-Unfortunately, we have an before we finish boiling and we'll add our veggies before we finish cutting. How can we handle this? We'll show two equally viable ways. issue. As the code is currently written, we do not distuinguish dependent and independent tasks. This means that we will end up adding pasta to our water
+Unfortunately, we have an issue. As the code is currently written, we do not distuinguish dependent and independent tasks. This means that we will end up adding pasta to our water before we finish boiling and we'll add our veggies before we finish cutting. How can we handle this? We'll show two equally viable ways.
 
 
 1. Using \texttt{.then()}
@@ -395,7 +402,7 @@ Unfortunately, we have an before we finish boiling and we'll add our veggies bef
     // in total, will only take 3 minutes!
 \end{lstlisting}
 
-Notice that we are passing in an *anonymous function* to \texttt{.then()}, which is executed upon completion of \texttt{boilWater()}. Now, everything works as expected. We can also write this another way, which we will actually prefer throughout this workshop series.
+Notice that we are passing in an \emph{anonymous function} to \texttt{.then()}, which is executed upon completion of \texttt{boilWater()}.\sidenote{When the code within a promise is completely executed, the promise is said to have been \kw{resolved.}} Now, everything works as expected. We can also write this another way, which we will actually prefer throughout this workshop series.
     
 2. Using \texttt{async/await}
 \begin{lstlisting}[language=Java] 
@@ -414,7 +421,7 @@ Thinking beyond this example, we typically utilize asynchronous code in any situ
 
 \subsection*{Mongoose Queries}
 
-Below is a snippet of code that builds upon our mongoose schema defined in the above code sample and defines and asynchronous function. The snippet below first includes the specified model, then defines an asynchronous function to return all documents matching our defined schema using the find() function. We return these documents by setting them in the result object.
+Below is a snippet of code that builds upon our mongoose schema defined in the above code sample and defines an asynchronous function. The snippet below first includes the specified model, then defines an asynchronous function to return all documents matching our defined schema using the find() function. We return these documents by setting them in the result object.
 
 \begin{lstlisting}[language=Java]
     const Ingredient = require("../models/Ingredient");

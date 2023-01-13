@@ -15,7 +15,9 @@ With a strong motivation for utilizing a database, let's delve deeper into what 
 
 ## 2.1 Spreadsheets and Schemas 
 
-Databases can be as simple as an unstructured file. Assuming our web application has read and write access to our file[^1], we can persist any changes even if our web application has closed. However, this implementation can be challenging to work with and is a bit more granular than we will need for our tech stack. Instead we will begin by considering its cousin, the **spreadsheet**. A spreadsheet is a file with columns and rows - effectively a large table.[^d] In our examples, we treat each row as an individual entry in our table, and recognize each column as a a unique property of our data. Common examples of spreadsheet file types are the comma separated file format (.csv), and Microsoft Excel's various formats (.xls, .xlsx, .xlsm).
+Databases can be as simple as a set of flat files in our file system. Assuming our web application has read and write access to our files[^1], we can persist any changes even if our web application has closed. However, this implementation can be challenging to work with and is a bit more granular than we will need for our tech stack.[^z] Instead we will begin by considering its cousin, the **spreadsheet**. A spreadsheet is a file with columns and rows - effectively a large table.[^d] In our examples, we treat each row as an individual entry in our table, and recognize each column as a a unique property of our data. Common examples of spreadsheet file types are the comma separated file format (.csv), and Microsoft Excel's various formats (.xls, .xlsx, .xlsm).
+
+[^z]: Fun fact: up until about 15 years ago, UCLA kept all student records in flat files. However, this system had many issues due to poor data integrity and inconsistencies, leading to a switch to a more traditional database.
 
 <!-- ![Spreadsheet](../textbook/src/img/Spreadsheet.png "A simple spreadsheet made with Microsoft Excel") -->
 
@@ -27,7 +29,7 @@ Databases can be as simple as an unstructured file. Assuming our web application
 | Carrots  | 80       | 3     |
 
 
-Let's refer back to our previous restaurant scenario. Now, instead of walking into the fridge to find and keep track of any raw ingredient, the restaurant chef can look at a note posted on the fridge that lists each item contained within. The table aboves displays a simple example of such a note. The set of column headers[^e] for this table is known as the table **schema**, representing the data type and name associated with the values along each row in the table.
+Let's refer back to our previous restaurant scenario. Now, instead of walking into the fridge to find and keep track of any raw ingredient, the restaurant chef can look at a note posted on the fridge that lists each item contained within. The table above displays a simple example of such a note. The set of column headers[^e] for this table is known as the table **schema**, representing the data type and name associated with the values along each row in the table.
 
 [^e]: In this case: Item, Quantity, Price.
 
@@ -158,7 +160,7 @@ Fortunately SQL has a very gradual learning curve for its fundamental features, 
 
 </details>
 
-Beyond these features, relational databases support more advance table configurations such as constraints[^2], primary keys, and foreign keys. It is from these features - specifically the ability to enforce relationships between different schema fields and tables - that this type of database derives its name. Below are the five most popular relational databases.
+Beyond these features, relational databases support more advance table configurations such as constraints,[^2] primary keys, and foreign keys. It is from these features - specifically the ability to enforce relationships between different schema fields and tables - that this type of database derives its name. Below are the five most popular relational databases.
 
 1. Oracle
 2. MySQL
@@ -172,7 +174,7 @@ An alternative (and a better choice in certain scenarios) is a **non-relational 
 
 ### Non-Relational Storage
 
-A key distinguishing feature of a non-relational database is its lack of a rigid schema and of tables altogether. Instead we store each record of data either as a **document** or a **key-value pair**. To understand the meaning and motivation behind this storage method, let's return to our restaurant scenario. Instead of displaying a table on our Fridge with information about our raw ingredients, let's instead display each ingredient on its own distinctly colored sticky note, like in image below.
+A key distinguishing feature of a non-relational database is its lack of a rigid schema and of tables altogether. Instead we store each record of data either as a **document** or a **key-value pair**. To understand the meaning and motivation behind this storage method, let's return to our restaurant scenario. Instead of displaying a table on our Fridge with information about our raw ingredients, let's instead display each ingredient on its own distinctly colored sticky note, like in the image below.
 
 ![StickyNoteDatabase](../textbook/src/img/NoSQLDiagram.png "A visual representation of a non-relational database")
 
@@ -183,7 +185,7 @@ Now imagine when the chef of our restaurant has been using this sticky note syst
 
 ### Recording Documents: JSON
 
-In most non-relational databases (including MongoDB we'll be using in our MERN[^5] tech stack) documents are written using the JavaScript Object Notation or **JSON**. JSON syntax attempts to provide an efficient way to list a series of key value pairs. Below is a small piece of JavaScript code that would represent each of the lettuce documents in our restaurant example. 
+In most non-relational databases (including MongoDB[^5]) documents are written using the JavaScript Object Notation or **JSON**. JSON syntax attempts to provide an efficient way to list a series of key value pairs. Below is a small piece of JavaScript code that would represent the lettuce document in our restaurant example. 
 ```js
     lettuce = {
         _id: 00000123456879,
@@ -194,7 +196,7 @@ In most non-relational databases (including MongoDB we'll be using in our MERN[^
     }
 ```
 
-As the name implies, JSON is just a way of encoding a Javascript object as a string. We can encode the objects above as follows[^h]:
+As the name implies, JSON is just a way of encoding a Javascript object as a string. We can encode the object above as follows[^h]:
 
 [^h]: Note that a single JSON string corresponds to a single object (though we can group multiple together by nesting objects).
 
@@ -208,7 +210,7 @@ As the name implies, JSON is just a way of encoding a Javascript object as a str
     }
 ```
 
-In our example above, the syntax for each key-value pair is to separate the two with a colon `:`, and to comma separate each entry in any given document. The metadata fields included begin with an underscore to signify they are special fields (although the specific format will depend on the database being used). As we will see when constructing our app, modifications and additions to our data will also be formatted in JSON.
+In our example above, the syntax for each key-value pair is to separate the two with a colon and to comma separate each entry in any given document. The metadata fields included begin with an underscore to signify they are special fields (although the specific format will depend on the database being used). As we will see when constructing our app, modifications and additions to our data will also be formatted in JSON.
 
 The five most popular non-relational databases currently used are as follows
 
@@ -242,7 +244,7 @@ As we expect to have a small number of users, would prefer a faster configuratio
 
 It is also important to consider the computer we will run our database on. If a single developer is designing a database, it is possible to run most types of databases locally on Windows, Linux, or MacOS, saving the underlying data on your computer's local disk. Under this setup, the database will be inaccessible when the computer has been shut down, making development by other collaborators challenging. 
 
-An alternative to hosting a database on your computer may be running the database on a dedicated computer you can guarantee will be continuously running. After configuring the connection between your web application and database computer[^7], we alleviate the issue of having our data continuously available, but introduce a new issue: we must now maintain a distinct computer dedicated for our database.
+An alternative to hosting a database on your computer may be running the database on a dedicated computer you can guarantee will be continuously running. After configuring the connection between your web application and database computer,[^7] we alleviate the issue of having our data continuously available, but introduce a new issue: we must now maintain a distinct computer dedicated for our database.
 
 A popular alternative that facilitates collaboration is to run the database on a third-party computer with the power of **cloud computing**. Most major cloud service providers offer free storage options, enabling users to run and access a database on a computer in one of their warehouses. To make this process simpler, MongoDB has partnered with AWS, Azure and Google Cloud to offer their **MongoDB Atlas**. By creating a [MongoDB Atlas account](https://www.mongodb.com/cloud/atlas/register), one can easily create a database on the cloud, and connect to it from in the browser, through the command line, or through code. 
 
@@ -277,7 +279,17 @@ Using mongoose allows us to define an expected schema for the documents in our c
   module.exports = mongoose.model('Ingredient', ingredient);
 ```
 
-Mongoose also offers a wide variety of intuitive functions to manipulate and add new documents to the collection with a particular schema[^8]. Below is a short list of some of the most commonly used functions, the most relevant of which we will use in our demo. More details about the Mongoose API can be found [here](https://mongoosejs.com/docs/api/model.html).
+The schema above corresponds to a Javascript object of the following form:
+
+```js
+    ingredient = {
+        item: "beef",
+        quantity: 21,
+        price: 5
+    }
+```
+
+Mongoose also offers a wide variety of intuitive functions to manipulate and add new documents to the collection with a particular schema.[^8] Below is a short list of some of the most commonly used functions, the most relevant of which we will use in our demo. More details about the Mongoose API can be found [here](https://mongoosejs.com/docs/api/model.html).
 
 - `Model.findById()`: Finds a single document by its _id field.
 - `Model.findByIdAndDelete()`: Finds a single document by its _id field and deletes it.
@@ -305,14 +317,14 @@ These two methods of preparation respectively represent synchronous and asynchro
 
 ![SyncvsAsync](../textbook/src/img/SyncvsAsync.png "Synchronous vs Asynchronus")
 
-Unless otherwise indicated, most of the code you write is synchronous. That is, if there are any tasks that take a long time to complete[^12], they may serve as a bottleneck to other, potentially unrelated tasks. As you might expect, we can get around this with asynchronous programming. 
+Unless otherwise indicated, most of the code you write is synchronous. That is, if there are any tasks that take a long time to complete,[^12] they may serve as a bottleneck to other, potentially unrelated tasks. As you might expect, we can get around this with asynchronous programming. 
 
 [^12]: Such as getting a lot of data from a database *cough cough*.
 
 <details>
 <summary> <b> Taking things slowly... </b></summary>
 
-Continuing with our analogy, let's write some code that represents the situation. Let's say we have a function for each task mentioned above.
+Continuing with our analogy, let's write some code that represents the situation. Suppose we have a function for each task mentioned above.
 
 ```js
     const boilWater = () => {
@@ -349,7 +361,9 @@ The synchronous approach is as follows and, as noted before, will take five minu
     addVeggies();
 ```
 
-How can we do better? Introducing promises: **promises** are objects in Javascript that "represent the eventual completion (or failure) of an asynchronous operation, and its resulting value."[^13] In (slightly) more concrete terms, they are wrappers for values that might not yet be determined, which is typical of asynchronous code. Consider the `boilWater()` function. Below is an idea of what an asynchronous version of the function might look like in Javascript. (The syntax may seem a bit strange upon first glance and admittedly, it is. The good news is that in the context of this series, this is the only time we will write asynchronous code this way. So don't worry if this is a bit confusing to you!)
+How can we do better? Introducing promises! **Promises** are objects in Javascript that "represent the eventual completion (or failure) of an asynchronous operation, and its resulting value."[^13] In (slightly) more concrete terms, they are wrappers for values that might not yet be determined, which is typical of asynchronous code. Consider the `boilWater()` function. Below is an idea of what an asynchronous version of the function might look like in Javascript.[^y] 
+
+[^y]: The syntax may seem a bit strange upon first glance and admittedly, it is. The good news is that in the context of this series, this is the only time we will write asynchronous code this way. So don't worry if this is a bit confusing to you!
 
 ```js
     const boilWater = () => {
@@ -382,7 +396,9 @@ Unfortunately, we have an issue. As the code is currently written, we do not dis
     }); // 3 minutes
     // in total, will only take 3 minutes!
 ```
-Notice that we are passing in an *anonymous function* to `.then()`, which is executed upon completion of `boilWater()`. Now, everything works as expected. We can also write this another way, which we will actually prefer throughout this workshop series.
+Notice that we are passing in an *anonymous function* to `.then()`, which is executed upon completion of `boilWater()`.[^x] Now, everything works as expected. We can also write this another way, which we will actually prefer throughout this workshop series.
+
+[^x]: When the code within a promise is completely executed, the promise is said to have been **resolved**.
 
 2. Using `async/await`
 ```js
@@ -436,7 +452,7 @@ Below is a snippet of code that builds upon our mongoose schema defined in the a
 
 [^d]: You can actually generate these without using any external libraries. Try to think how you might encode a table and its data in a text file.
 
-[^1]: Giving a program read access to a file allows it to view its contents. Giving a program write access allows it to modify the contents of the file.
+[^1]: Giving a program read access to a file allows it to view its contents while write access allows it to modify the contents of the file.
 
 [^2]: Adding constraints to our database allows us to catch human errors before they snowball into larger issues.
 
