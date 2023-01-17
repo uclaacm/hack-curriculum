@@ -50,7 +50,7 @@ Note that not all websites require the full stack. These websites are known as *
 
 ## 1.4 MERN 
 - what is mern
-- installation guide 
+- installation guide (node, yarn)
 
 ## 1.5 Demo Showcase
 - showing off complete demo app

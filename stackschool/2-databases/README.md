@@ -440,9 +440,97 @@ Below is a snippet of code that builds upon our mongoose schema defined in the a
 ```
 ## 2.6 Demo
 
-## 2.7 Testing
+Let's get started on our Twitter clone! Before we do anything else, let's set up the database (and hopefully learn something in the process). First, we will make an account with MongoDB's interactive web client: [Atlas](https://cloud.mongodb.com/).
 
-## 2.8 Organization
+1. Create database. Free. us-west-2. Create user-password.
+
+![CreateDatabase](../textbook/src/img/create-database.png "Create a database")
+
+2. You have made a "cluster."
+3. Click "Browse Collections", you can view all your data here.
+4. Go back, click connect -> "Connect your application"
+
+![ConnectApplication](../textbook/src/img/connect-application.png "Connect application")
+
+5. Create application `index.js` within backend folder
+    - Make sure you have everything installed (yarn, node)
+    - `yarn init` all defaults
+    - copy connection string and replace password, username
+    - Install mongoose
+6. Do the connection steps
+```js
+    const mongoose = require('mongoose');
+    connection = "mongodb+srv://USERNAME:PASSWORD@cluster0.hekc5ta.mongodb.net/?retryWrites=true&w=majority"
+
+    mongoose
+        .connect(
+            connection,
+            {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            }
+        )
+        .then(() => console.log('Connected to DB'))
+        .catch(console.error);
+```
+
+7. Create a data model for our app: post
+```js
+    const mongoose = require('mongoose');
+
+    const Post = mongoose.model("Post", new mongoose.Schema({
+        content: {
+            type: String,
+            required: true
+        },
+        user: {
+            type: String,
+            required: true
+        },
+        num_likes: {
+            type: Number,
+            default: 0
+        },
+        timestamp: {
+            type: Number
+        }
+    }));
+
+    module.exports = Post;
+```
+
+8. Push data to the database
+```js
+    // ADD DOCUMENT
+    const Post = require("./models/post"); // import Post data model
+
+    const intro = new Post({ // populate required fields
+    content: "Some content!",
+    user: "Me",
+    });
+```
+9. Retreive data
+    - Show persistence
+```js
+    // GET DATA
+    Post.find({})
+        .then(posts => console.log(posts));
+```
+
+10. Modify the data
+```js
+    // MODIFY DATA
+    Post.findById("63c5e192e6e28a4adef4cb4a")
+        .then(post => {
+            post.content = "Some OTHER content!"
+            post.save();
+        })
+```
+11. Neat!
+
+<!-- ## 2.7 Testing
+
+## 2.8 Organization -->
 
 [^a]: That is, 8 x 10<sup>21</sup> bits. To put that into perspective, the typical hard drive is 1 terabyte in size. It would take 100 billion of these to store all of this data.
 
