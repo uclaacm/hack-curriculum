@@ -45,12 +45,55 @@ Unfortunately, making a website as intricate as YouTube is impossible without in
 Note that not all websites require the full stack. These websites are known as **static sites**, due to the fact that their content is the same for every user that visits and will not change unless the website itself is updated. One example of such a site is [Hack's website](https://hack.uclaacm.com/)!
 
 ## 1.3 What is Full Stack?
-- frontend vs backend
-- brief intro to each component
+
+Fullstack refers to all of the technologies that are needed to complete a project, with each component being called a "stack." Full stack is a combination of 2 separate stacks. They are called **front-end** and **back-end**. Naturally, this begs the question: what's the difference?
+
+### 1.3.1 Frontend
+
+Frontend is essentially everything that the user interacts with. Think of everything that you see when you interact with a website: a text box, the colors, buttons, links, navigation bars, pages, etc. Typically, the front end is coded in HTML, CSS, and JavaScript. For our demo, we will be using React.js, which is a JavaScript development framework that helps us with creating our frontend. Essentially, React provides us with lots of useful library functions and integrations that would otherwise make web development even more tedious. 
+
+### 1.3.2 Backend
+
+At this point, we've only uncovered the tip of the iceberg of fullstack development. If fullstack development was translated into a metaphor for an iceberg, frontend would only be the tip of the iceberg. Backend is everything that is unseen below the water. 
+
+In a contrast to frontend development, backend is essentially everything that the user **does not** see. For questions like *where does the data that I put into my text box go?* or *how does my website authenticate me as a proper user?*, we turn to the backend. The backend is made up of multiple parts as well. The ones that we will be focusing on are the server, backend application, and database. We will now dive into these 3 components individually.
+
+*What's the server?* 
+
+The server is essentially the computer or program that handles all of the requests from your application. In our app, our server is powered by a technology called Node, and it handles everything that our app needs such as the passing of information and the fulfillment of requests. Specifically, it serves as the middle ground between our backend application and the database. For example, it can receive a request from our backend application and go into the database to fulfill that request. 
+
+*What's a backend application?*
+
+A backend application is the real brains of a full stack app. It handles everything that the app needs to function, from populating information on pages within the frontend to handling user authentication. This backend app defines something called the API, or Application Programming Interface. The API is an interface, or a collection of endpoints and functions that the server can use to fulfill a request. One such endpoint can be the endpoint that defines user login, */login*, which will be utilized by the server to handle a user login. For our app, we are using a technology called Express to create our backend application. 
+
+*What's a database?* 
+
+A database is essentially an organized collection of data. Think Excel spreadsheet. It's just a table with rows and columns that have values stored in specific row and column entries. In the real world, different technologies design the way they hold the data in particular manners. There are 2 main types of databases: SQL and NoSQL databases. SQL is another programming language that is used to efficiently gather data that's held in a database. To a beginner, SQL can be daunting. As such, this workshop series will be focusing on using a NoSQL database. The one in particular that we have chosen is a technology called MongoDB. 
+
+That's it! That was a brief intro to backend, albeit it was a lot of information. However, practice by making your own full stack app, and you'll understand all of these technlogies and be better prepared to learn more new technologies in the future!
 
 ## 1.4 MERN 
-- what is mern
-- installation guide (node, yarn)
+
+For our workshop series, we will be using a M.E.R.N. stack. Each of these letters stand for a specific technology.
+- **M** - MongoDB
+  - A NoSQL database that stores all of our persistent data that the app needs to function, such as users and posts. 
+- **E** - Express
+  - A backend web application framework that helps us create our APIs. 
+- **R** - React.js
+  - A frontend JavaScript development library that will help us create our frontend through useful libraries and abstractions. 
+- **N** - Node.js
+  - A backend JavaScript library that helps us create our server.
+
+### 1.4.1 Downloads
+
+Now that we know exactly what technologies we are working with, we need to actually install them to our computer before we can begin developing our app. 
+
+- Download and install a text editor: [VS Code](https://code.visualstudio.com/download)
+- Download and install Node.js: [Node.js](https://nodejs.org/en/download/)
+- Install Express. Within a terminal, type:
+  - ```bash
+    npm install express
+    ```
+- Create a MongoDB account: [MongoDB](https://www.mongodb.com/)
 
 ## 1.5 Demo Showcase
-- showing off complete demo app
