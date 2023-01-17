@@ -273,11 +273,11 @@ Hopefully, you now have a feel for the general process of creating Express appli
 browser, vscode extension, axios
 
 ## 3.6 Organization
-
-models, controllers, routes, middlewares, etc.
+To be added. For now, read [this](https://blog.logrocket.com/organizing-express-js-project-structure-better-productivity/).
+<!-- models, controllers, routes, middlewares, etc. -->
 
 ## 3.7 Documenting Your API
-
+To be added. For now, read [this](https://swagger.io/solutions/api-documentation/).
 
 [^1]: Note that a mainframe is just a special name for a server that is capable of performing a large amount of concurrent operations. Whether or not "hacking" into one will save the world is another question.
 
