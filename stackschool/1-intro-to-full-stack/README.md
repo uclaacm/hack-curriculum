@@ -84,7 +84,9 @@ Before getting started, make sure you set up the required technologies!
 
 - Download and install a text editor: [VS Code](https://code.visualstudio.com/download)
 - Download and install Node.js: [Node.js](https://nodejs.org/en/download/package-manager/)
-- Download and install Yarn (our package manager of choice): Run the following command after installing Node: `npm install --global yarn`
+- Download and install Yarn (our package manager of choice): Run the following command after installing Node: `npm install --global yarn`[^8]
 - Create a MongoDB account: [MongoDB](https://www.mongodb.com/)
 
-## 1.5 Demo Showcase
+You're now ready to get started!
+
+[^8]: Or use corepack.

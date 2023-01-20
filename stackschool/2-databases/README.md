@@ -526,7 +526,7 @@ Let's get started on our Twitter clone! Before we do anything else, let's set up
             post.save();
         })
 ```
-11. Neat!
+11. Neat! There are more functions to retrieve and modify data, but we will explore these as necessary.
 
 <!-- ## 2.7 Testing
 
