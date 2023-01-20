@@ -449,8 +449,8 @@ Let's get started on our Twitter clone! Before we do anything else, let's set up
 ![CreateDatabase](../textbook/src/img/create-database.png "Create a database")
 
 2. You have made a "cluster."
-3. Click "Browse Collections", you can view all your data here.
-4. Go back, click connect -> "Connect your application"
+3. Click "Browse Collections", you can view all your data here. You shouldn't have any yet.
+4. Go back, click "Connect your application"
 
 ![ConnectApplication](../textbook/src/img/connect-application.png "Connect application")
 
@@ -476,7 +476,7 @@ Let's get started on our Twitter clone! Before we do anything else, let's set up
         .catch(console.error);
 ```
 
-7. Create a data model for our app: post
+7. Create a data model for our app. We will create a model for posts.
 ```js
     const mongoose = require('mongoose');
 
@@ -511,8 +511,7 @@ Let's get started on our Twitter clone! Before we do anything else, let's set up
     user: "Me",
     });
 ```
-9. Retreive data
-    - Show persistence
+9. Retrieve data (we now have data persistence!)
 ```js
     // GET DATA
     Post.find({})
