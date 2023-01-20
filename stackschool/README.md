@@ -5,4 +5,3 @@
 2. Servers
 3. Databases
 4. Backend Integration
-5. Advanced Frontend

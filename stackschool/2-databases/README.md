@@ -440,6 +440,8 @@ Below is a snippet of code that builds upon our mongoose schema defined in the a
 ```
 ## 2.6 Demo
 
+Note: This demo has not been fully fleshed out yet and may need some revamping.
+
 Let's get started on our Twitter clone! Before we do anything else, let's set up the database (and hopefully learn something in the process). First, we will make an account with MongoDB's interactive web client: [Atlas](https://cloud.mongodb.com/).
 
 1. Create database. Free. us-west-2. Create user-password.
