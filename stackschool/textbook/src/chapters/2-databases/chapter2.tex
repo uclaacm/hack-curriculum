@@ -433,6 +433,109 @@ Below is a snippet of code that builds upon our mongoose schema defined in the a
 \end{lstlisting}
     
 \section{Demo}
+Let's get started on our Twitter clone! Before we do anything else, let's set up the database (and hopefully learn something in the process). First, we will make an account with MongoDB's interactive web client: \href{https://cloud.mongodb.com/}{Atlas}.
+
+\begin{enumerate}
+    \item Create database. Use the free tier with all defaults. Pick a username and password and write them down. You will need them in an upcoming step.
+    \begin{figure*}[h!]
+        \includegraphics{create-database.png}
+    \end{figure*}
+    \item You have made a "cluster."
+    \item Click "Browse Collections", you can view all your data here. You shouldn't have any yet.
+    \item Go back, click "Connect your application"
+    \begin{center}
+        \includegraphics[scale=0.5]{connect-application.png}
+    \end{center}
+    \item Create application \texttt{server.js} within backend folder using the following steps
+    \begin{itemize}
+        \item Make sure you have everything installed (yarn, node).
+        \item Run \texttt{yarn init} and select all defaults.
+        \item Copy connection string from atlas and replace password and username with the one you selected.
+        \item Install mongoose using yarn if not already installed
+    \end{itemize}
+    \item Do the connection steps.
+    \begin{lstlisting}[language=Java]
+    const mongoose = require('mongoose');
+    connection = "mongodb+srv://USERNAME:PASSWORD@cluster0.hekc5ta.mongodb.net/?retryWrites=true&w=majority"
+
+    mongoose
+        .connect(
+            connection,
+            {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            }
+        )
+        .then(() => console.log('Connected to DB'))
+        .catch(console.error);
+    \end{lstlisting}
+    \item Do the connection steps (replace USERNAME and PASSWORD with the proper values).
+    \begin{lstlisting}[language=Java]
+    const mongoose = require('mongoose');
+    connection = "mongodb+srv://USERNAME:PASSWORD@cluster0.hekc5ta.mongodb.net/?retryWrites=true&w=majority"
+
+    mongoose
+        .connect(
+            connection,
+            {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            }
+        )
+        .then(() => console.log('Connected to DB'))
+        .catch(console.error);
+    \end{lstlisting}
+    \item Create a data model for our app. We will create a model for posts.
+    \begin{lstlisting}[language=Java]
+    const mongoose = require('mongoose');
+
+    const Post = mongoose.model("Post", new mongoose.Schema({
+        content: {
+            type: String,
+            required: true
+        },
+        user: {
+            type: String,
+            required: true
+        },
+        num_likes: {
+            type: Number,
+            default: 0
+        },
+        timestamp: {
+            type: Number
+        }
+    }));
+
+    module.exports = Post;
+    \end{lstlisting}
+    \item Push data to the database.
+    \begin{lstlisting}[language=Java]
+    // ADD DOCUMENT
+    const Post = require("./models/post"); // import Post data model
+
+    const intro = new Post({ // populate required fields
+    content: "Some content!",
+    user: "Me",
+    });
+    \end{lstlisting}
+    \item Retrieve data (we now have data persistence!)
+    \begin{lstlisting}[language=Java]
+    // GET DATA
+    Post.find({})
+        .then(posts => console.log(posts));
+    \end{lstlisting}
+    \item Modify the data.
+    \begin{lstlisting}[language=Java]
+    // MODIFY DATA
+    Post.findById("63c5e192e6e28a4adef4cb4a")
+        .then(post => {
+            post.content = "Some OTHER content!"
+            post.save();
+        })
+    \end{lstlisting}
+    \item Neat! There are more functions to retrieve and modify data, but we will explore these as necessary.
+\end{enumerate}
 
 % \section{Testing}
 
