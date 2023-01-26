@@ -496,7 +496,7 @@ We also need a way for users to log in. This one is *slightly* more complicated,
 ```js
 // Log in user account
 app.post('/login', async (req, res) => {
-  const user = await User.findOne({username: req.body.username});
+  const user = await User.findOne({ username: req.body.username });
   if (!user) {
     res.json({ 'error': 'That username doesn\'t exist'})
     return;
@@ -516,7 +516,7 @@ Note that with this logic, we should also refine our user creation endpoint to e
 ```js
 // Create new user 
 app.post('/users/new', async (req, res) => {
-  const dupUser = await User.findOne({username: req.body.username});
+  const dupUser = await User.findOne({ username: req.body.username });
   if (dupUser) {
     res.json({ 'error' : 'Duplicate username exists.'})
     return;
