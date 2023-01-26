@@ -1,10 +1,14 @@
+const express = require('express');
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
+
+const app = express();
+app.use(express.json());
 
 // INIT CONNECTION
 mongoose
   .connect(
-    "mongodb+srv://EinarBalan:yo2693@cluster0.hekc5ta.mongodb.net/?retryWrites=true&w=majority",
+    "mongodb+srv://eener:yo@cluster0.hekc5ta.mongodb.net/?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -13,24 +17,116 @@ mongoose
   .then(() => console.log('Connected to DB'))
   .catch(console.error);
 
-// ADD DOCUMENT
-const Post = require("./models/post"); // import Post data model
+const Post = require('./models/post');
+const User = require('./models/user');
 
-const intro = new Post({ // populate required fields
-  content: "Some content!",
-  user: "Me",
+app.listen(3001, () => console.log('Server listening on port 3001: http://localhost:3001'));
+
+// POSTS ENDPOINTS
+
+// Get posts feed
+app.get('/feed', async (req, res) => {
+  const feed = await Post.find();
+
+  res.json(feed);
 });
 
-// intro.save(); // push intro post to mongoDB
+// Create new post
+app.post('/feed/new', (req, res) => {
+  const post = new Post({
+      content: req.body.content,
+      user: req.body.user,
+      timestamp: Date.now(),
+  });
 
-// GET DATA
-Post.find({})
-  .then(posts => console.log(posts));
+  post.save();
 
-// MODIFY DATA
-Post.findById("63c5e192e6e28a4adef4cb4a")
-  .then(post => {
-    post.content = "Some OTHER content!"
-    post.save();
-  })
+  res.json(post);
+});
 
+// Edit post content
+app.put('/feed/edit/:_id', async (req, res) => {
+  const post = await Post.findById(req.params._id);
+
+  post.content = req.body.content;
+  post.save();
+
+  res.json(post);
+});
+
+// Delete post
+app.delete('/feed/delete/:_id', async (req, res) => {
+  const result = await Post.findByIdAndDelete(req.params._id);
+
+  res.json(result);
+});
+
+// Like post
+app.put('/feed/like/:_id', async (req, res) => {
+  const post = await Post.findById(req.params._id);
+
+  post.num_likes++;
+  post.save();
+
+  res.json(post);
+});
+
+// USER ENDPOINTS
+
+// Get all users
+app.get('/users', async (req, res) => {
+  const users = await User.find();
+
+  res.json(users);
+});
+
+// Create new user 
+app.post('/users/new', async (req, res) => {
+  const dupUser = await User.findOne({username: req.body.username});
+  if (dupUser) {
+    res.json({ 'error' : 'Duplicate username exists.'})
+    return;
+  }
+  const user = new User({
+    username: req.body.username,
+    password: req.body.password,
+  });
+
+  await user.save();
+
+  res.json(user);
+});
+
+// Delete user
+app.delete('/users/delete/:_id', async (req, res) => {
+  const result = await User.findByIdAndDelete(req.params._id);
+
+  res.json(result);
+});
+
+// Edit user information
+app.put('/users/edit/:_id', async (req, res) => {
+  const user = await User.findById(req.params._id);
+
+  user.username = req.body.username;
+  user.password = req.body.password;
+  user.save();
+
+  res.json(user);
+});
+
+// Log in user account
+app.post('/login', async (req, res) => {
+  const user = await User.findOne({username: req.body.username});
+  if (!user) {
+    res.json({ 'error': 'That username doesn\'t exist'})
+    return;
+  }
+  
+  if (user.password === req.body.password) {
+    res.json(user);
+  }
+  else {
+    res.json({ 'error': 'Incorrect password'})
+  }
+});

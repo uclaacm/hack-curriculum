@@ -127,23 +127,23 @@ To select all columns in our table we simply need to specify the remaining colum
 Now considering the case of a chef removing items from the fridge to prepare a meal, we make use of SQL's `UPDATE` and `WHERE` keywords, which lends itself to the following syntax. Note the single equal sign = acts as an assignment operator after the `SET` keyword, but ordinarily performs an equality comparison. We also see that SQL's string type is called VARCHAR, referring to a variable length character field, and must be quoted with single quotes. The query below will subtract 1 from the carrot and lettuce quantity fields.
 
 ```SQL
-    UPDATE Fridge
-    SET Quantity = Quantity - 1
-    WHERE Item = 'Carrots' OR Item = 'Lettuce'
+UPDATE Fridge
+SET Quantity = Quantity - 1
+WHERE Item = 'Carrots' OR Item = 'Lettuce'
 ```
 
 Finally, to add a new ingredient to our table, we can make use of the `INSERT` SQL operation. In the case of adding a single row we choose to use the `VALUES` variant, but can opt to use the `SELECT` variant if adding multiple rows. To set the `Last_Updated` metadata field, we make use a database specific date function (`CURDATE()` is built into MySQL). When designing our table, it would be best practice to provide this function as the default value for the `Last_Updated` column.
 
 ```SQL
-    INSERT INTO Fridge (Item, Quantity, Price,
-    Last_Updated, Updated_By)
-    VALUES (
-        'Spinach',
-        100,
-        2.5,
-        CURDATE(),
-        'ACM Hack'
-    )
+INSERT INTO Fridge (Item, Quantity, Price,
+Last_Updated, Updated_By)
+VALUES (
+    'Spinach',
+    100,
+    2.5,
+    CURDATE(),
+    'ACM Hack'
+)
  ```
 
  After all of our queries, we are left with the following table.
@@ -187,13 +187,13 @@ Now imagine when the chef of our restaurant has been using this sticky note syst
 
 In most non-relational databases (including MongoDB[^5]) documents are written using the JavaScript Object Notation or **JSON**. JSON syntax attempts to provide an efficient way to list a series of key value pairs. Below is a small piece of JavaScript code that would represent the lettuce document in our restaurant example. 
 ```js
-    lettuce = {
-        _id: 00000123456879,
-        __v: 0,
-        item: "Lettuce",
-        quantity: 20,
-        price: 3,
-    }
+lettuce = {
+    _id: 00000123456879,
+    __v: 0,
+    item: "Lettuce",
+    quantity: 20,
+    price: 3,
+}
 ```
 
 As the name implies, JSON is just a way of encoding a Javascript object as a string. We can encode the object above as follows[^h]:
@@ -201,13 +201,13 @@ As the name implies, JSON is just a way of encoding a Javascript object as a str
 [^h]: Note that a single JSON string corresponds to a single object (though we can group multiple together by nesting objects).
 
 ```js
-    {
-        "_id": 00000123456879,
-        "__v": 0,
-        "item": "Lettuce",
-        "quantity": 20,
-        "price": 3
-    }
+{
+    "_id": 00000123456879,
+    "__v": 0,
+    "item": "Lettuce",
+    "quantity": 20,
+    "price": 3
+}
 ```
 
 In our example above, the syntax for each key-value pair is to separate the two with a colon and to comma separate each entry in any given document. The metadata fields included begin with an underscore to signify they are special fields (although the specific format will depend on the database being used). As we will see when constructing our app, modifications and additions to our data will also be formatted in JSON.
@@ -259,34 +259,34 @@ In our restaurant analogy, let's assume there is one kitchen worker named Camero
 Using mongoose allows us to define an expected schema for the documents in our collection. Let's consider what creating a schema for our documents in our restaurant scenario would look like. First, we must signify our intention to use mongoose, done in the first line of the code below. We then define a new Schema, with each intended data field mapping to its relevant data type and properties. Finally, we choose to export our newly defined model so we can use it in future files.
 
 ```js
-  const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-  const ingredient = new mongoose.Schema({
-          item: {
-              type: String,
-              required: true
-          },
-          quantity: {
-              type: Number,
-              required: true
-          },
-          price: {
-              type: Number,
-              required: true
-          }
-  });
-  
-  module.exports = mongoose.model('Ingredient', ingredient);
+const ingredient = new mongoose.Schema({
+        item: {
+            type: String,
+            required: true
+        },
+        quantity: {
+            type: Number,
+            required: true
+        },
+        price: {
+            type: Number,
+            required: true
+        }
+});
+
+module.exports = mongoose.model('Ingredient', ingredient);
 ```
 
 The schema above corresponds to a Javascript object of the following form:
 
 ```js
-    ingredient = {
-        item: "beef",
-        quantity: 21,
-        price: 5
-    }
+ingredient = {
+    item: "beef",
+    quantity: 21,
+    price: 5
+}
 ```
 
 Mongoose also offers a wide variety of intuitive functions to manipulate and add new documents to the collection with a particular schema.[^8] Below is a short list of some of the most commonly used functions, the most relevant of which we will use in our demo. More details about the Mongoose API can be found [here](https://mongoosejs.com/docs/api/model.html).
@@ -327,38 +327,38 @@ Unless otherwise indicated, most of the code you write is synchronous. That is, 
 Continuing with our analogy, let's write some code that represents the situation. Suppose we have a function for each task mentioned above.
 
 ```js
-    const boilWater = () => {
-        // implemenation details here
-        // ALWAYS TAKES 3 MINUTES
-        // logs to console when finished
-    };
+const boilWater = () => {
+    // implemenation details here
+    // ALWAYS TAKES 3 MINUTES
+    // logs to console when finished
+};
 
-    const addRamen = () => {
-        // implemenation details here
-        // INSTANT, but can only be done after water finishes boiling
-        // logs to console when finished
-    };
+const addRamen = () => {
+    // implemenation details here
+    // INSTANT, but can only be done after water finishes boiling
+    // logs to console when finished
+};
 
-    const cutVeggies = () => {
-        // implemenation details here
-        // ALWAYS TAKES 2 MINUTES
-        // logs to console when finished
-    };
+const cutVeggies = () => {
+    // implemenation details here
+    // ALWAYS TAKES 2 MINUTES
+    // logs to console when finished
+};
 
-    const addVeggies = () => {
-        // implemenation details here
-        // INSTANT, but can only be done after water finishes boiling
-        // logs to console when finished
-    };
+const addVeggies = () => {
+    // implemenation details here
+    // INSTANT, but can only be done after water finishes boiling
+    // logs to console when finished
+};
 ```
 
 The synchronous approach is as follows and, as noted before, will take five minutes to complete.
 
 ```js
-    boilWater(); // 3 minutes
-    addRamen();
-    cutVeggies(); // 2 minutes
-    addVeggies();
+boilWater(); // 3 minutes
+addRamen();
+cutVeggies(); // 2 minutes
+addVeggies();
 ```
 
 How can we do better? Introducing promises! **Promises** are objects in Javascript that "represent the eventual completion (or failure) of an asynchronous operation, and its resulting value."[^13] In (slightly) more concrete terms, they are wrappers for values that might not yet be determined, which is typical of asynchronous code. Consider the `boilWater()` function. Below is an idea of what an asynchronous version of the function might look like in Javascript.[^y] 
@@ -366,35 +366,35 @@ How can we do better? Introducing promises! **Promises** are objects in Javascri
 [^y]: The syntax may seem a bit strange upon first glance and admittedly, it is. The good news is that in the context of this series, this is the only time we will write asynchronous code this way. So don't worry if this is a bit confusing to you!
 
 ```js
-    const boilWater = () => {
-        return new Promise((resolve, reject) => {
-            // implemenation details here
-            // ALWAYS TAKES 3 MINUTES
-            // logs to console when finished
-        });        
-    };
+const boilWater = () => {
+    return new Promise((resolve, reject) => {
+        // implemenation details here
+        // ALWAYS TAKES 3 MINUTES
+        // logs to console when finished
+    });        
+};
 ```
 
 We can do the same for our other intensive task, `cutVeggies()`. Now, when we call either of these functions, it won't halt the rest of our code!
 
 ```js
-    boilWater(); // 3 minutes
-    addRamen();
-    cutVeggies(); // 2 minutes
-    addVeggies();
-    // in total, will only take 3 minutes... but there's a problem.
+boilWater(); // 3 minutes
+addRamen();
+cutVeggies(); // 2 minutes
+addVeggies();
+// in total, will only take 3 minutes... but there's a problem.
 ```
 
 Unfortunately, we have an issue. As the code is currently written, we do not distuinguish dependent and independent tasks. This means that we will end up adding pasta to our water before we finish boiling and we'll add our veggies before we finish cutting. How can we handle this? We'll show two equally viable ways.
 
 1. Using `.then()`
 ```js
-    cutVeggies(); // 2 minutes
-    boilWater().then(() => {
-        addRamen();
-        addVeggies();
-    }); // 3 minutes
-    // in total, will only take 3 minutes!
+cutVeggies(); // 2 minutes
+boilWater().then(() => {
+    addRamen();
+    addVeggies();
+}); // 3 minutes
+// in total, will only take 3 minutes!
 ```
 Notice that we are passing in an *anonymous function* to `.then()`, which is executed upon completion of `boilWater()`.[^x] Now, everything works as expected. We can also write this another way, which we will actually prefer throughout this workshop series.
 
@@ -402,13 +402,13 @@ Notice that we are passing in an *anonymous function* to `.then()`, which is exe
 
 2. Using `async/await`
 ```js
-    const prepareRamen = async () => {
-        cutVeggies();
-        await boilWater();
-        addRamen();
-        addVeggies();
-    };
-    // in total, will only take 3 minutes!
+const prepareRamen = async () => {
+    cutVeggies();
+    await boilWater();
+    addRamen();
+    addVeggies();
+};
+// in total, will only take 3 minutes!
 ```
 Looks a bit cleaner, right? The await keyword is similar to `.then()` in that we will wait for the promise returned by `boilWater()` to be resolved before we continue in our code. Note that when using `await` we must wrap our code in a function marked `async`, otherwise we will get a syntax error. 
 
@@ -431,12 +431,12 @@ We often choose to inform our code of this possible long wait and let our code r
 Below is a snippet of code that builds upon our mongoose schema defined in the above code sample and defines an asynchronous function. The snippet below first includes the specified model, then defines an asynchronous function to return all documents matching our defined schema using the find() function. We return these documents by setting them in the result object.
 
 ```js
-  const Ingredient = require("../models/Ingredient");
+const Ingredient = require("../models/Ingredient");
 
-  module.exports.getIngredients = async (req, res) => {
-      const ingredients = await Ingredient.find();
-      res.send(ingredients);
-  }
+module.exports.getIngredients = async (req, res) => {
+    const ingredients = await Ingredient.find();
+    res.send(ingredients);
+}
 ```
 ## 2.6 Demo
 
@@ -461,71 +461,71 @@ Let's get started on our Twitter clone! Before we do anything else, let's set up
     - Install mongoose
 6. Do the connection steps
 ```js
-    const mongoose = require('mongoose');
-    connection = "mongodb+srv://USERNAME:PASSWORD@cluster0.hekc5ta.mongodb.net/?retryWrites=true&w=majority"
+const mongoose = require('mongoose');
+connection = "mongodb+srv://USERNAME:PASSWORD@cluster0.hekc5ta.mongodb.net/?retryWrites=true&w=majority"
 
-    mongoose
-        .connect(
-            connection,
-            {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            }
-        )
-        .then(() => console.log('Connected to DB'))
-        .catch(console.error);
+mongoose
+    .connect(
+        connection,
+        {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        }
+    )
+    .then(() => console.log('Connected to DB'))
+    .catch(console.error);
 ```
 
 7. Create a data model for our app. We will create a model for posts.
 ```js
-    const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-    const Post = mongoose.model("Post", new mongoose.Schema({
-        content: {
-            type: String,
-            required: true
-        },
-        user: {
-            type: String,
-            required: true
-        },
-        num_likes: {
-            type: Number,
-            default: 0
-        },
-        timestamp: {
-            type: Number
-        }
-    }));
+const Post = mongoose.model("Post", new mongoose.Schema({
+    content: {
+        type: String,
+        required: true
+    },
+    user: {
+        type: String,
+        required: true
+    },
+    num_likes: {
+        type: Number,
+        default: 0
+    },
+    timestamp: {
+        type: Number
+    }
+}));
 
-    module.exports = Post;
+module.exports = Post;
 ```
 
 8. Push data to the database
 ```js
-    // ADD DOCUMENT
-    const Post = require("./models/post"); // import Post data model
+// ADD DOCUMENT
+const Post = require("./models/post"); // import Post data model
 
-    const intro = new Post({ // populate required fields
-    content: "Some content!",
-    user: "Me",
-    });
+const intro = new Post({ // populate required fields
+content: "Some content!",
+user: "Me",
+});
 ```
 9. Retrieve data (we now have data persistence!)
 ```js
-    // GET DATA
-    Post.find({})
-        .then(posts => console.log(posts));
+// GET DATA
+Post.find({})
+    .then(posts => console.log(posts));
 ```
 
 10. Modify the data
 ```js
-    // MODIFY DATA
-    Post.findById("63c5e192e6e28a4adef4cb4a")
-        .then(post => {
-            post.content = "Some OTHER content!"
-            post.save();
-        })
+// MODIFY DATA
+Post.findById("63c5e192e6e28a4adef4cb4a")
+    .then(post => {
+        post.content = "Some OTHER content!"
+        post.save();
+    })
 ```
 11. Neat! There are more functions to retrieve and modify data, but we will explore these as necessary.
 

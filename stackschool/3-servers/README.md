@@ -106,11 +106,11 @@ heck = {
 }
 ```
 
-## 3.2 Web API's: What's on the Menu?
+## 3.2 Web APIs: What's on the Menu?
 
 Now that our server and client have a common language, it's time to take things a step further. Let's revisit the restaurant analogy. How does the customer know what they're allowed to order? They can't just demand to be served whatever they want, because the restaurant might not be able to accommodate their request[^8]. That's why every restaurant has a menu! There needs to be a way to let customers know what they can order. Clients and servers are much the same. There needs to be an understanding between them about what the server can do for the client, and this is accomplished using the **API**, or Application Programming Interface. You may have heard this term before. It's another one of those nebulous phrases that gets thrown around a lot, but is rarely defined concretely.
 
-In general, an API is just a way for two computer programs to interact with each other. Think of the customer at a restaurant as one program and the staff as another. The customer hasn't eaten in 16 hours and is craving a burrito with carnitas and guacamole[^9]. Using the menu (the API), the customer is able to enjoy the result of the staff's work and they don't need to attend 4 years of culinary school in order to do it! Put another way, the API allows us to interact with a blackbox and receive meaningful results. API's can be found everywhere in software engineering, but we will be creating more specialized API's called **Web API's**[^10].
+In general, an API is just a way for two computer programs to interact with each other. Think of the customer at a restaurant as one program and the staff as another. The customer hasn't eaten in 16 hours and is craving a burrito with carnitas and guacamole[^9]. Using the menu (the API), the customer is able to enjoy the result of the staff's work and they don't need to attend 4 years of culinary school in order to do it! Put another way, the API allows us to interact with a blackbox and receive meaningful results. APIs can be found everywhere in software engineering, but we will be creating more specialized APIs called **Web APIs**[^10].
 
 <details> 
 <summary> 
@@ -268,9 +268,292 @@ Hopefully, you now have a feel for the general process of creating Express appli
 
 ## 3.4 Demo
 
+First, let's get the express app set up (read: boilerplate). Remove the code from last time starting at line 17, we won't be needing it anymore. Add the following to the top of the file (and ensure you have express installed on your project[^25]):
+
+[^25]: If not, `yarn add express`.
+
+```js
+const express = require('express');
+```
+
+And add the following to the bottom of the file:
+```js
+const app = express();
+app.use(express.json());
+
+app.listen(3001, () => console.log('Server listening on port 3001'));
+```
+
+We explained what's going on here in section 3.3 so check that out for a reminder! At this point, your file should look like this:[^26]
+
+[^26]: With the exception of the string having your actual username and password.
+
+```js
+const express = require('express');
+const mongoose = require('mongoose');
+mongoose.set('strictQuery', false);
+
+const app = express();
+app.use(express.json());
+
+// INIT CONNECTION
+mongoose
+    .connect(
+        "mongodb+srv://USERNAME:PASSWORD@cluster0.hekc5ta.mongodb.net/?retryWrites=true&w=majority",
+        {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        }
+    )
+    .then(() => console.log('Connected to DB'))
+    .catch(console.error);
+
+const Post = require('./models/post');
+
+app.listen(3001, () => console.log('Server listening on port 3001'));
+```
+
+Now you can try running it to make sure it works with `node server.js`. Alright, boilerplate is out of the way now. Let's get to the interesting part! Let's think about what we might want to include in the backend API of a twitter clone. Recall that last time we set up a data model for our posts. What should we have in our API related to posts? Well, first of all, we have to actually get the feed of posts, so one endpoint related to getting a list of posts would be helpful. We should also be able to create new posts. If we in retrospect decide a post doesn't reflect on ourselves as well as we would have hoped, we can edit it or simply delete it all together. Finally, if we see a post we like, we want to be able to like it. So all together, we should create the following endpoints:
+
+- getting the feed
+- creating new posts
+- editing posts
+- deleting posts
+- liking posts
+
+So let's do that! First up, we'll create the `GET /feed` endpoint. Recall our discussion in the last chapter about asynchronous programming and mongoose. These concepts will be essential here![^27]
+
+[^27]: And I recommend going back and rereading if you need a refresher.
+
+```js
+// Get posts feed
+app.get('/feed', async (req, res) => {
+    const feed = await Post.find();
+
+    res.json(feed);
+});
+```
+
+This code indicates to our server that it should listen for `GET` requests on the `/feed` endpoint. Once it "hears" something, it will run the anonymous asynchronous function. In this case, it will retrieve all documents from our database that conform to the `Post` data model, and then return a json representation of them in the response object. Notice that we must `await` the result of `Post.find()` since it is an asynchronous function (and our response is dependent on its result).
+
+Now we want allow for the creation of new posts. To do this, we'll create a POST[^27a] endpoint at `/feed/new`. First, however, we need to discuss how to pass data in our requests. There are several ways:
+
+[^27a]: Recall that POST requests typically update the state of the server in some way.
+
+1. Pass data in request body
+2. Pass data as URL path parameters
+3. Pass data in the "*query string*"
+
+We'll address two of these as we use them in the endpoints to come. First up: request body.
+
+#### Request Body
+Recall the anatomy of an HTTP request: each one includes both a head and a body.[^28] Just like responses can pass data (such as HTML) in their bodies, requests can pass data in their bodies as well! As you might expect, we do this in JSON format. Here's an example of a properly formatted HTTP POST request that utilizes the body:
+
+```HTTP
+POST /feed/new HTTP/1.1
+Host: localhost:3001
+Content-Type: text/html; charset=utf-8
+
+{
+    "content": "To be honest, I've never written a raw HTTP Post request before and I hope I never have to again.",
+    "user": "eener"
+}
+```
+
+This is a request directed to the `POST /feed/new` endpoint, whose javascript specification follows below:
+
+#### 
+
+[^28]: See section 3.1 for more information.
+
+```js
+// Create new post
+app.post('/feed/new', (req, res) => {
+    const post = new Post({
+        content: req.body.content,
+        user: req.body.user,
+        timestamp: Date.now(),
+    });
+
+    post.save();
+
+    res.json(post);
+});
+```
+
+Notice how we extract information from our request body using `req.body`. This is simply a Javascript object so we can access fields within it like any other. Recall from last time `post.save()` simply saves a document to our database. Finally, we close our function with a response containing a JSON representation of our post for good measure. [^29]
+
+[^29]: Note that `.save()` is an asynchronous function, however we do not `await` its resolution in this case because our response does not depend on its return value.
+
+Now let's create an endpoint to edit our posts. First, let's think about this. How do we identify which post we want to edit? To address this, it's important to understand that each document in our database has an associated field called `_id` which uniquely identifies it. We could send this id in the request body, but it's better style to do it as part of our URL path so let's try that instead!
+
+#### URL Path
+To indicate an HTTP URL path variable, we simply add a colon before it. We can then reference it using the given name. This is probably easier to understand if given an example, so lets dive in. Our edit endpoint is as follows:
+
+```js
+// Edit post content
+app.put('/feed/edit/:_id', async (req, res) => {
+    const post = await Post.findById(req.params._id);
+
+    post.content = req.body.content;
+    post.save();
+
+    res.json(post);
+});
+```
+
+Everything here is pretty self explanatory if you've been following so far, but I do want to point out that we access our URL parameter using the `req.params` object. We then pass in the new content we want for our post in the request body. Also note that we use a PUT request here, as we are updating an existing resource.[^30]
+
+[^30]: We could also use a POST request, but best practice is PUT.
+
+We'll speed through the rest of our post endpoints.
+
+```js 
+// Delete post
+app.delete('/feed/delete/:_id', async (req, res) => {
+  const result = await Post.findByIdAndDelete(req.params._id);
+
+  res.json(result);
+});
+
+// Like post
+app.put('/feed/like/:_id', async (req, res) => {
+  const post = await Post.findById(req.params._id);
+
+  post.num_likes++;
+  post.save();
+
+  res.json(post);
+});
+```
+
+What else might we need to consider when making our app? Another major component is users. We should probably make a data model for that!
+
+```js
+const mongoose = require('mongoose');
+
+const User = mongoose.model("User", new mongoose.Schema({
+    username: {
+        type: String,
+        required: true,
+      },
+      password: {
+        type: String,
+        required: true,
+      },
+}));
+
+module.exports = User;
+```
+
+Don't forget to import this data model into your `server.js` file. This is all we need for now, but we'll definitely be coming back to this.[^31]
+
+[^31]: We need to protect our users data! Storing passwords in plain text is no good. 
+
+Now let's think about what endpoints we should add related to users. Similar to posts, we should have a way to get a list of users, create a new user, delete a user, and edit a user's information. We won't explain these as they are fairly similar to what we did for posts.
+
+```js
+// Get all users
+app.get('/users', async (req, res) => {
+  const users = await User.find();
+
+  res.json(users);
+});
+
+// Create new user 
+app.post('/users/new', async (req, res) => {
+  const user = new User({
+    username: req.body.username,
+    password: req.body.password,
+  });
+
+  await user.save();
+
+  res.json(user);
+});
+
+// Delete user
+app.delete('/users/delete/:_id', async (req, res) => {
+  const result = await User.findByIdAndDelete(req.params._id);
+
+  res.json(result);
+});
+
+// Edit user information
+app.put('/users/edit/:_id', async (req, res) => {
+  const user = await User.findById(req.params._id);
+
+  user.username = req.body.username;
+  user.password = req.body.password;
+  user.save();
+
+  res.json(user);
+});
+```
+
+We also need a way for users to log in. This one is *slightly* more complicated, but not too bad yet... 
+
+```js
+// Log in user account
+app.post('/login', async (req, res) => {
+  const user = await User.findOne({username: req.body.username});
+  if (!user) {
+    res.json({ 'error': 'That username doesn\'t exist'})
+    return;
+  }
+
+  if (user.password === req.body.password) {
+    res.json(user);
+  }
+  else {
+    res.json({ 'error': 'Incorrect password'})
+  }
+});
+```
+
+Note that with this logic, we should also refine our user creation endpoint to ensure there are no duplicate usernames (otherwise it would be trivial to hack into somebodies account). The following modification should do the trick:
+
+```js
+// Create new user 
+app.post('/users/new', async (req, res) => {
+  const dupUser = await User.findOne({username: req.body.username});
+  if (dupUser) {
+    res.json({ 'error' : 'Duplicate username exists.'})
+    return;
+  }
+  const user = new User({
+    username: req.body.username,
+    password: req.body.password,
+  });
+
+  await user.save();
+
+  res.json(user);
+});
+```
+
+With that, congratulations! You've successfully implemented your very own backend application using Express! Hopefully there aren't any bugs...
+
 ## 3.5 Testing
 
-browser, vscode extension, axios
+Speaking of, how can we actually test our endpoints? After all, we want to ensure everything works as expected. For GET requests, it's as simple as copying a link into your browswer. If we start our server and visit http://localhost:3001/feed, we should see a JSON representation of our posts. However, what if we want to send a request with a body? How can we go about doing that? There are several ways:
+
+1. Use a GUI application like Postman -- Postman makes it easy to form request bodies. Unfortunately, you have to download a whole new app.
+2. Use a requests library like axios -- This seems like a good idea, and in fact we will be doing it later in this workshop series!
+3. Use a VSCode extension -- Less intuitive than Postman, but at least we don't have to download another app! Let's dive in.
+
+The extension is called REST Client, and you can download it like any other VSCode extension. Then in order to use it, create a new file ending in `.http`. We're going to be writing raw HTTP requests, but don't worry! You can simply copy paste the boilerplate from below:
+
+```HTTP
+[METHOD] [/endpoint] HTTP/1.1
+Host: localhost:3001
+Content-Type: application/json; charset=utf-8
+
+[body]
+
+```
+
+The [METHOD] field indicates which HTTP request method we are using i.e. `GET`, `POST`, etc. [/endpoint] is our enpoint path and [body] is our body. Note that our Content-Type here is `application/json`, so we expect to see JSON in our body (if anything). To test an endpoint, start your server, fill in the fields with the information of your choosing, and hit "Send Request" above the request head. Try testing out all the endpoints we created!
 
 ## 3.6 Organization
 To be added. For now, read [this](https://blog.logrocket.com/organizing-express-js-project-structure-better-productivity/).

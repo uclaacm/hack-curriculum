@@ -2,6 +2,8 @@
 
 node_modules/
 
+.yarn/
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
