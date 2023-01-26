@@ -8,7 +8,7 @@ app.use(express.json());
 // INIT CONNECTION
 mongoose
   .connect(
-    "mongodb+srv://eener:yo@cluster0.hekc5ta.mongodb.net/?retryWrites=true&w=majority",
+    "mongodb+srv://USERNAME:PASSWORD@cluster0.hekc5ta.mongodb.net/?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,

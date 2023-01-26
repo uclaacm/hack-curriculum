@@ -4,7 +4,7 @@ mongoose.set('strictQuery', false);
 // INIT CONNECTION
 mongoose
   .connect(
-    "mongodb+srv://EinarBalan:yo2693@cluster0.hekc5ta.mongodb.net/?retryWrites=true&w=majority",
+    "mongodb+srv://USERNAME:PASSWORD@cluster0.hekc5ta.mongodb.net/?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
