@@ -20,7 +20,7 @@ mongoose
 const Post = require('./models/post');
 const User = require('./models/user');
 
-app.listen(3001, () => console.log('Server listening on port 3001: http://localhost:3001'));
+app.listen(8080, () => console.log('Server listening on port 8080: http://localhost:8080'));
 
 // POSTS ENDPOINTS
 
