@@ -224,7 +224,10 @@ Now let's make the server itself. Create a new file called `server.js`. Within t
 /**** INIT SERVER ****/
 const express = require('express');
 const app = express();
+const cors = require('cors');
+
 app.use(express.json());
+app.use(cors());
 
 /**** DEPLOY SERVER ****/
 const port = 8080;
@@ -279,7 +282,9 @@ const express = require('express');
 And add the following to the bottom of the file:
 ```js
 const app = express();
+const cors = require('cors');
 app.use(express.json());
+app.use(cors());
 
 app.listen(8080, () => console.log('Server listening on port 8080'));
 ```
@@ -291,10 +296,12 @@ We explained what's going on here in section 3.3 so check that out for a reminde
 ```js
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 mongoose.set('strictQuery', false);
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 // INIT CONNECTION
 mongoose
@@ -546,7 +553,7 @@ The extension is called REST Client, and you can download it like any other VSCo
 
 ```HTTP
 [METHOD] [/endpoint] HTTP/1.1
-Host: localhost:3001
+Host: localhost:8080
 Content-Type: application/json; charset=utf-8
 
 [body]

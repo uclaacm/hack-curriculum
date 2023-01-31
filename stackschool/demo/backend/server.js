@@ -1,14 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 mongoose.set('strictQuery', false);
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 // INIT CONNECTION
 mongoose
   .connect(
-    "mongodb+srv://USERNAME:PASSWORD@cluster0.hekc5ta.mongodb.net/?retryWrites=true&w=majority",
+    "mongodb+srv://demo:1234@app.zgawpvg.mongodb.net/?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,

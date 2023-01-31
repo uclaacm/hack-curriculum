@@ -1,7 +1,21 @@
+import axios from 'axios';
 import logo from './logo.svg';
 import './App.css';
 
+const URL = "http://localhost:8080";
+
 function App() {
+  //Gets the entire feed
+  function getFeed() {
+    axios.get(URL + "/feed")
+        .then(response => { 
+          console.log(response.data);
+        })
+        .catch(console.error)
+  }
+
+  getFeed();
+
   return (
     <div className="App">
       <header className="App-header">
