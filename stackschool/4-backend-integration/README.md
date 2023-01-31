@@ -24,7 +24,7 @@ It seems most natural to start with the feed for our twitter clone, so let's do 
 2. Use a requests library like axios
 3. Use a VSCode extension
 
-It seems that options 1 and 3 are moreso meant for testing rather than any programmatic use, so we're left with one option! Axios is a promise-based[^3] HTTP requests library that abstracts away many of the tedious details involved with making HTTP requests. Rather than tell you what it can do, let's just jump in and show an example of a function that utilizes it. Going off of our feed motivation from before, let's write a function that invokes the `GET /feed` endpoint from our backend. Make sure you run `yarn add axios` in your frontend project.
+It seems that options 1 and 3 are moreso meant for testing rather than any programmatic use, so we're left with one option! Axios is a promise-based[^3] HTTP requests library that abstracts away many of the tedious details involved with making HTTP requests. Rather than tell you what it can do, let's just jump in and show an example of a function that utilizes it. Going off of our feed motivation from before, let's write a function that invokes the `GET /feed` endpoint from our backend and add it to our React app. Make sure you run `yarn add axios` in your frontend project. To test it out, start your backend in another terminal.
 
 ```js
 import axios from 'axios';
@@ -40,6 +40,18 @@ function getFeed() {
 }
 ```
 
+You should see a log in the console containing your feed! Congratulations, you have officially taken the first true step towards making a full stack application. Recall that axios uses promises, so we must incorporate one of the promise resolution methods we discussed in chapter 2 (in this case `.then()`). 
+
+Next steps:
+-----
+1. Creating visual feed
+    - feed component
+    - map over list of posts
+2. Adding posts
+    - axios post
+    - frontend textbox and button to add post
+    - like posts
+    - useState
 
 
 [^1]: And make a plan to address each one.
