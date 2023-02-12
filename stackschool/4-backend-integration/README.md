@@ -167,9 +167,6 @@ We now have our feed! Granted it's pretty ugly, but let's take this W for now. ~
 
 Next steps:
 -----
-1. Creating visual feed
-    - feed component
-    - map over list of posts
 2. Adding posts
     - axios post
     - frontend textbox and button to add post
