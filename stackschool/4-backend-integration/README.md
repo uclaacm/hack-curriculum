@@ -42,7 +42,64 @@ function getFeed() {
 
 You should see a log in the console containing your feed! Congratulations, you have officially taken the first true step towards making a full stack application. Recall that axios uses promises, so we must incorporate one of the promise resolution methods we discussed in chapter 2 (in this case `.then()`). 
 
-If we try calling this function, we see the Array of posts in our MongoDb server in the console. Pretty good! We can now try displaying it on our frontend. Before this, let's do a bit of React review.
+If we try calling this function, we see the Array of posts in our MongoDB database in the console. Pretty good! We can now try displaying it on our frontend. 
+
+### Mapping
+
+Before we go any further, let's think about what we want to accomplish here. We want to somehow iterate through each post in our posts array, and display information from each one. Up to this point, the canonical way you have been taught to do this is to use a loop! It might look something like this:
+
+```js
+for (let i = 0; i < posts.length; i++>) {
+    // display post info for current index
+}
+```
+
+However, there are a couple problems with this. The biggest among these is that we need to write our code within a JSX return block, which we aren't allowed to do! The `return` needs a value following it, so we can't just add a for loop after it. To fix this, we use mapping!
+
+Mapping is a way of iterating over an array and performing a set of operations on each item within it. Once we complete iteration, it returns a new array with the operations performed! It can be thought of as a kind of "transformer" function. It transforms the items of an array into a new format using some function and spits out the result. Here's a toy example:
+
+```js
+a = ["Nathan", "James", "Nareh", "Christina"]; // array to iterate over
+
+pog = (name) => { // operation to perform
+    return `pog${name}`;
+}
+
+a.map(pog); // performing pog on each item in a
+
+// Output: ['pogNathan', 'pogJames', 'pogNareh', 'pogChristina']
+```
+
+We can also simplify this a bit more by utilizing anonymous functions. Rather than name our operation `pog`, let's just pass it in directly.[^7]
+
+[^7]: We can omit our `return` keyword here using a special syntactic sugar built into JS! For this to work, we must have a single expression in our function and omit our brackets as well.
+
+```js
+a = ["Nathan", "James", "Nareh", "Christina"]; // array to iterate over
+
+a.map((name) => `pog${name}`); // performing pog on each item in a
+
+// Output: ['pogNathan', 'pogJames', 'pogNareh', 'pogChristina']
+```
+
+Cool! Let's apply this to our feed. In this case, we want to map every post object in our posts array to a JSX component! Let's do that! Recall that a post contains some content, a user, a like count, and a time stamp indicating when it was posted. [^8]
+
+[^8]: You have noticed a warning in the console about adding a "unique key prop." To silence this, simply add `key={i}` to the `div` tag.
+
+```js
+return (
+    <div>
+      {posts.map(post => 
+        <div>
+          <h3> {post.user} </h3>
+          <p> {post.content} - Time: {post.timestamp} - Likes: {post.num_likes}</p>
+        </div>        
+      )}
+    </div>
+);
+```
+
+Unfortunately, this doesn't seem to be working? What's going on?
 
 ### React Hooks Recap
 
@@ -53,7 +110,7 @@ React is lazy. It always strives to do the bare minimum to display the user inte
 In general, `useState()` looks like this:
 
 ```js 
-const [watchedVar, setWatchedVar] = useState(['default value']);
+const [watchedVar, setWatchedVar] = useState([DEFAULT_VAL]);
 ```
 
 The syntax seems a bit funky, but all thats going on is that useState returns an array of two items: a variable to be watched and a function to set the watched variable. We pass in a default value to the function and we call the setter function when we want to update variables value. Seems a bit convoluted, but trust me when I tell you it more than makes up for it in practice. For a more detailed explanation of `useState` check out one of our previous [workshops](https://www.youtube.com/watch?v=ehgl3HpR5xQ)!
@@ -99,79 +156,8 @@ useEffect(() => {
 }, []);
 ```
 
-Very cool! Now that we have our posts, let's try to display them! First let's get rid of all the react placeholder code. 
+We know have our feed! Granted, it looks quite ugly, but let's take this W for now. /~we are full stack developers/~
 
-```js 
-// change the return in App.js to the following
-return (
-    <div>
-        
-    </div>
-);
-```
-
-### Mapping
-
-Before we go any further, let's think about what we want to accomplish here. We want to somehow iterate through each post in our posts array, and display information from each one. Up to this point, the canonical way you have been taught to do this is to use a loop! It might look something like this:
-
-```js
-for (let i = 0; i < posts.length; i++>) {
-    // display post info for current index
-}
-```
-
-However, there are a couple problems with this. The biggest among these is that we need to write our code within a JSX return block, which we aren't allowed to do! The `return` needs a value following it, so we can't just add a for loop after it. To fix this, we use mapping!
-
-Mapping is a way of iterating over an array and performing a set of operations on each item within it. Once we complete iteration, it returns a new array with the operations performed! It can be thought of as a kind of "transformer" function. It transforms the items of an array into a new format using some function and spits out the result. Here's a toy example:
-
-```js
-a = ["Nathan", "James", "Nareh", "Christina"]; // array to iterate over
-
-pog = (name) => { // operation to perform
-    return `pog${name}`;
-}
-
-a.map(pog); // performing pog on each item in a
-
-// Output: ['pogNathan', 'pogJames', 'pogNareh', 'pogChristina']
-```
-
-We can also simplify this a bit more by utilizing anonymous functions. Rather than name our operation `pog`, let's just pass it in directly.[^7]
-
-[^7]: We can omit our `return` keyword here using a special syntactic sugar built into JS! For this to work, we must have a single expression in our function and omit our brackets as well.
-
-```js
-a = ["Nathan", "James", "Nareh", "Christina"]; // array to iterate over
-
-a.map((name) => `pog${name}`); // performing pog on each item in a
-
-// Output: ['pogNathan', 'pogJames', 'pogNareh', 'pogChristina']
-```
-
-Cool! Let's apply this to our feed. In this case, we want to map every post object in our posts array to a JSX component! Let's do that! Recall that a post contains some content, a user, a like count, and a time stamp indicating when it was posted.
-
-```js
-return (
-    <div>
-      {posts.map(post => 
-        <div>
-          <h3> {post.user} </h3>
-          <p> {post.content} - Time: {post.timestamp} - Likes: {post.num_likes}</p>
-        </div>        
-      )}
-    </div>
-);
-```
-
-We now have our feed! Granted it's pretty ugly, but let's take this W for now. ~we are full stack developers.~
-
-Next steps:
------
-2. Adding posts
-    - axios post
-    - frontend textbox and button to add post
-    - like posts
-    - useState
 
 
 [^1]: And make a plan to address each one.
