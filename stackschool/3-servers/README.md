@@ -364,8 +364,6 @@ This is a request directed to the `POST /feed/new` endpoint, whose javascript sp
 
 #### 
 
-[^28]: See section 3.1 for more information.
-
 ```js
 // Create new post
 app.post('/feed/new', (req, res) => {
@@ -402,9 +400,9 @@ app.put('/feed/edit/:_id', async (req, res) => {
 });
 ```
 
-Everything here is pretty self explanatory if you've been following so far, but I do want to point out that we access our URL parameter using the `req.params` object. We then pass in the new content we want for our post in the request body. Also note that we use a PUT request here, as we are updating an existing resource.[^30]
+Everything here is pretty self explanatory if you've been following so far, but I do want to point out that we access our URL parameter using the `req.params` object. We then pass in the new content we want for our post in the request body. Also note that we use a `PUT` request here, as we are updating an existing resource.[^30]
 
-[^30]: We could also use a POST request, but best practice is PUT.
+[^30]: We could also use a `POST` request, but best practice is `PUT`.
 
 We'll speed through the rest of our post endpoints.
 
@@ -536,7 +534,7 @@ With that, congratulations! You've successfully implemented your very own backen
 
 ## 3.5 Testing
 
-Speaking of, how can we actually test our endpoints? After all, we want to ensure everything works as expected. For GET requests, it's as simple as copying a link into your browswer. If we start our server and visit http://localhost:3001/feed, we should see a JSON representation of our posts. However, what if we want to send a request with a body? How can we go about doing that? There are several ways:
+Speaking of, how can we actually test our endpoints? After all, we want to ensure everything works as expected. For `GET` requests, it's as simple as copying a link into your browswer. If we start our server and visit http://localhost:3001/feed, we should see a JSON representation of our posts. However, what if we want to send a request with a body? How can we go about doing that? There are several ways:
 
 1. Use a GUI application like Postman -- Postman makes it easy to form request bodies. Unfortunately, you have to download a whole new app.
 2. Use a requests library like axios -- This seems like a good idea, and in fact we will be doing it later in this workshop series!
