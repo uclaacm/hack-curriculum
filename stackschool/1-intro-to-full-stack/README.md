@@ -4,7 +4,7 @@
 > 
 > \- Alan Cohen
 
-### Sections
+## Sections
 
 - [Prerequisities](#11-prerequisites)
 - [Why Full Stack?](#12-why-full-stack)
