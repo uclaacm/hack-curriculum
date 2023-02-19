@@ -35,6 +35,7 @@
 % make backticks, backticks
 \usepackage{upquote}
 
+\usepackage{pdfpages}
 
 \graphicspath{{img/}{./}} % Paths where images are looked for
 
@@ -53,7 +54,7 @@
   }
 }
 
-\makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
+% \makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
 
 
 \begin{document}
@@ -62,9 +63,9 @@
 %	BOOK INFORMATION
 %----------------------------------------------------------------------------------------
 
-% \titlehead{Document Template}
-\title{Stackschool}
-\author{ACM Hack}
+% \titlehead{\includegraphics{cover.png}}
+\title{}
+\author{}
 \date{}
 
 %----------------------------------------------------------------------------------------
@@ -115,6 +116,9 @@
 %----------------------------------------------------------------------------------------
 
 % Note that \maketitle outputs the pages before here
+\begin{titlepage}
+  \includepdf{cover.png}
+\end{titlepage}
 \maketitle
 
 %----------------------------------------------------------------------------------------
