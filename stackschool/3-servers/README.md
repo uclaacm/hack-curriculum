@@ -558,7 +558,7 @@ Content-Type: application/json; charset=utf-8
 
 ```
 
-The [METHOD] field indicates which HTTP request method we are using i.e. `GET`, `POST`, etc. [/endpoint] is our enpoint path and [body] is our body. Note that our Content-Type here is `application/json`, so we expect to see JSON in our body (if anything). To test an endpoint, start your server, fill in the fields with the information of your choosing, and hit "Send Request" above the request head. Try testing out all the endpoints we created!
+The [METHOD] field indicates which HTTP request method we are using i.e. `GET`, `POST`, etc. [/endpoint] is our endpoint path and [body] is our body. Note that our Content-Type here is `application/json`, so we expect to see JSON in our body (if anything). To test an endpoint, start your server, fill in the fields with the information of your choosing, and hit "Send Request" above the request head. Try testing out all the endpoints we created!
 
 ## 3.6 Organization
 To be added. For now, read [this](https://blog.logrocket.com/organizing-express-js-project-structure-better-productivity/).
