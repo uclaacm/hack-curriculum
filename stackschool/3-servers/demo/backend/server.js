@@ -1,16 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors');
 mongoose.set('strictQuery', false);
 
 const app = express();
 app.use(express.json());
-app.use(cors());
 
 // INIT CONNECTION
 mongoose
   .connect(
-    "mongodb+srv://demo:1234@app.zgawpvg.mongodb.net/?retryWrites=true&w=majority",
+    "mongodb+srv://USERNAME:PASSWORD@cluster0.hekc5ta.mongodb.net/?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -22,7 +20,7 @@ mongoose
 const Post = require('./models/post');
 const User = require('./models/user');
 
-app.listen(8080, () => console.log('Server listening on port 8080: http://localhost:8080'));
+app.listen(3001, () => console.log('Server listening on port 3001: http://localhost:3001'));
 
 // POSTS ENDPOINTS
 

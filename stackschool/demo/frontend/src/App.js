@@ -1,25 +1,35 @@
+import axios from 'axios';
 import logo from './logo.svg';
 import './App.css';
+import { useState, useEffect } from 'react';
+
+const URL = "http://localhost:8080";
 
 function App() {
+  let [posts, setPosts] = useState([]);
+
+  function getFeed() {
+    axios.get("http://localhost:8080/feed")
+      .then(response => {
+        setPosts(response.data);
+      })
+      .catch(console.error)
+  }
+  
+  useEffect(() => {
+    getFeed();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {posts.map((post, i) => 
+        <div key={i}>
+          <h3> {post.user} </h3>
+          <p> {post.content} - Time: {post.timestamp} - Likes: {post.num_likes}</p>
+        </div>        
+      )}
     </div>
-  );
+);
 }
 
 export default App;

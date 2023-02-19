@@ -74,7 +74,7 @@ You don't have to memorize these, but you'll find that after working with HTTP r
     <summary><b>About the HTML we saw before...</b></summary>
     <div>
         <p>
-        What was it doing there? It's known as the body of the response, and it's being sent back to the client, in essence, because that's what they asked for. HTTP messages can be broken up into two parts: the header and the body. The <b>header</b> contains metainformation about the message, while the <b>body</b> contains the data associated with the message (such as HTML or JSON). Let's break down what's going on in this particular example. The client sent a `GET` request, asking the server to send some data back from a particular location (www.example.com). The data that was sent was this HTML code... Do you see where this is going yet?
+        What was it doing there? It's known as the body of the response, and it's being sent back to the client, in essence, because that's what they asked for. HTTP messages can be broken up into two parts: the header and the body. The <b>header</b> contains metainformation about the message, while the <b>body</b> contains the data associated with the message (such as HTML or JSON). Let's break down what's going on in this particular example. The client sent a <code>GET</code> request, asking the server to send some data back from a particular location (www.example.com). The data that was sent was this HTML code... Do you see where this is going yet?
         </p>
         <p>
         We know that HTML is used by browsers in order to render web pages, so our client can now successfully render the web page stored on the server. In essence, the client uses this HTTP request in order to receive the data necessary to render a web page! This process happens billions of times per day, and it is the back bone of the whole internet. The internet is built upon servers which store HTML, CSS, and Javascript and your browser uses HTTP requests to request them to be sent to you! Obviously, there's more to the internet than just this, and we could fill many books talking about it, but it's outside the scope of this workshop series. If you're interested take CS 118!
@@ -224,7 +224,10 @@ Now let's make the server itself. Create a new file called `server.js`. Within t
 /**** INIT SERVER ****/
 const express = require('express');
 const app = express();
+const cors = require('cors');
+
 app.use(express.json());
+app.use(cors());
 
 /**** DEPLOY SERVER ****/
 const port = 8080;
@@ -279,9 +282,11 @@ const express = require('express');
 And add the following to the bottom of the file:
 ```js
 const app = express();
+const cors = require('cors');
 app.use(express.json());
+app.use(cors());
 
-app.listen(3001, () => console.log('Server listening on port 3001'));
+app.listen(8080, () => console.log('Server listening on port 8080'));
 ```
 
 We explained what's going on here in section 3.3 so check that out for a reminder! At this point, your file should look like this:[^26]
@@ -291,10 +296,12 @@ We explained what's going on here in section 3.3 so check that out for a reminde
 ```js
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 mongoose.set('strictQuery', false);
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 // INIT CONNECTION
 mongoose
@@ -310,7 +317,7 @@ mongoose
 
 const Post = require('./models/post');
 
-app.listen(3001, () => console.log('Server listening on port 3001'));
+app.listen(8080, () => console.log('Server listening on port 8080'));
 ```
 
 Now you can try running it to make sure it works with `node server.js`. Alright, boilerplate is out of the way now. Let's get to the interesting part! Let's think about what we might want to include in the backend API of a twitter clone. Recall that last time we set up a data model for our posts. What should we have in our API related to posts? Well, first of all, we have to actually get the feed of posts, so one endpoint related to getting a list of posts would be helpful. We should also be able to create new posts. If we in retrospect decide a post doesn't reflect on ourselves as well as we would have hoped, we can edit it or simply delete it all together. Finally, if we see a post we like, we want to be able to like it. So all together, we should create the following endpoints:
@@ -351,7 +358,7 @@ Recall the anatomy of an HTTP request: each one includes both a head and a body.
 
 ```HTTP
 POST /feed/new HTTP/1.1
-Host: localhost:3001
+Host: localhost:8080
 Content-Type: text/html; charset=utf-8
 
 {
@@ -509,7 +516,7 @@ app.post('/login', async (req, res) => {
 });
 ```
 
-Note that with this logic, we should also refine our user creation endpoint to ensure there are no duplicate usernames (otherwise it would be trivial to hack into somebodies account). The following modification should do the trick:
+Note that with this logic, we should also refine our user creation endpoint to ensure there are no duplicate usernames (otherwise it would be trivial to hack into somebody's account). The following modification should do the trick:
 
 ```js
 // Create new user 
@@ -544,7 +551,7 @@ The extension is called REST Client, and you can download it like any other VSCo
 
 ```HTTP
 [METHOD] [/endpoint] HTTP/1.1
-Host: localhost:3001
+Host: localhost:8080
 Content-Type: application/json; charset=utf-8
 
 [body]
