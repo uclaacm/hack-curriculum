@@ -4,6 +4,15 @@
 > 
 > \- Jon Franklin
 
+## Sections
+- [Servers In General](#31-servers-in-general)
+- [Web APIs: What's on the Menu](#32-web-apis-whats-on-the-menu)
+- [Server Implementations](#33-server-implementations)
+- [Demo](#34-demo)
+- [Testing](#35-testing)
+- [Organization](#36-organization)
+- [Documenting Your API](#37-documenting-your-api)
+- [Slides](https://docs.google.com/presentation/d/10hb3tY3MGbPm0vairW4fOs33INpPb92QIaHFhs0zens/edit?usp=share_link)
 
 Servers are probably one of the most misunderstood concepts for new developers. If you put ten new developers in a room, it's a pretty good bet that they've all *heard* of servers. Maybe they've been exposed to them through pop culture. They've seen movies or read books where the nerdy, basement dwelling side character is approached by the charismatic protagonist to "hack into the mainframe" to stop the evil corporation and save the world.[^1] Or maybe they've come across the terminology at some point while learning about the fundamentals of programming, with their instructors glossing over it saying, "don't worry about this yet." Whatever the case may be, its likely that a majority of the ten new developers you have confined to a room would not be able to tell you what exactly a server does, or why. Or even more fundamentally, what *is* a server? 
 
@@ -566,6 +575,9 @@ To be added. For now, read [this](https://blog.logrocket.com/organizing-express-
 
 ## 3.7 Documenting Your API
 To be added. For now, read [this](https://swagger.io/solutions/api-documentation/).
+
+## 3.8 Slides
+The slides for this chapter can be found [here](https://docs.google.com/presentation/d/10hb3tY3MGbPm0vairW4fOs33INpPb92QIaHFhs0zens/edit?usp=share_link). The recorded presentation can be found [here](https://youtu.be/0KXd9ySglwU).
 
 [^1]: Note that a mainframe is just a special name for a server that is capable of performing a large amount of concurrent operations. Whether or not "hacking" into one will save the world is another question.
 

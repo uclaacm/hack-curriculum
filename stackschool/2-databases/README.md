@@ -4,6 +4,14 @@
 > 
 > \- Sherlock Holmes
 
+## Sections
+- [Spreadsheets and Schemas](#21-spreadsheets-and-schemas)
+- [Relational Databases and SQL](#22-relational-databases-and-sql)
+- [Non-Relational Databases](#23-non-relational-databases)
+- [Selecting and Hosting a Database](#24-selecting-and-hosting-a-database)
+- [Mongoose and Asynchronous Programming](#25-mongoose-and-asynchronous-programming)
+- [Demo](#26-demo)
+- [Slides](https://docs.google.com/presentation/d/1EuZU5pkk456BShSwnUgeFDVkcUJEoUCYIzOFuUEalfY/edit?usp=share_link)
 
 As of the time of this writing, humanity has created nearly 100 zetabytes of digital data.[^a] Strongly tied to recent developments in Internet of things and machine learning, familiarity with data storage is a useful tool for any developer. But before delving into the methods and challenges associated with storing data, it's important to fully address why external data storage is so useful.
 
@@ -529,9 +537,8 @@ Post.findById("63c5e192e6e28a4adef4cb4a")
 ```
 11. Neat! There are more functions to retrieve and modify data, but we will explore these as necessary.
 
-<!-- ## 2.7 Testing
-
-## 2.8 Organization -->
+## 2.7 Slides and Recording
+The slides for this chapter can be found [here](https://docs.google.com/presentation/d/1EuZU5pkk456BShSwnUgeFDVkcUJEoUCYIzOFuUEalfY/edit?usp=share_link). The recorded presentation can be found [here](https://youtu.be/5_pIkemZDoY).
 
 [^a]: That is, 8 x 10<sup>21</sup> bits. To put that into perspective, the typical hard drive is 1 terabyte in size. It would take 100 billion of these to store all of this data.
 

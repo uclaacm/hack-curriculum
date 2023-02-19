@@ -4,6 +4,14 @@
 > 
 > \- Alan Cohen
 
+### Sections
+
+- [Prerequisities](#11-prerequisites)
+- [Why Full Stack?](#12-why-full-stack)
+- [What is Full Stack?](#13-what-is-full-stack)
+- [MERN](#14-mern)
+- [Slides](https://docs.google.com/presentation/d/1Zn3jyHO7QTVQJxeyUJMpiafJbD4l0vokdyLDU3cUIlA/edit?usp=share_link)
+
 As a beginner, full stack development can be quite intimidating. Looking it up yields a seemingly endless list of languages and technologies that you must learn in order to even get started, and who has time for that? The good news is that we can drastically limit the number of things to learn by making a couple of strategic decisions before we start. The bad news is that you will still have to learn about six technologies, three of which we're going to assume you have at least a basic understanding of going into the workshop series. That being said, stick with us! By the end of this, you'll have no trouble making your own full stack application to rival Facebook or Twitter and you'll have a lot of fun doing it. 
 
 Before we get into any actual content, allow me to first give you some advice on approaching this series[^1]. At first, it's not going to be easy. It'll be frustrating and you'll bang your head against the wall and you'll want to quit. You'll want to quit often. But don't. Stick with it, and eventually you'll make progress. You'll figure out what was causing that unreadable error or that 400 response code, and the feeling of accomplishment will be like no other. Little victories will begin to pile up around you and, before you know it, you'll have a completed full stack app ready to show off to the world. It won't be easy, but nothing worth doing ever is. And keep in mind you're not on your own here! You have a team of twenty passionate, wonderful Hack officers ready to help you through your struggles. All you need to do is reach out![^2]
@@ -90,3 +98,6 @@ Before getting started, make sure you set up the required technologies!
 You're now ready to get started!
 
 [^8]: Or use corepack.
+
+## 1.5 Slides
+The slides for this chapter can be found [here](https://docs.google.com/presentation/d/1Zn3jyHO7QTVQJxeyUJMpiafJbD4l0vokdyLDU3cUIlA/edit?usp=share_link). 
