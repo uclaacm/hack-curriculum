@@ -156,7 +156,7 @@ useEffect(() => {
 }, []);
 ```
 
-We know have our feed! Granted, it looks quite ugly, but let's take this W for now. /~we are full stack developers/~
+We know have our feed! Granted, it looks quite ugly, but let's take this W for now. 
 
 
 
