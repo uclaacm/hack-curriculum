@@ -12,7 +12,7 @@ Hello, and welcome to session 1's README!
 ## Resources
 
 - [Slides](https://docs.google.com/presentation/d/1a9q5RX-Zm4N7WlFx7Xn0TanjuDSlVu6gsEcvSaeoXdE/edit?usp=sharing)
-- Workshop recording (coming soon)
+- [Workshop recording](https://youtu.be/A9TgYnsPwFs)
 
 ## What we'll be learning today
 
