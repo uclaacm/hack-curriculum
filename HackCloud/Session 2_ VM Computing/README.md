@@ -62,6 +62,16 @@ sudo echo '<h2>Buy My Food!</h2>' > index.html
 13. Return to the EC2 instance page and open the public IP address. Make sure you are using port 80 to connect (HTTP not HTTPS).
 
 ## EBS - Elastic Block Storage
+
+### What is Disk Storage?
+Now that we've worked with EC2 a little, let's consider where our `index.html` file from our demo is being stored? If we build off of our understanding of EC2 as a Virtual Machine, we realize we must also have a notion of a **Virtual Disk** - a place to permanently store our data - which we find in AWS's **Elastic Block Storage** (EBS). As a brief bit of context and motivation for this memory structure, let's consider an example.
+
+Imagine Linguini is working the night shift at Gusteau's, and is getting a bit sloppy: he's left their most expensive ingredients out in the kitchen overnight, forgetting to return them to the fridge. After closing up shop for the night and returning in the morning Linguini is shocked to see that rats have infested the kitchen and eaten every last fruit and veggie. 
+
+Linguini's learned an important lesson: we can store small amounts of food in kitchen for fast access (analogous to storing data in our EC2 instance's RAM), but cannot expect food in the kitchen to last forever. Instead Linguini should remember to return food to the fridge (analogous to virtual disk storage for our EC2 instance), a bit slower to access, but much more dependable - and safe when he closes shop (powers off his EC2 instance). 
+
+### Using Virtual Disks
+
 ## Demo: EBS - Virtual Storage
 
 Below we will outline how to "hot attach" extra EBS storage to an EC2 instance. Visual aids for the below steps are present on this week's slides.
