@@ -9,7 +9,7 @@
 
 ## Resources
 
-- Slides (coming soon)
+- [Slides](https://docs.google.com/presentation/d/1a04fSUrM0lNZvqn1KKDXmr3kwype8WE_KIRmebB54bs/edit?usp=sharing)
 - Workshop recording (coming soon)
 
 ## What we'll be learning today
@@ -48,7 +48,6 @@ httpd -v
 9. Confirm your instance is in "Running" status, and click the "Connect" button
 10. Click "connect" to use SSH to connect to your EC2 instance in your browser. An alternative would be to try to use your downloaded SSH key to connect from your local machine
 11. Run the following commands in the terminal (run one at a time). This will let you navigate to the default rendering directory, create an `index.html` file, give yourself write permissions, and write a header to it
-12. After finished (some of the later demos will use this), delete your instances.
 
 
 ``` shell
@@ -60,6 +59,7 @@ sudo echo '<h2>Buy My Food!</h2>' > index.html
 
 12. Run `cat index.html` to confirm the write was successful. The terminal should print `<h2>Buy My Food!</h2>` on the next line.
 13. Return to the EC2 instance page and open the public IP address. Make sure you are using port 80 to connect (HTTP not HTTPS).
+14. After finished (some of the later demos will use this), delete your instances.
 
 ## EBS - Elastic Block Storage
 
