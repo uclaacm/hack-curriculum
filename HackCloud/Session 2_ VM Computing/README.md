@@ -25,6 +25,8 @@
 
 ## Types of Cloud Computing
 ## What is a Virtual Machine and Why
+
+
 ## Demo: Apache Web Server + EC2
 Below we'll outline how to create your own Apache web server - no experience required! Visual aids for these steps are present on this week's slides.
 1. Open your AWS console and navigate to the EC2 service
@@ -71,6 +73,13 @@ Imagine Linguini is working the night shift at Gusteau's, and is getting a bit s
 Linguini's learned an important lesson: we can store small amounts of food in kitchen for fast access (analogous to storing data in our EC2 instance's RAM), but cannot expect food in the kitchen to last forever. Instead Linguini should remember to return food to the fridge (analogous to virtual disk storage for our EC2 instance), a bit slower to access, but much more dependable - and safe when he closes shop (powers off his EC2 instance). 
 
 ### Using Virtual Disks
+Amazon Elastic Block Storage (EBS) allows users to provision virtual disks for their EC2 compute instances. A single virtual disk is called a **volume**, and all EC2 instances must have at least one volume (just like all computers come with an inbuilt hard drive). 
+
+The simplest way to create an EBS volume is to do so when creating an EC2 instance - as we did in our first [demo](#demo-apache-web-server--ec2). Alternatively, we can provision an EBS volume directly (as we will see shortly). After we've created an EBS volume, we must attach it to an EC2 instance - a process known as **mounting**.
+
+To understanding how mounting works, think back to a time where you may have plugged in a USB device to copy some files. How did you access the device? Depending on your operating system, you most likely did so by opening a file explorer and opening the drive with the directory location `E:/`. Similarly, when mounting an EBS volume to an EC2 instance, the drive is mapped to specific directory, often `/dev/abc` - with the final folder being configurable during the mounting process.
+
+Just like EC2 instances EBS volumes are highly customizable. When creating a new instance, AWS offers a variety of optimizations for IOPS (the number concurrent of reads and writes), throughput (number of bytes per second), and price. We can also configure whether the underlying storage will be on flash (SSD) or on a hard disk (HDD). 
 
 ## Demo: EBS - Virtual Storage
 
@@ -86,6 +95,8 @@ Below we will outline how to "hot attach" extra EBS storage to an EC2 instance. 
 8. To clean up, detach your volume and delete it
 
 ## ALBs and ELBs - Load Balancing
+
+
 ## Demo: Load Balancing EC2
 
 Below we will outline how to configure an ALB to balance requests between EC2 instances. Visual aids for the below steps are present on this week's slides.
