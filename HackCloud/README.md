@@ -13,7 +13,7 @@ We hope all of you have a great time learning this quarter! Feel free to reach o
 - [Basic Curriculum](#basic-curriculum)
 - [Essential Links](#essential-links)
 - [What You'll Need for the Entire Course](#what-youll-need-for-the-entire-course)
-  - [Helpful Docs & Tools](#helpful-docs--tools)
+  - [Helpful Docs](#helpful-docs)
   - [Learning Beyond HackCloud](#learning-beyond-hackcloud)
 
 ## Basic Curriculum
@@ -30,6 +30,7 @@ We hope all of you have a great time learning this quarter! Feel free to reach o
 * [ACM website](http://www.uclaacm.com/)
 * [Hack website](https://hack.uclaacm.com/)
 * [ACM Hack discord](https://discord.gg/rup2p6fxA5)
+* [ACM youtube](https://www.youtube.com/@ACMUCLA)
 
 ## What You'll Need for the Entire Course
 
@@ -49,10 +50,20 @@ We hope all of you have a great time learning this quarter! Feel free to reach o
   
 * Bonus item (if you have time): Create a GitHub account
 
-### Helpful Docs & Tools
+### Helpful Docs
 
-* Coming soon!
+With cloud computing being such a broad field, it can be a bit overwhelming ot know where to start. Lucky for you, you're in the right place! Focus on the basics and building a strong intutition for why cloud systems are designed the way they are, then get some hands on experience! If you're looking to show off your skills, or want a more structured learning format try prepping for one of AWS's certifications.
+ 
+* [Why cloud computing?](https://docs.aws.amazon.com/whitepapers/latest/aws-overview/six-advantages-of-cloud-computing.html)
+
+* [AWS service areas](https://docs.aws.amazon.com/whitepapers/latest/aws-overview/amazon-web-services-cloud-platform.html)
+
+* [AWS certification summary](https://aws.amazon.com/certification/exams/)
+
+* [AWS vs Google Cloud vs Microsoft Azure](https://www.coursera.org/articles/aws-vs-azure-vs-google-cloud)
 
 ### Learning Beyond HackCloud
 
-* Coming soon!
+* [AWS guided tutorials](https://aws.amazon.com/getting-started/hands-on/)
+
+* [AWS coursera](https://www.coursera.org/aws)
