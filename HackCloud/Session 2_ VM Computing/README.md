@@ -28,7 +28,21 @@
 
 
 ## Types of Cloud Computing
+To help organize the many services cloud providers (like AWS) offer, beyond classifying each service based on their general service area (ex: storage, machine learning, etc.) we also classify services based on the degree of control they offer users. Below we break down the three main types of cloud computing services.
+
+![Types Of Cloud Computing](https://user-images.githubusercontent.com/66653384/234966565-10cdcfa0-5029-4cfd-a4e6-363af670e3bf.png)
+
+* On Premise: Under this model a user retains full control of all hardware and software running on it. However, as discussed last week, users will need to pay steep upfront and maintenance costs, as well as deal with scalability issues.
+
+* Infrastructure as a Service (IaaS): Under the IaaS model, the physical hardware is owned by a cloud provider (like AWS), but as much control as possible is still given to users. Often this takes the form of users having full control over some hardware specifications (implemented with a Virtual Machine - we'll explain what this soon) like the operating system and amount of RAM and storage, as well as full control over all software. However, this comes at the cost of direct control of the physical hardware.
+
+* Platform as a Service (PaaS): Under the PaaS model, users now only have control over the software they are running, with no direct control over hardware. This enables users to use default options from their cloud provider to handle scaling, security, and other common issues while focusing on the functionality of their applications. 
+
+* Software as a Service (SaaS): Under the SaaS model, users now only have control over the inputs to the services they run. Often a cloud provider will build SaaS services for common functionalities (like automated bulk text alerts - we customize the message and recepients, but no control over actual code or implementation). Notably, companies other than cloud providers offer SaaS services with some commmon examples including ChatGPT, Slack, Zoom - software offered as an online service.
+
 ## What is a Virtual Machine and Why
+
+
 
 
 ## Demo: Apache Web Server + EC2
