@@ -18,8 +18,12 @@
 - [What is a Virtual Machine and Why?](#what-is-a-virtual-machine-and-why)
 - [Demo: Apache Web Server + EC2](#demo-apache-web-server--ec2)
 - [EBS - Elastic Block Storage of Cloud Computing](#ebs---elastic-block-storage)
+  - [What is Disk Storage?](#what-is-disk-storage)
+  - [Using Virtual Disks](#using-virtual-disks)
 - [Demo: EBS - Virtual Storage](#demo-ebs---virtual-storage)
 - [ALBs and ELBs - Load Balancing](#albs-and-elbs---load-balancing)
+  - [What is Load Balancing?](#what-is-load-balancing)
+  - [Types of Load Balancers](#types-of-load-balancers)
 - [Demo: Load Balancing EC2](#demo-load-balancing-ec2)
 
 
@@ -93,7 +97,7 @@ Below we will outline how to mount extra EBS storage to an EC2 instance. Visual 
 2. Click "Instances"
 3. Note down the region before clicking "Create volume"
 4. Set the size to 1 GiB
-5. Modify the region to match with the region from step 3. Scroll down and click "Create Volume"
+5. Modify the region to match with the region from step 3. Scroll down and click "Create volume"
 6. Select the instance, expand actions, and "Attach instance"
 7. Select your Apache web server instance and click "Attach volume"
 8. To clean up, detach your volume and delete it
