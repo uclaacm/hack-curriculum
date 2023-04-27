@@ -79,7 +79,11 @@ The simplest way to create an EBS volume is to do so when creating an EC2 instan
 
 To understanding how mounting works, think back to a time where you may have plugged in a USB device to copy some files. How did you access the device? Depending on your operating system, you most likely did so by opening a file explorer and opening the drive with the directory location `E:/`. Similarly, when mounting an EBS volume to an EC2 instance, the drive is mapped to specific directory, often `/dev/abc` - with the final folder being configurable during the mounting process.
 
-Just like EC2 instances EBS volumes are highly customizable. When creating a new instance, AWS offers a variety of optimizations for IOPS (the number concurrent of reads and writes), throughput (number of bytes per second), and price. We can also configure whether the underlying storage will be on flash (SSD) or on a hard disk (HDD). 
+Just like EC2 instances EBS volumes are highly customizable with the following optimizations storing on flash or hard disk:
+* Input/Output Operations Per Second (IOPS)
+* Throughput - the number of bytes per second
+* General purpose
+* Cold - optimized for price
 
 ## Demo: EBS - Virtual Storage
 
@@ -118,8 +122,7 @@ Most scenarios will make use of an Application Load Balancer - a bit slower than
 
 ![Load Balancing](https://user-images.githubusercontent.com/66653384/234732369-6e978c2c-f3ec-44a0-913d-0304701cb66a.png)
 
-Finally, before we proceed to the demo, let's clarify some terminology we'll see. A **Virtual Private Cloud** (VPC) is a virtual network that spans a single region: this would contain
-
+Finally, before we proceed to the demo, let's clarify some terminology we'll see. A **Virtual Private Cloud** (VPC) is a virtual network that spans a single region: this would contain any services (EC2 instances, ALBs, etc.) that have been allocated in those regions. A VPC can be subdivided into **subnets** smaller subnetworks that are contained to a single data warehouse (or single availability zone). Organizing with subnets allows AWS to move your services closer to one another to minimize latency and can be used to configure permissions to resources. In the context of a load balancer, a **target group** is used to organize the services that a load balancer will split requests between. In our case, our target group will simply contain a couple EC2 instances, but could theoretically include generic IP addresses or other load balancers among other targets.
 
 ## Demo: Load Balancing EC2
 
