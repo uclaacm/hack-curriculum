@@ -83,7 +83,7 @@ Just like EC2 instances EBS volumes are highly customizable. When creating a new
 
 ## Demo: EBS - Virtual Storage
 
-Below we will outline how to "hot attach" extra EBS storage to an EC2 instance. Visual aids for the below steps are present on this week's slides.
+Below we will outline how to mount extra EBS storage to an EC2 instance. Visual aids for the below steps are present on this week's slides.
 
 1. Navigate to the EC2 dashboard
 2. Click "Instances"
@@ -95,6 +95,30 @@ Below we will outline how to "hot attach" extra EBS storage to an EC2 instance. 
 8. To clean up, detach your volume and delete it
 
 ## ALBs and ELBs - Load Balancing
+
+Let's say Linguini's web server blog is running great - folks from across the world are downloading recipes and sharing stories. But as the number of users grow, soon users begin to encounter a `503 error - the requested service is not available`. Recall from last time that **availability** refers to the notion of our web server being reachable from different places - in our case our web server is being overloaded and can't handle everyone's requests. How might we be able to address this?
+
+### What is Load Balancing?
+Back at work, Linguini has structured his restaurant like most others: when a new party enters, a host will greet them and guide them to a table. Why has he organized his restaurant like this? Upon reflection, Linguini realizes that doing so allows for each of his servers to handle a balanced workload. This notion of having a single worker (Linguini's host) handle balancing requests, while all other workers (Linguini's servers) handle servicing the workload is known as **load balancing**. 
+
+In the context of our web server, our EC2 instances are analogous to Linguini's servers, but what about Linguini's host? We'll introduce a new AWS service, a **load balancer** (with two variants) for achieving this architecture. Below is a diagram outlining how users can connect to our instances.
+
+![Load Balancing](https://user-images.githubusercontent.com/66653384/234730578-15e47d23-b637-43a2-8242-59617cb6261f.png)
+
+It is worth noting that we still have a bottle neck in this architecture - but instead of it being at a single EC2 instance, it is now at our load balancer (notice how all requests must pass through it). Fortunately, in practice this doesn't become an issue by minimzing the responsibilites the load balancer and direction different domain names (ex: .com vs .ca) to different load balancers. 
+
+### Types of Load Balancers
+
+AWS offers three types of load balancers:
+1. Application Load Balancer (ALB)
+2. Elastic Load Balancer (ELB)
+3. Network Load Balancer (NLB)
+
+Most scenarios will make use of an Application Load Balancer - a bit slower than the other types, but with the most features - and this is the type of load balancer we'll be using for our demo. Apart from allowing us to redirect our requests, load balancers allow us to build **health checks** into our architecture - only directing requests to instances that are running properly. Each of these load balancers also allow for **sticky sessions** meaning that if somebody is directed to a server, they'll continue to communicate with that server (be stuck to it - hence the name), for the remainder of their work session. 
+
+![Load Balancing](https://user-images.githubusercontent.com/66653384/234732369-6e978c2c-f3ec-44a0-913d-0304701cb66a.png)
+
+Finally, before we proceed to the demo, let's clarify some terminology we'll see. A **Virtual Private Cloud** (VPC) is a virtual network that spans a single region: this would contain
 
 
 ## Demo: Load Balancing EC2
