@@ -17,7 +17,8 @@
 - [Types of Cloud Computing](#types-of-cloud-computing)
 - [What is a Virtual Machine and Why?](#what-is-a-virtual-machine-and-why)
 - [Demo: Apache Web Server + EC2](#demo-apache-web-server--ec2)
-- [EBS - Elastic Block Storage of Cloud Computing](#ebs---elastic-block-storage)
+  - [Elastic Compute Cloud (EC2)](#elastic-compute-cloud-ec2)  
+- [EBS - Elastic Block Storage](#ebs---elastic-block-storage)
   - [What is Disk Storage?](#what-is-disk-storage)
   - [Using Virtual Disks](#using-virtual-disks)
 - [Demo: EBS - Virtual Storage](#demo-ebs---virtual-storage)
@@ -30,8 +31,6 @@
 ## Types of Cloud Computing
 To help organize the many services cloud providers (like AWS) offer, beyond classifying each service based on their general service area (ex: storage, machine learning, etc.) we also classify services based on the degree of control they offer users. Below we break down the three main types of cloud computing services.
 
-![Types Of Cloud Computing](https://user-images.githubusercontent.com/66653384/234966565-10cdcfa0-5029-4cfd-a4e6-363af670e3bf.png)
-
 * On Premise: Under this model a user retains full control of all hardware and software running on it. However, as discussed last week, users will need to pay steep upfront and maintenance costs, as well as deal with scalability issues.
 
 * Infrastructure as a Service (IaaS): Under the IaaS model, the physical hardware is owned by a cloud provider (like AWS), but as much control as possible is still given to users. Often this takes the form of users having full control over some hardware specifications (implemented with a Virtual Machine - we'll explain what this soon) like the operating system and amount of RAM and storage, as well as full control over all software. However, this comes at the cost of direct control of the physical hardware.
@@ -40,10 +39,15 @@ To help organize the many services cloud providers (like AWS) offer, beyond clas
 
 * Software as a Service (SaaS): Under the SaaS model, users now only have control over the inputs to the services they run. Often a cloud provider will build SaaS services for common functionalities (like automated bulk text alerts - we customize the message and recepients, but no control over actual code or implementation). Notably, companies other than cloud providers offer SaaS services with some commmon examples including ChatGPT, Slack, Zoom - software offered as an online service.
 
-## What is a Virtual Machine and Why
+![Types Of Cloud Computing](https://user-images.githubusercontent.com/66653384/234966565-10cdcfa0-5029-4cfd-a4e6-363af670e3bf.png)
 
+## What is a Virtual Machine and Why?
+If you're reading this on a computer, at some point in the past, you likely downloaded and installed the web browser (Google Chrome, Firefox, Microsoft Edge, etc.) you're using. In a similar manner to downloading this **program**, let's imagine you downloaded an entire computer - is this even possible?
 
+As you can probably guess, the answer is a bit complicated. But assuming we have some essential hardware support, most modern machines provide the ability to run a distinct computer as software - a **virtual machine**. But why is this useful? Notably, just like you can open multiple windows of your web browser, so too can you run multiple virtual machines on a single physical machine. Virtual machines can often also run different operating systems - enhancing portability of applications and code. Perhaps most importantly, each of these virtual machines are treated as distinct and have no direct control over another's resources.
 
+### Elastic Compute Cloud (EC2)
+Amazon's Elastic Compute Cloud (EC2) provides users with the ability to provision their own customizable virtual machines, called **instances** on AWS's host computers. To create an EC2 instance, a user will select a template, called an **Amazon Machine Image (AMI)**, and configure the desired RAM and storage. During the creation process, users can create a cryptographic key (essentially a password known by the EC2 instance ) to facilitate securely connecting to thier instance. By providing the correct key and connecting (via SSH), we can install programs, manipulate files, and alter settings for our instance - just like we would on our own computer. 
 
 ## Demo: Apache Web Server + EC2
 Below we'll outline how to create your own Apache web server - no experience required! Visual aids for these steps are present on this week's slides.
