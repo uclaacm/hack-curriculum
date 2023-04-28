@@ -10,7 +10,7 @@
 ## Resources
 
 - [Slides](https://docs.google.com/presentation/d/1a04fSUrM0lNZvqn1KKDXmr3kwype8WE_KIRmebB54bs/edit?usp=sharing)
-- Workshop recording (coming soon)
+- [Workshop recording](https://youtu.be/y8cXeQsLIf0)
 
 ## What we'll be learning today
 
