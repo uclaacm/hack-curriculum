@@ -25,7 +25,19 @@
 
 ## AWS DevOps Tools
 
+The term DevOps refers to the idea of merging the stages of software **development** with **operations**. More generally, this can be thought of as software engineers being in full control of the lifecycle of an application (from conception to coding to deployment to revisions).  
 
+![DevOps](https://github.com/uclaacm/hack-curriculum/assets/66653384/d6aa5632-c3b3-40b7-9082-e0dcda805735)
+
+As you can probably anticipate, occupying a DevOps role comes with a lot of responsibilities - developers are required to be familiar with the requirements along every stage of the DevOps process. To minimize human error, standard practice is to automate as much of the process as possible by creating a **pipeline**. Like the name implies, a pipeline is a series of cascading steps that feed into one another, and to simplify things a bit, we'll focus on three main parts: development, build + testing, and deployment. 
+
+To streamline the development process we use **version control**. Version control allows for developers to collaborate on the same code, while working on different files - and if conflicts emerge, often establishes a standard procedure for resolving them. Additionally, version control allows for ease of sharing code publically, as well as a convenient and efficient way to backup previous releases. Some popular version control tools include Github (where you're likely reading this) and AWS CodeCommit among many others.
+
+We'll be using AWS **CodeBuild** for efficiently automating our build and test process. AWS CodeBuild does what the name implies, providing an efficient way to automate building your code. Ordinarily this wouldn't be too useful - presumably developers have been running their code as they work. However, AWS CodeBuild provides the ability to run standardized tests on a completed build (and offers an extra redundancy by running the build in the same environment where it will be deployed). 
+
+For our final step of deployment, we'll be returning to AWS **Elastic Beanstalk**. As a quick recap, Elastic Beanstalk is a PaaS service that allows us to create a deployment of an application without having to directly manage the EC2 instances (or hardware) it will run on. 
+
+With our three parts of our pipeline in mind, how do we connect these stages? We'll take advantage of AWS **CodePipeline** to configure when to start the process of deploying a new version of code. CodePipeline offers configurable triggers, manual review stages, and many other features. 
 
 ## Demo: Load Balancing EC2
 
