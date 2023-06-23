@@ -5,12 +5,12 @@
 
 **Location**: Engineering VI 289
 
-**Teachers**: [person one](github), [person 2](github)
+**Teachers**: [Brooke Jiang](https://github.com/jiangxuann), [Andy Lewis](https://github.com/datowq)
 
 ## Resources
 
-- [Slides](url here)
-- Workshop recording (coming soon)
+- [Slides](https://docs.google.com/presentation/d/1_G4iydzRv4GZYNY15agMmyg1VHfQp6wz4hbJKeobG4I/edit?usp=sharing here)
+- [Workshop recording](https://youtu.be/jL2SbQxiFGM)
 
 ## What we'll be learning today
 
