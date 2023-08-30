@@ -1,4 +1,4 @@
-# HackCloud Resources - Spring 2023
+# HackCloud 
 
 ## Welcome to HackCloud 
 Cloud computing is a huge and impactful part of our day-to-day lives—whether it is through the use of personal clouds like Google Drive or OneDrive, or though businesses who use the cloud for computing, storage, data analytics, and more. As a result, it can seem like a very daunting task to uncover what exactly cloud computing is and how to use it. 
