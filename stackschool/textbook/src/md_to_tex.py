@@ -52,3 +52,6 @@ TEX = re.sub(r"(http:\/\/.*:\d*\S*)", r"\\url{\1}", TEX)
 # write tex file
 with open(TEX_LOC, "w") as f:
     f.write(TEX)
+
+
+
