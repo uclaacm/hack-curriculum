@@ -1,0 +1,7 @@
+- outlines for each workshop series (drawing from modules)
+- build workshops themselves too (?)
+    - just gluing modules together
+    - making them flow better
+    - easier to go off of for future workshop creators
+    - each workshop should have a module dependency list 
+    - how to deal with updating modules?
