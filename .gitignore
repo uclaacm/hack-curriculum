@@ -1,6 +1,7 @@
 ## taken from https://github.com/github/gitignore/blob/main/TeX.gitignore
 
 node_modules/
+website/node_modules/
 
 .yarn/
 
