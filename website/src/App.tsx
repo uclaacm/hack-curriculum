@@ -1,49 +1,30 @@
-import { useEffect, useState } from 'react';
-import './App.css'
-import Workshop from './Workshop';
+import {
+  Link,
+  useLoaderData
+} from 'react-router-dom';
+import { CONTENT_SERVER } from './constants.tsx';
 
-const CONTENT_SERVER = 'http://localhost:8080';
+export const rootLoader = async () => {
+  const response = await fetch(`${CONTENT_SERVER}/workshop-list`);
+  const workshopTitles = await response.json();
 
-interface WorkshopType {
-  title: string;
-  outline: string;
-}
+  return { workshopTitles };
+};
 
-function App() {
-  const [workshops, setWorkshops] = useState<WorkshopType[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(`${CONTENT_SERVER}/workshop-list`);
-      const workshopTitles = await response.json();
-      
-      const workshops = await Promise.all(
-        workshopTitles.map(async (title: string) => {
-          const response = await fetch(`${CONTENT_SERVER}/workshops/${title}/outline.yml`);
-          const outline = await response.text();
-
-          console.log(outline);
-
-          return { title, outline };
-        })
-      );
-
-      setWorkshops(workshops);
-    };
-    fetchData();
-  }, []);
+export default function App() {
+  const { workshopTitles } = useLoaderData();
 
   return (
     <>
-      {workshops.map((workshop: WorkshopType, i: number) => (
-        <Workshop
-          key={i}
-          title={workshop.title}
-          outline={workshop.outline}
-        />
-      ))}
+      <nav>
+        <ul>
+          {workshopTitles.map((workshop: any, i: number) => (
+            <li key={i}>
+              <Link to={`/workshops/${workshop}`}>{workshop}</Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </>
   );
 }
-
-export default App;

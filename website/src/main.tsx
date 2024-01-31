@@ -1,10 +1,35 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import * as React from "react";
+import * as ReactDOM from "react-dom/client";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import "./index.css";
+// import Home from './pages/Home.tsx';
+import ErrorPage from './pages/ErrorPage.tsx';
+import App, { rootLoader } from './App.tsx';
+import Workshop, { workshopLoader, workshopAction } from './pages/Workshop.tsx';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App/>,
+    errorElement: <ErrorPage />,
+    loader: rootLoader,
+  },
+  {
+    path: "/workshops/:workshop",
+    element: <Workshop title="workshop" outline="" />,
+    loader: workshopLoader,
+    // action: workshopAction,
+  }
+]);
+
+const rootElement = document.getElementById("root");
+
+if (!rootElement) throw new Error("Root element not found");
+ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
