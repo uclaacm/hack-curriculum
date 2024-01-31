@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react';
 import './App.css'
+import Workshop from './Workshop';
+
+const CONTENT_SERVER = 'http://localhost:8080';
+
+interface WorkshopType {
+  title: string;
+  outline: string;
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [workshops, setWorkshops] = useState<WorkshopType[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`${CONTENT_SERVER}/workshop-list`);
+      const workshopTitles = await response.json();
+      
+      const workshops = await Promise.all(
+        workshopTitles.map(async (title: string) => {
+          const response = await fetch(`${CONTENT_SERVER}/workshops/${title}/outline.yml`);
+          const outline = await response.text();
+
+          console.log(outline);
+
+          return { title, outline };
+        })
+      );
+
+      setWorkshops(workshops);
+    };
+    fetchData();
+  }, []);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {workshops.map((workshop: WorkshopType, i: number) => (
+        <Workshop
+          key={i}
+          title={workshop.title}
+          outline={workshop.outline}
+        />
+      ))}
     </>
-  )
+  );
 }
 
-export default App
+export default App;

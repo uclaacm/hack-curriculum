@@ -1,23 +1,32 @@
 const express = require('express');
+const fs = require('fs');
+const path = require('path');
+const cors = require('cors');
 const app = express();
 const port = 8080;
 
-app.get('/', (req, res) => {
-    res.send("Use /modules/:category/:topic/:flavor to get module content");
+app.use(cors());
+
+// allow access to modules, workshops, and labs
+app.use(express.static("public"));
+
+app.get('/', (_, res) => {
+    res.send("Hack Curriculum Server: use /workshops for a list of workshops or access content files directly using their path");
 });
 
-// Get module content (flavorless)
-app.get('/modules/:category/:topic', (req, res) => {
-    const { category, topic } = req.params;
-    const path = `./modules/${category}/${topic}/README.md`;
-    res.sendFile(path, { root: __dirname });
-});
-
-// Get module content in flavor
-app.get('/modules/:category/:topic/:flavor', (req, res) => {
-    const { category, topic, flavor } = req.params;
-    const path = `./modules/${category}/${topic}/${flavor}/README.md`;
-    res.sendFile(path, { root: __dirname });
+// return list of workshops
+// TODO: figure out why CORS freaks out when i name this /workshops
+app.get('/workshop-list', (_, res) => {
+    const workshopsPath = path.join(__dirname, 'public', 'workshops');
+    fs.readdir(workshopsPath, (err, files) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        } else {
+            const folders = files.filter(file => fs.statSync(path.join(workshopsPath, file)).isDirectory());
+            res.json(folders);
+        }
+    });
 });
 
 app.listen(port, () => {
