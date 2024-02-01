@@ -5,10 +5,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import "./index.css";
-// import Home from './pages/Home.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
 import App, { rootLoader } from './App.tsx';
-import Workshop, { workshopLoader, workshopAction } from './pages/Workshop.tsx';
+import WorkshopSeries, { workshopSeriesLoader } from './pages/WorkshopSeries.tsx';
 
 const router = createBrowserRouter([
   {
@@ -19,9 +18,8 @@ const router = createBrowserRouter([
   },
   {
     path: "/workshops/:workshop",
-    element: <Workshop title="workshop" outline="" />,
-    loader: workshopLoader,
-    // action: workshopAction,
+    element: <WorkshopSeries />,
+    loader: workshopSeriesLoader,
   }
 ]);
 

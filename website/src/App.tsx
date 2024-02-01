@@ -3,6 +3,7 @@ import {
   useLoaderData
 } from 'react-router-dom';
 import { CONTENT_SERVER } from './constants.tsx';
+import './App.css';
 
 export const rootLoader = async () => {
   const response = await fetch(`${CONTENT_SERVER}/workshop-list`);

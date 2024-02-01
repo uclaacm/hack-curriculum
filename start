@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Start the Vite app
+cd website
+npm run dev &
+
+# Start the Node app
+cd ../content
+npm start
