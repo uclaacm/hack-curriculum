@@ -5,8 +5,6 @@ import remarkGfm from 'remark-gfm';
 import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
 import { CONTENT_SERVER } from '../constants.tsx';
 
-//TODO: navigation butons (next and prev)
-
 interface Props { }
 
 interface Params {
@@ -18,6 +16,7 @@ interface Workshop {
     modules: string[];
 }
 
+// fetch the outline based on the current route
 export const workshopSeriesLoader = async ({ params }: LoaderFunctionArgs<Params>) => {
     const response = await fetch(`${CONTENT_SERVER}/workshops/${params.workshop}/outline.yml`);
     const outline = await response.text();
@@ -25,10 +24,8 @@ export const workshopSeriesLoader = async ({ params }: LoaderFunctionArgs<Params
     return { title: params.workshop, outline };
 };
 
-//plan: 
-// - initially load just first workshop modules
-// - make a function to load workshop index modules
-// - display current workshop index modules
+// return the markdown for a workshop in the series
+// index 0 is session 1, index 1 is session 2, etc.
 const loadWorkshop = async (workshops: Workshop[], workshopIndex: number) => {
     if (workshopIndex >= workshops.length) throw new Error("Workshop index out of range");
 
@@ -46,7 +43,7 @@ const loadWorkshop = async (workshops: Workshop[], workshopIndex: number) => {
 const WorkshopSeries: React.FC<Props> = () => {
     const [modules, setModules] = useState<string>("");
     const [workshops, setWorkshops] = useState<Workshop[]>([]);
-    const [currentWorkshopIndex, setCurrentWorkshopIndex] = useState<number>(0); 
+    const [currentWorkshopIndex, setCurrentWorkshopIndex] = useState<number>(0);
     const { title, outline } = useLoaderData() as { title: string, outline: string };
 
     const loadWorkshops = async () => {
@@ -69,14 +66,19 @@ const WorkshopSeries: React.FC<Props> = () => {
     return (
         <div id="workshop-content">
             <div>{title}</div>
-            {workshops.map((workshop: Workshop, i: number) =>
-                <li key={i} onClick={() => load(workshops, i)}>
-                    {workshop.title}
-                </li>
-            )}
+            <ol>
+                {workshops.map((workshop: Workshop, i: number) =>
+                    <li key={i} onClick={() => load(workshops, i)}>
+                        {workshop.title}
+                    </li>
+                )}
+            </ol>
+
             <Markdown remarkPlugins={[remarkGfm]}>{modules}</Markdown>
-            { currentWorkshopIndex > 0 ? <button onClick={() => load(workshops, currentWorkshopIndex - 1)}>Previous</button> : null}
-            { currentWorkshopIndex < workshops.length - 1 ? <button onClick={() => load(workshops, currentWorkshopIndex + 1)}>Next</button> : null}
+            {currentWorkshopIndex > 0 ?
+                <button onClick={() => load(workshops, currentWorkshopIndex - 1)}>Previous</button> : null}
+            {currentWorkshopIndex < workshops.length - 1 ?
+                <button onClick={() => load(workshops, currentWorkshopIndex + 1)}>Next</button> : null}
         </div>
     );
 };

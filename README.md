@@ -14,3 +14,17 @@ View our archive [here](https://hack.uclaacm.com/archive).
 
 If you want to get in touch, join our [discord](https://discord.gg/3GSPECbCnE)!
 
+
+## Development Set Up
+The curriculum website involves both a frontend (in `/website`) and a backend (in `/content`). In order to get up and running, you need to first install the necessary dependencies in each. 
+
+To install the necessary dependencies you can run the following commands (starting from the root of the project):
+
+```sh
+$ cd website
+$ npm install # installs the dependencies on the frontend
+$ cd ../content
+$ npm install # installs in the dependencies on the backend
+```
+
+Once you've done this, you can start the app by running `./start` in the root directory!
