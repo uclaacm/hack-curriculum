@@ -5,8 +5,6 @@ import remarkGfm from 'remark-gfm';
 import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
 import { CONTENT_SERVER } from '../constants.tsx';
 
-//TODO: separate pages for each workshop within series
-//TODO: table of contents with links to workshops
 //TODO: navigation butons (next and prev)
 
 interface Props { }
@@ -48,6 +46,7 @@ const loadWorkshop = async (workshops: Workshop[], workshopIndex: number) => {
 const WorkshopSeries: React.FC<Props> = () => {
     const [modules, setModules] = useState<string>("");
     const [workshops, setWorkshops] = useState<Workshop[]>([]);
+    const [currentWorkshopIndex, setCurrentWorkshopIndex] = useState<number>(0); 
     const { title, outline } = useLoaderData() as { title: string, outline: string };
 
     const loadWorkshops = async () => {
@@ -60,6 +59,7 @@ const WorkshopSeries: React.FC<Props> = () => {
     const load = async (workshops: Workshop[], workshopIndex: number) => {
         const modules = await loadWorkshop(workshops, workshopIndex);
         setModules(modules);
+        setCurrentWorkshopIndex(workshopIndex);
     }
 
     useEffect(() => {
@@ -75,6 +75,8 @@ const WorkshopSeries: React.FC<Props> = () => {
                 </li>
             )}
             <Markdown remarkPlugins={[remarkGfm]}>{modules}</Markdown>
+            { currentWorkshopIndex > 0 ? <button onClick={() => load(workshops, currentWorkshopIndex - 1)}>Previous</button> : null}
+            { currentWorkshopIndex < workshops.length - 1 ? <button onClick={() => load(workshops, currentWorkshopIndex + 1)}>Next</button> : null}
         </div>
     );
 };

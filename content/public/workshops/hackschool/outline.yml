@@ -15,3 +15,13 @@
     - workshops/hackschool/environment
     - modules/frontend/0-overview/vanilla-web
     - modules/frontend/1-structure/vanilla-web/
+-
+  title: Week 3
+  modules:
+    - modules/general/internet-explained
+    - workshops/hackschool/environment
+    - modules/frontend/0-overview/vanilla-web
+    - modules/frontend/1-structure/vanilla-web/
+    - modules/general/internet-explained
+    - workshops/hackschool/environment
+    - modules/frontend/0-overview/vanilla-web
