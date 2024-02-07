@@ -10,7 +10,18 @@ import { CONTENT_SERVER } from '../constants.tsx';
 
 interface Props { }
 
-export const workshopSeriesLoader = async ({ params }) => {
+interface Params {
+    params: {
+        workshop: string;
+    }    
+}
+
+interface Workshop {
+    title: string;
+    modules: string[];
+}
+
+export const workshopSeriesLoader = async ({ params }: Params) => {
     const response = await fetch(`${CONTENT_SERVER}/workshops/${params.workshop}/outline.yml`);
     const outline = await response.text();
 
@@ -19,17 +30,19 @@ export const workshopSeriesLoader = async ({ params }) => {
 
 const WorkshopSeries: React.FC<Props> = () => {
     const [modules, setModules] = useState<string[]>([]);
+    const [workshops, setWorkshops] = useState<Workshop[]>([]);
     const { title, outline } = useLoaderData() as { title: string, outline: string };
     
     useEffect(() => {
         const loadModules = async () => {
             setModules([])
-            const workshops = yaml.load(outline) as string[][];
-    
+            const workshops = yaml.load(outline) as Workshop[];
+            setWorkshops(workshops);
+
             const moduleTexts: string[] = [];
             for (const workshop of workshops) {
-                let result = "";
-                for (const module of workshop) {
+                let result = `# ${workshop.title}\n`;
+                for (const module of workshop.modules) {
                     const response = await fetch(`http://localhost:8080/${module}/README.md`);
                     let moduleText = await response.text();
                     moduleText = moduleText.replace(/# /g, "## ") + "\n"; // make headers smaller
@@ -44,7 +57,7 @@ const WorkshopSeries: React.FC<Props> = () => {
 
     return (
         <div id="workshop-content">
-            <h1>{title}</h1>
+            <div>{title}</div>
             {modules.map((module: string, i: number) =>
                 <div key={i}>
                     <Markdown remarkPlugins={[remarkGfm]}>{module}</Markdown>

@@ -1,8 +1,11 @@
 ---
 -
-  - modules/general/internet-explained
-  - workshops/stackschool/environment
-  - modules/frontend/0-overview/vanilla-web
-  - modules/frontend/1-structure/vanilla-web/
-  - modules/frontend/2-basic-styling/vanilla-web
-  - modules/frontend/3-events-and-state/vanilla-web
+  title: Introduction to Web Development
+  modules:
+    - modules/general/internet-explained
+    - workshops/hackschool/environment
+    - modules/frontend/0-overview/vanilla-web
+    - modules/frontend/1-structure/vanilla-web/
+    - modules/frontend/2-basic-styling/vanilla-web
+    - modules/frontend/3-events-and-state/vanilla-web
+-

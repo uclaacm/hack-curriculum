@@ -13,13 +13,13 @@ export const rootLoader = async () => {
 };
 
 export default function App() {
-  const { workshopTitles } = useLoaderData();
+  const { workshopTitles } = useLoaderData() as { workshopTitles: string[] };
 
   return (
     <>
       <nav>
         <ul>
-          {workshopTitles.map((workshop: any, i: number) => (
+          {workshopTitles.map((workshop: string, i: number) => (
             <li key={i}>
               <Link to={`/workshops/${workshop}`}>{workshop}</Link>
             </li>
