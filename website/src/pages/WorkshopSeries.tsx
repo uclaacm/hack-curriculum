@@ -2,18 +2,17 @@ import React, { useEffect, useState } from 'react';
 import yaml from 'js-yaml';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { useLoaderData } from 'react-router-dom';
+import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
 import { CONTENT_SERVER } from '../constants.tsx';
 
 //TODO: separate pages for each workshop within series
-//TODO: workshop titles
+//TODO: table of contents with links to workshops
+//TODO: navigation butons (next and prev)
 
 interface Props { }
 
 interface Params {
-    params: {
-        workshop: string;
-    }    
+    workshop: string;
 }
 
 interface Workshop {
@@ -21,7 +20,7 @@ interface Workshop {
     modules: string[];
 }
 
-export const workshopSeriesLoader = async ({ params }: Params) => {
+export const workshopSeriesLoader = async ({ params }: LoaderFunctionArgs<Params>) => {
     const response = await fetch(`${CONTENT_SERVER}/workshops/${params.workshop}/outline.yml`);
     const outline = await response.text();
 
@@ -32,7 +31,7 @@ const WorkshopSeries: React.FC<Props> = () => {
     const [modules, setModules] = useState<string[]>([]);
     const [workshops, setWorkshops] = useState<Workshop[]>([]);
     const { title, outline } = useLoaderData() as { title: string, outline: string };
-    
+
     useEffect(() => {
         const loadModules = async () => {
             setModules([])
@@ -58,6 +57,11 @@ const WorkshopSeries: React.FC<Props> = () => {
     return (
         <div id="workshop-content">
             <div>{title}</div>
+            {workshops.map((workshop: Workshop, i: number) =>
+                <li key={i}>
+                    {workshop.title}
+                </li>
+            )}
             {modules.map((module: string, i: number) =>
                 <div key={i}>
                     <Markdown remarkPlugins={[remarkGfm]}>{module}</Markdown>
