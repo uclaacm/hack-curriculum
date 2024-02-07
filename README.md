@@ -22,10 +22,10 @@ To install the necessary dependencies you can run the following commands (starti
 
 ```sh
 $ cd website
-$ npm install # installs the dependencies on the frontend
+$ npm install    # installs the dependencies on the frontend
 $ cd ../content
-$ npm install # installs the dependencies on the backend
-$ cd .. # return to root
+$ npm install    # installs the dependencies on the backend
+$ cd ..          # return to root
 ```
 
 Once you've done this, you can start the app by running `./start` in the root directory!
