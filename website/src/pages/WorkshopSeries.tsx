@@ -27,47 +27,54 @@ export const workshopSeriesLoader = async ({ params }: LoaderFunctionArgs<Params
     return { title: params.workshop, outline };
 };
 
+//plan: 
+// - initially load just first workshop modules
+// - make a function to load workshop index modules
+// - display current workshop index modules
+const loadWorkshop = async (workshops: Workshop[], workshopIndex: number) => {
+    if (workshopIndex >= workshops.length) throw new Error("Workshop index out of range");
+
+    const workshop = workshops[workshopIndex];
+    let result = `# ${workshop.title}\n`;
+    for (const module of workshop.modules) {
+        const response = await fetch(`http://localhost:8080/${module}/README.md`);
+        let moduleText = await response.text();
+        moduleText = moduleText.replace(/# /g, "## ") + "\n"; // make headers smaller
+        result += moduleText;
+    }
+    return result;
+}
+
 const WorkshopSeries: React.FC<Props> = () => {
-    const [modules, setModules] = useState<string[]>([]);
+    const [modules, setModules] = useState<string>("");
     const [workshops, setWorkshops] = useState<Workshop[]>([]);
     const { title, outline } = useLoaderData() as { title: string, outline: string };
 
-    useEffect(() => {
-        const loadModules = async () => {
-            setModules([])
-            const workshops = yaml.load(outline) as Workshop[];
-            setWorkshops(workshops);
+    const loadWorkshops = async () => {
+        const workshops = yaml.load(outline) as Workshop[];
+        const modules = await loadWorkshop(workshops, 0);
+        setWorkshops(workshops);
+        setModules(modules);
+    }
 
-            const moduleTexts: string[] = [];
-            for (const workshop of workshops) {
-                let result = `# ${workshop.title}\n`;
-                for (const module of workshop.modules) {
-                    const response = await fetch(`http://localhost:8080/${module}/README.md`);
-                    let moduleText = await response.text();
-                    moduleText = moduleText.replace(/# /g, "## ") + "\n"; // make headers smaller
-                    result += moduleText;
-                }
-                moduleTexts.push(result);
-            }
-            setModules(moduleTexts);
-        }
-        loadModules();
+    const load = async (workshops: Workshop[], workshopIndex: number) => {
+        const modules = await loadWorkshop(workshops, workshopIndex);
+        setModules(modules);
+    }
+
+    useEffect(() => {
+        loadWorkshops();
     }, [outline]);
 
     return (
         <div id="workshop-content">
             <div>{title}</div>
             {workshops.map((workshop: Workshop, i: number) =>
-                <li key={i}>
+                <li key={i} onClick={() => load(workshops, i)}>
                     {workshop.title}
                 </li>
             )}
-            {modules.map((module: string, i: number) =>
-                <div key={i}>
-                    <Markdown remarkPlugins={[remarkGfm]}>{module}</Markdown>
-                    <hr />
-                </div>
-            )}
+            <Markdown remarkPlugins={[remarkGfm]}>{modules}</Markdown>
         </div>
     );
 };
